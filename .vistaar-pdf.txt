@@ -1,0 +1,2114 @@
+=== PAGE 1 ===
+VISTAAR WEBSITE PRODUCT REQUIREMENTS 
+DOCUMENT (PRD)
+PAGE 01 – HOME (Hero Section)
+Purpose
+The Hero Section is the ﬁrst impression of Vistaar and must instantly communicate the 
+company's identity, capabilities, and vision.
+Within the ﬁrst ﬁve seconds, visitors should understand that Vistaar is an AI-powered Brand 
+Growth Company that helps businesses build, launch, market, automate, and scale.
+The Hero Section should inspire conﬁdence, curiosity, and action while maintaining a 
+premium, technology-ﬁrst appearance.
+Objectives
+The Hero Section should answer four questions immediately:
+Who is Vistaar?
+What does Vistaar do?
+Why should someone trust Vistaar?
+What should the visitor do next?
+Visual Experience
+The Hero Section should feel modern, immersive, and interactive rather than static.
+Background
+Use a full-screen animated background featuring:
+Animated mesh gradients
+Glassmorphism overlays
+
+=== PAGE 2 ===
+Floating geometric shapes
+Soft particle animations
+Dynamic light effects
+Subtle grid pattern
+Mouse-responsive movement
+Floating service icons
+Smooth parallax effects
+The background should never use generic business stock images.
+Navigation Bar
+Behaviour
+Sticky navigation
+Transparent on page load
+Converts into a blurred glass navigation after scrolling
+Smooth transition (300–400ms)
+Logo
+VISTAAR Logo
+Below the logo (desktop only)
+Building Brands. Growing Businesses.
+Navigation Menu
+Home
+Services
+Our Story
+Careers
+Case Studies
+Contact
+Primary CTA
+Book a Strategy Call
+Hover Effect
+Slight elevation
+Soft glow
+Background gradient animation
+Cursor interaction
+
+=== PAGE 3 ===
+Hero Badge
+Positioned above the main headline.
+Suggested text:
+AI-Powered Brand Growth Company
+Alternative versions can be rotated seasonally:
+Strategy. Technology. Growth.
+Your Long-Term Growth Partner.
+Building Tomorrow's Businesses.
+Main Headline
+The headline should always remain:
+Building Brands.
+Growing Businesses.
+Typography should be bold, clean, and highly readable.
+Supporting Description
+Vistaar partners with startups, founders, and businesses to create impactful brands, modern 
+websites, intelligent AI solutions, and scalable growth systems that transform ideas into 
+successful businesses.
+The copy should remain concise and focused on business outcomes rather than simply listing 
+services.
+Service Highlights
+Display these as animated ﬂoating badges beneath the description.
+Branding
+Business Consulting
+Website Development
+App Development
+SaaS Development
+AI Automation
+Digital Marketing
+
+=== PAGE 4 ===
+Personal Branding
+Creative Studio
+Growth Strategy
+Each badge should reveal a one-line description on hover.
+Primary Call-to-Action Buttons
+Button One
+Start Your Project
+Purpose:
+Direct users to the contact/project enquiry page.
+Button Two
+Book a Strategy Call
+Purpose:
+Open a calendar booking interface.
+Button Three
+Explore Our Work
+Purpose:
+Smooth-scroll to the portfolio section.
+Hero Illustration
+Instead of using a stock photograph, create an interactive visual centred around the Vistaar 
+ecosystem.
+The illustration should show Vistaar connected to its core capabilities:
+Branding
+Strategy
+Websites
+AI
+Marketing
+Automation
+Analytics
+Growth
+Each node should have a subtle ﬂoating animation and connecting lines that gently pulse to 
+suggest continuous progress.
+
+=== PAGE 5 ===
+Trust Indicators
+Below the CTA buttons, display four concise trust statements.
+AI-Driven Solutions
+Strategy Before Execution
+End-to-End Business Partner
+Built for Long-Term Growth
+These should appear with small icons and fade into view as the page loads.
+Micro Interactions
+The Hero Section should include:
+Magnetic CTA buttons
+Smooth hover transitions
+Floating icons
+Animated gradients
+Soft shadows
+Cursor-follow lighting effect
+Scroll indicator animation
+Animations should remain elegant and never distract from the content.
+Scroll Indicator
+At the bottom centre of the Hero Section.
+Animated arrow with text:
+Discover Our Story
+Clicking it should smoothly scroll to the next section.
+Responsive Requirements
+Desktop
+Full-height hero (100vh)
+Two-column layout
+Illustration on the right
+Content on the left
+Tablet
+
+=== PAGE 6 ===
+Illustration moves below the content
+Navigation collapses into a hamburger menu
+Mobile
+Single-column layout
+Larger tap targets
+Simpliﬁed animations
+Optimised background effects for performance
+Performance Requirements
+Largest Contentful Paint (LCP) under 2.5 seconds
+Lazy-load animations and illustrations
+Optimise all images using WebP/AVIF
+GPU-accelerated animations only
+Maintain 90+ Lighthouse score
+SEO Requirements
+H1
+Building Brands. Growing Businesses.
+Supporting Keywords
+AI Brand Growth Company
+Branding Agency
+Website Development
+Business Consulting
+AI Automation
+SaaS Development
+Digital Marketing
+The Hero Section should include semantic HTML, structured metadata, and accessible text 
+for all interactive elements.
+Success Criteria
+A successful Hero Section should leave visitors with three clear impressions:
+1.  Vistaar is modern and trustworthy.
+2. Vistaar solves complete business growth problems—not isolated marketing tasks.
+3.  Visitors know exactly how to start working with the company through clear calls to 
+action.
+
+=== PAGE 7 ===
+VISTAAR WEBSITE PRODUCT REQUIREMENTS 
+DOCUMENT (PRD)
+PAGE 02 — WHO WE ARE
+More Than an Agency. Your Growth Partner.
+Purpose
+After capturing the visitor's attention through the Hero Section, the second section should 
+answer the most important question:
+"Why should I trust Vistaar with my business?"
+Instead of introducing Vistaar like a traditional agency with a long paragraph, this page should 
+create a storytelling experience.
+Visitors should feel that Vistaar doesn't simply offer services—it partners with businesses to 
+build sustainable, scalable growth systems.
+The section should be interactive, visually engaging, and easy to explore.
+Design Philosophy
+This section should feel like a conversation rather than a brochure.
+Instead of scrolling through large blocks of text, users should interact with cards, animations, 
+and illustrations that reveal Vistaar's story step by step.
+The experience should encourage curiosity and make visitors spend more time on the 
+website.
+Section Title
+More Than an Agency.
+We Build Businesses That Grow.
+Supporting Text
+
+=== PAGE 8 ===
+Every successful business starts with an idea, but ideas alone don't create growth.
+At Vistaar, we combine strategy, creativity, technology, AI, and marketing to transform ideas 
+into brands that people remember and businesses that continue to grow.
+Layout Structure
+Desktop Layout:
+Left Side → Interactive Question Cards
+Right Side → Animated Illustration / 3D Visual
+Mobile Layout:
+Illustration on top
+Question cards stacked vertically
+Smooth accordion animations
+Interactive Question Cards
+Instead of displaying all information at once, the user interacts with four premium cards.
+Only one card should remain expanded at a time.
+When a card is clicked:
+Card expands smoothly
+Illustration changes dynamically
+Icons animate
+Supporting content fades into view
+Background gradient changes subtly
+Card 01
+Who Are We?
+Objective
+Introduce the identity of Vistaar.
+Content
+Vistaar is an AI-powered Brand Growth Company that helps startups, founders, and 
+established businesses create meaningful brands, powerful digital experiences, and scalable 
+business systems.
+
+=== PAGE 9 ===
+We don't believe in offering isolated services.
+Instead, we build complete ecosystems where branding, technology, automation, and 
+marketing work together to achieve measurable business growth.
+We become long-term partners, not short-term service providers.
+Suggested Illustration
+A growing tree.
+Roots represent:
+Strategy
+Research
+Innovation
+Branches represent:
+Branding
+Websites
+Marketing
+AI
+Growth
+This symbolizes that strong businesses grow from strong foundations.
+Card 02
+What Do We Do?
+Objective
+Explain Vistaar's offerings through storytelling instead of listing services.
+Content
+We help businesses at every stage of their journey.
+Whether you're launching a startup, refreshing your brand, developing a website, automating 
+workﬂows, scaling marketing campaigns, or expanding into new markets, Vistaar provides the 
+expertise and technology needed to support that growth.
+Our work combines creative thinking, business strategy, software development, AI solutions, 
+and performance marketing into one connected ecosystem.
+Supporting Service Icons
+
+=== PAGE 10 ===
+Brand Identity
+Website Development
+Mobile Apps
+SaaS Products
+AI Automation
+Business Consulting
+Digital Marketing
+Personal Branding
+Creative Design
+Analytics
+Each icon should animate when hovered.
+Card 03
+How Do We Work?
+Objective
+Demonstrate Vistaar's structured approach.
+Content
+Every successful project follows a proven process.
+We begin by understanding your business, customers, competitors, and goals.
+From there, we develop a strategy tailored to your vision before moving into design, 
+development, marketing, and continuous optimization.
+Growth isn't achieved through one campaign—it comes from building systems that evolve 
+with your business.
+Process Timeline
+1.  Discover
+2. Research
+3.  Strategy
+4.  Design
+5.  Develop
+6.  Launch
+7.  Optimize
+8.  Scale
+Each step should appear with a connecting animated line.
+Clicking on a step brieﬂy explains its purpose.
+
+=== PAGE 11 ===
+Card 04
+Why Choose Vistaar?
+Objective
+Explain what differentiates Vistaar from competitors.
+Content
+Businesses today need more than a website or social media presence.
+They need strategy.
+They need technology.
+They need automation.
+They need a partner who understands long-term growth.
+That's exactly what Vistaar delivers.
+We focus on building businesses that continue growing long after launch.
+Differentiators
+✔  Strategy Before Execution
+✔  AI-Powered Solutions
+✔  Technology-Driven Approach
+✔  Data-Informed Decision Making
+✔  Long-Term Partnerships
+✔  Transparent Communication
+✔  Creative Thinking
+✔  Scalable Systems
+Display these in premium glass cards with subtle hover animations.
+Dynamic Illustration Panel
+The illustration on the right side should change depending on the selected question card.
+
+=== PAGE 12 ===
+Who Are We?
+Growing ecosystem tree.
+What Do We Do?
+Connected business ecosystem.
+Branding → Website → Marketing → AI → Growth
+How Do We Work?
+Animated workﬂow timeline.
+Why Choose Vistaar?
+A futuristic dashboard showing business growth metrics, analytics, AI automation, and 
+increasing performance charts.
+Micro Animations
+Include:
+Card expansion
+Icon rotation
+Floating illustrations
+Animated connecting lines
+Fade transitions
+Gradient background movement
+Mouse hover effects
+Soft lighting
+Animations should be smooth, subtle, and premium.
+Call-to-Action Section
+At the bottom of this page, include a transition section encouraging users to continue 
+exploring.
+Heading
+Every Brand Has a Story.
+Here's How Ours Began.
+Supporting Text:
+
+=== PAGE 13 ===
+Discover the milestones, experiences, and vision that shaped Vistaar into the company it is 
+today.
+Button:
+Explore Our Journey
+This button scrolls directly to the timeline section on the next page.
+Developer Notes
+Build this section as a reusable accordion component.
+Only one card should remain expanded at any time.
+Load illustrations dynamically based on the selected card.
+Ensure animations remain GPU-accelerated for smooth performance.
+Use semantic HTML and ARIA attributes for accessibility.
+Maintain responsive layouts across desktop, tablet, and mobile devices.
+Support keyboard navigation for all interactive elements.
+Keep animation duration between 250–400 milliseconds to preserve a premium feel.
+User Experience Goal
+By the time a visitor ﬁnishes this section, they should clearly understand:
+Who Vistaar is.
+What Vistaar actually does.
+How Vistaar approaches every project.
+Why Vistaar is different from a traditional agency.
+The user should feel conﬁdent enough to continue exploring the website and begin 
+considering Vistaar as a long-term business partner rather than just another service provider.
+VISTAAR WEBSITE PRODUCT REQUIREMENTS 
+DOCUMENT (PRD)
+PAGE 03 — OUR JOURNEY
+Every Great Brand Starts With a Vision.
+
+=== PAGE 14 ===
+Purpose
+After introducing Vistaar and explaining what the company does, this page focuses on 
+building trust and credibility.
+People don't buy services—they buy conﬁdence.
+This section should answer the visitor's next question:
+"Can I trust Vistaar with my business?"
+Instead of simply displaying achievements, this page should tell the story of how Vistaar was 
+built, the industries it serves, and the impact it has created for clients.
+The objective is to transform curiosity into conﬁdence.
+Overall Layout
+The page should ﬂow like a story with each section naturally leading into the next.
+Section Order
+1.  Our Journey
+2. Vision for the Future
+3.  Industries We Empower
+4.  Success Metrics
+5.  Client Testimonials
+6.  Trusted By
+7.  Final Call-to-Action
+8.  Footer
+Each section should have generous spacing, scroll-triggered animations, and subtle 
+transitions.
+SECTION 01 — OUR JOURNEY
+Title
+From an Idea to an Ecosystem
+Supporting Text
+Every company starts with a dream.
+Vistaar started with one simple belief:
+
+=== PAGE 15 ===
+Businesses deserve more than disconnected services—they deserve a strategic partner that 
+helps them build, grow, and scale.
+Today, Vistaar brings together branding, technology, AI, automation, marketing, and 
+consulting under one vision: creating sustainable business growth.
+Timeline Layout
+Use a horizontal timeline on desktop and a vertical timeline on mobile.
+Each milestone appears as a glass card connected by an animated line.
+As users scroll, each milestone fades into view with a subtle upward motion.
+Suggested Timeline Milestones
+Foundation
+The idea behind Vistaar was born with a mission to simplify business growth through 
+technology and strategy.
+First Project
+Successfully delivered the ﬁrst client project while establishing a collaborative and quality-
+focused work culture.
+Brand Evolution
+Expanded from creative services into complete branding, digital solutions, and growth 
+consulting.
+Technology Expansion
+Introduced website development, custom software, AI automation, and scalable digital 
+solutions.
+Building Partnerships
+Focused on long-term client relationships instead of one-time projects, becoming a strategic 
+growth partner.
+The Future
+Continuously innovating with AI, automation, SaaS products, and intelligent business 
+solutions to help companies scale faster.
+Visual Elements
+
+=== PAGE 16 ===
+Each milestone should include:
+Icon or illustration
+Short title
+Supporting description
+Year (optional)
+Animated connecting line
+Hovering over a milestone should slightly enlarge the card and highlight the connecting path.
+SECTION 02 — OUR VISION
+Title
+Where We're Headed
+Supporting Text
+Our journey is only beginning.
+We envision Vistaar becoming a global growth partner for businesses by combining creativity, 
+technology, and artiﬁcial intelligence to solve real-world business challenges.
+We don't aim to become the biggest agency—we aim to become one of the most trusted 
+growth partners.
+Visual Concept
+Display a futuristic roadmap leading toward milestones such as:
+AI Innovation
+Global Clients
+SaaS Products
+Automation Ecosystem
+Strategic Partnerships
+Research & Development
+Use animated glowing pathways connecting each milestone.
+SECTION 03 — INDUSTRIES WE EMPOWER
+Title
+Built for Every Industry That Wants to Grow
+Supporting Text
+
+=== PAGE 17 ===
+Every industry has unique challenges.
+Our approach adapts to different markets while maintaining one constant goal: helping 
+businesses achieve sustainable growth.
+Grid Layout
+Create a responsive grid of interactive industry cards.
+Each card should include:
+Icon or custom illustration
+Industry name
+Short description
+Hover animation
+Link to related case studies (when available)
+Suggested Industries
+Education & Coaching
+Helping institutes build trust, improve admissions, and strengthen their digital presence.
+Startups
+Supporting founders with branding, product launches, websites, AI tools, and go-to-market 
+strategies.
+Real Estate
+Generating qualiﬁed leads through branding, websites, digital campaigns, and automation.
+Restaurants & Cafés
+Building memorable customer experiences through branding, menus, websites, social media, 
+and marketing.
+Healthcare
+Creating professional digital experiences while maintaining credibility and trust.
+Retail & E-commerce
+Helping businesses increase visibility, improve conversions, and scale online sales.
+Import & Export
+Strengthening international brand presence with modern digital infrastructure.
+
+=== PAGE 18 ===
+Personal Brands
+Helping creators, entrepreneurs, speakers, and professionals establish a strong online 
+identity.
+Technology Companies
+Supporting SaaS, software, and AI businesses with product-focused branding and digital 
+experiences.
+Manufacturing & Industrial
+Creating modern corporate identities and digital solutions for traditional industries.
+SECTION 04 — IMPACT IN NUMBERS
+Title
+Growth You Can Measure
+Instead of generic statistics, use animated counters that can be updated from the admin 
+panel.
+Suggested Metrics:
+Projects Delivered
+Brands Built
+Websites Launched
+Marketing Campaigns Executed
+Industries Served
+Happy Clients
+Team Members
+Years of Combined Experience
+Each metric should animate when it enters the viewport.
+SECTION 05 — CLIENT TESTIMONIALS
+Title
+Trusted by Businesses That Believe in Growth
+Display testimonials using premium glass cards arranged in a horizontal carousel.
+Each testimonial should include:
+Client photo
+
+=== PAGE 19 ===
+Name
+Designation
+Company name
+Rating (5-star system)
+Written feedback
+Company logo (optional)
+Video Testimonials
+Reserve a dedicated area for future client video testimonials.
+Display:
+Video thumbnail
+Play button
+Client name
+Project type
+Videos should open inside a modal without redirecting users.
+SECTION 06 — TRUSTED BY
+Purpose
+Showcase social proof through client logos.
+Layout
+An inﬁnite scrolling logo wall featuring monochrome logos.
+On hover:
+Logos transition to their original colors.
+Slight scale animation.
+Tooltip displaying the company name.
+This section should support future additions through the admin panel.
+SECTION 07 — FINAL CALL TO ACTION
+Background
+A full-width premium section with a subtle animated gradient and ﬂoating light effects.
+Heading
+
+=== PAGE 20 ===
+Let's Build Something Extraordinary Together.
+Supporting Text
+Whether you're launching a startup, reimagining your brand, or scaling an established 
+business, Vistaar is ready to become your long-term growth partner.
+CTA Buttons
+Primary
+Start Your Project
+Secondary
+Book a Strategy Call
+Tertiary
+View Our Services
+Buttons should feature magnetic hover effects, soft glow animations, and smooth transitions.
+SECTION 08 — FOOTER
+The footer should act as a mini information hub rather than just a list of links.
+Company
+About Vistaar
+Our Story
+Careers
+Case Studies
+Contact
+Services
+Branding
+Business Consulting
+Website Development
+App Development
+SaaS Development
+AI Automation
+Digital Marketing
+Creative Studio
+
+=== PAGE 21 ===
+Resources
+Blog
+Insights
+FAQs
+Privacy Policy
+Terms & Conditions
+Contact Information
+Email Address
+Phone Number
+Office Address
+Google Maps
+Business Hours
+Social Media
+LinkedIn
+Instagram
+Facebook
+X (Twitter)
+YouTube
+Include subtle hover animations and consistent brand styling for each icon.
+Newsletter Subscription
+Invite visitors to stay updated with Vistaar's latest insights, product launches, and growth 
+strategies.
+Placeholder Text
+Enter your email address
+Button
+Subscribe
+Display a success message after submission without refreshing the page.
+Copyright
+© 2026 Vistaar. All Rights Reserved.
+Building Brands. Growing Businesses.
+
+=== PAGE 22 ===
+Developer Notes
+Build the timeline, industry cards, testimonials, logo wall, and metrics as reusable 
+components.
+All dynamic content (metrics, testimonials, logos, newsletter text) should be manageable 
+through the admin panel.
+Use lazy loading for logos, videos, and images.
+Implement scroll-triggered animations using performant libraries such as GSAP or Framer 
+Motion.
+Ensure responsive behavior for desktop, tablet, and mobile devices.
+Optimize all media using modern image formats (WebP/AVIF) and defer non-critical 
+assets.
+User Experience Goal
+By the end of this page, visitors should feel that Vistaar is an experienced, forward-thinking 
+company with a clear vision, measurable impact, and the credibility to become a trusted 
+long-term partner.
+The natural next step for the visitor should be to explore Vistaar's Growth Ecosystem 
+(Services) to understand exactly how the company can help achieve their business goals.
+VISTAAR WEBSITE PRODUCT REQUIREMENTS 
+DOCUMENT (PRD)
+PAGE 04 — GROWTH ECOSYSTEM
+Everything Your Business Needs. Under One Vision.
+Purpose
+This page replaces the traditional "Services" page.
+Instead of presenting services as isolated offerings, Vistaar should showcase them as a 
+connected Growth Ecosystem where every service supports the next.
+The objective is to help visitors understand that business growth isn't achieved through a 
+single website, logo, or marketing campaign—it comes from a strategic combination of 
+
+=== PAGE 23 ===
+branding, technology, automation, marketing, and business intelligence.
+By the end of this page, visitors should understand:
+What Vistaar offers.
+How every service connects together.
+Why a complete ecosystem creates better business results.
+Which services are relevant to their business.
+Page Heading
+Growth Ecosystem
+Supporting Text
+At Vistaar, every service is designed to work together.
+Whether you're launching a startup, scaling an established business, or embracing AI 
+transformation, our integrated ecosystem ensures every decision contributes to measurable 
+growth.
+Hero Illustration
+Instead of listing services immediately, display an animated ecosystem.
+Center Node
+VISTAAR
+Connected Nodes:
+Strategy
+Branding
+Design
+Development
+Marketing
+AI
+Automation
+Analytics
+Hovering over a node should highlight all related services.
+Clicking a node smoothly scrolls to its detailed section.
+SECTION 01
+
+=== PAGE 24 ===
+Business Intelligence
+Icon
+Growth Chart
+Description
+Every successful business starts with clarity.
+Before designing a website or launching a campaign, we understand your business model, 
+market, competitors, customers, and future goals.
+We help businesses make informed decisions through research, planning, and long-term 
+strategic thinking.
+Services Included
+Business Consulting
+Startup Consulting
+Business Growth Strategy
+Market Research
+Competitor Analysis
+Digital Transformation
+Revenue Growth Planning
+Go-To-Market Strategy
+Brand Positioning
+Customer Journey Mapping
+Deliverables
+Growth Roadmap
+Business Strategy Document
+Market Analysis Report
+SWOT Analysis
+Digital Transformation Plan
+Quarterly Growth Strategy
+SECTION 02
+Brand Studio
+Icon
+
+=== PAGE 25 ===
+Creative Diamond
+Description
+Your brand is more than just a logo.
+It's the perception people have when they think about your business.
+We create memorable brand identities that communicate trust, professionalism, and 
+purpose.
+Services Included
+Brand Identity Design
+Logo Design
+Brand Guidelines
+Color System
+Typography
+Visual Identity
+Packaging Design
+Stationery Design
+Rebranding
+Employer Branding
+Personal Branding
+Deliverables
+Logo Package
+Brand Book
+Brand Guidelines
+Social Media Kit
+Print Assets
+Digital Brand Assets
+SECTION 03
+Digital Engineering
+Icon
+Laptop
+Description
+Technology is the foundation of modern businesses.
+
+=== PAGE 26 ===
+Our engineering team creates scalable digital experiences that are secure, responsive, and 
+built for long-term growth.
+Services Included
+Website Development
+Landing Pages
+Corporate Websites
+Portfolio Websites
+E-Commerce
+Web Applications
+Mobile Applications
+SaaS Platforms
+Dashboard Development
+API Integration
+CRM Development
+Maintenance & Support
+Technologies
+React
+Next.js
+Node.js
+Tailwind CSS
+TypeScript
+MongoDB
+Supabase
+Firebase
+Vercel
+Docker
+SECTION 04
+AI & Automation Lab
+Icon
+AI Brain
+Description
+Businesses shouldn't waste time on repetitive work.
+We build AI-powered systems that automate workﬂows, improve productivity, and enable 
+smarter decision-making.
+
+=== PAGE 27 ===
+Services Included
+AI Automation
+AI Chatbots
+Workﬂow Automation
+CRM Automation
+Email Automation
+WhatsApp Automation
+AI Agents
+Business Intelligence Dashboards
+Process Optimization
+Custom AI Solutions
+Business Beneﬁts
+Reduce manual work
+Save operational costs
+Improve customer support
+Faster response time
+Better decision-making
+Increased productivity
+SECTION 05
+Creative Lab
+Icon
+Creative Spark
+Description
+Every interaction with your audience should leave an impression.
+Our creative team transforms ideas into visually engaging experiences across digital and 
+physical platforms.
+Services Included
+UI/UX Design
+Graphic Design
+Motion Graphics
+Video Editing
+Product Mockups
+Presentation Design
+
+=== PAGE 28 ===
+Social Media Creatives
+Event Branding
+Marketing Collaterals
+Print Design
+Deliverables
+Design Systems
+Marketing Assets
+Brand Templates
+Presentation Decks
+Social Media Packs
+SECTION 06
+Growth Marketing
+Icon
+Rocket
+Description
+Marketing isn't about posting every day.
+It's about reaching the right audience with the right message at the right time.
+We build data-driven campaigns focused on sustainable business growth.
+Services Included
+Digital Marketing
+Performance Marketing
+SEO
+Google Ads
+Meta Ads
+LinkedIn Marketing
+Email Marketing
+Content Strategy
+Social Media Management
+Inﬂuencer Campaigns
+Analytics & Reporting
+KPIs
+
+=== PAGE 29 ===
+Lead Generation
+Conversion Rate
+ROI
+Brand Reach
+Customer Retention
+Website Traffic
+Engagement Rate
+SECTION 07
+How Everything Connects
+Instead of ending the page with service cards, create an ecosystem diagram.
+Example:
+Business Idea
+↓
+Business Strategy
+↓
+Brand Identity
+↓
+Website Development
+↓
+Marketing
+↓
+Lead Generation
+↓
+AI Automation
+↓
+Business Growth
+↓
+Scale
+
+=== PAGE 30 ===
+This visualization reinforces Vistaar's positioning as a complete growth partner.
+SECTION 08
+Why Choose the Growth Ecosystem?
+Display six premium glass cards.
+Strategy Before Execution
+Every project starts with understanding the business, not jumping into design or 
+development.
+One Partner. Every Solution.
+Branding, technology, AI, marketing, and consulting—all under one roof.
+AI-First Thinking
+Modern businesses need intelligent systems, not just digital assets.
+Scalable Solutions
+Every solution is designed to grow alongside your business.
+Data-Driven Decisions
+We rely on research, analytics, and measurable outcomes rather than assumptions.
+Long-Term Partnership
+We measure our success by your growth over time, not by the completion of a project.
+SECTION 09
+Frequently Asked Questions
+Create an accordion component with answers to common client questions.
+Suggested Questions:
+How long does a website project take?
+Do you work with startups?
+Can you redesign an existing brand?
+
+=== PAGE 31 ===
+Do you offer ongoing support?
+Can I hire Vistaar for a single service?
+What industries do you specialize in?
+How does your AI automation service work?
+Do you provide custom software solutions?
+Only one accordion item should be expanded at a time.
+SECTION 10
+Final Call-To-Action
+Heading
+Ready to Build Something Bigger Than Just a Website?
+Supporting Text
+Let's create a brand, build intelligent systems, and design a business that grows with 
+conﬁdence.
+Buttons
+Primary
+Start Your Project
+Secondary
+Schedule a Discovery Call
+UI/UX Recommendations
+Use a dark-to-light animated gradient background.
+Alternate layouts for each service section to create visual rhythm.
+Introduce subtle Lottie animations or custom illustrations for each service category.
+Add hover effects that reveal key outcomes or deliverables.
+Keep iconography consistent with the overall design system.
+On desktop, consider using a sticky left-side navigation that highlights the current service 
+category as the user scrolls.
+Developer Notes
+Build each service category as a reusable component.
+
+=== PAGE 32 ===
+Store services, descriptions, deliverables, icons, and FAQs in the CMS/database for easy 
+updates.
+Implement smooth scrolling between ecosystem nodes and service sections.
+Use lazy loading for animations and illustrations.
+Ensure the page remains highly performant despite rich interactions.
+Maintain accessibility with semantic HTML, keyboard navigation, and ARIA labels.
+Optimize for Core Web Vitals and responsive layouts across all devices.
+User Experience Goal
+By the end of this page, visitors should no longer think of Vistaar as a company that simply 
+"builds websites" or "does marketing."
+Instead, they should recognize Vistaar as a strategic growth partner capable of designing, 
+building, automating, and scaling every stage of a modern business through one connected 
+ecosystem.
+VISTAAR WEBSITE PRODUCT REQUIREMENTS 
+DOCUMENT (PRD)
+PAGE 05 — THE VISTAAR METHOD
+From Vision to Victory.
+Purpose
+This page is designed to answer one of the biggest questions every potential client has:
+"How does Vistaar actually work?"
+Many agencies simply list their services without explaining their process. Vistaar should 
+differentiate itself by showcasing a transparent, strategic, and collaborative workﬂow.
+The objective of this page is to reassure clients that every project follows a structured 
+methodology, reducing uncertainty and building conﬁdence.
+Rather than presenting a simple list of steps, this page should illustrate a continuous growth 
+cycle where strategy, execution, optimization, and innovation work together.
+
+=== PAGE 33 ===
+Hero Section
+Heading
+The Vistaar Method
+Subheading
+Every successful business is built on a process—not guesswork.
+Our approach combines research, creativity, technology, and continuous optimization to 
+transform ideas into scalable businesses.
+Visual Concept
+Instead of displaying the process vertically, use an interactive horizontal roadmap.
+Each phase appears as a milestone connected by an animated line.
+As the user scrolls:
+The current phase lights up.
+The connecting path animates.
+Icons gently pulse.
+Cards expand on hover.
+The roadmap should feel like a journey rather than a checklist.
+THE GROWTH CYCLE
+The process should be presented as a continuous loop rather than a beginning and end, 
+reinforcing the idea that business growth never stops.
+PHASE 01
+Discover
+Objective
+Understand the client's business before proposing any solution.
+Activities
+Discovery Call
+
+=== PAGE 34 ===
+Business Understanding
+Requirement Gathering
+Target Audience Analysis
+Competitor Research
+Industry Research
+Existing Brand Audit
+Technical Assessment
+Deliverables
+Discovery Notes
+Business Requirement Document
+Initial Recommendations
+Project Scope
+Estimated Timeline
+2–5 Days
+Client Involvement
+High
+PHASE 02
+Research & Strategy
+Objective
+Build a roadmap that aligns technology, branding, and business goals.
+Activities
+Market Research
+SWOT Analysis
+Customer Persona Development
+Positioning Strategy
+Brand Direction
+Digital Strategy
+Technology Selection
+Deliverables
+Strategy Presentation
+Brand Positioning Document
+User Journey Map
+Technical Roadmap
+
+=== PAGE 35 ===
+Timeline
+3–7 Days
+Client Involvement
+Medium
+PHASE 03
+Brand Experience Design
+Objective
+Create a visual identity that communicates trust, personality, and professionalism.
+Activities
+Logo Design
+Brand Identity
+Typography
+Colour Palette
+UI/UX Design
+Wireframes
+Design System
+Interactive Prototype
+Deliverables
+Brand Guidelines
+UI Design
+Prototype
+Design Assets
+Timeline
+1–3 Weeks
+PHASE 04
+Engineering & Development
+Objective
+Transform approved designs into scalable digital products.
+Activities
+
+=== PAGE 36 ===
+Frontend Development
+Backend Development
+CMS Integration
+API Development
+Database Design
+Authentication
+Payment Gateway Integration
+Performance Optimization
+Deliverables
+Functional Website
+Admin Dashboard
+API Documentation
+Source Code
+Deployment Environment
+Timeline
+2–8 Weeks
+PHASE 05
+AI & Automation Integration
+Objective
+Increase efficiency by integrating intelligent systems into the business.
+Activities
+AI Chatbots
+CRM Automation
+Lead Management
+WhatsApp Automation
+Workﬂow Automation
+AI Agents
+Business Intelligence Dashboard
+Deliverables
+AI Workﬂows
+Automation Reports
+AI Knowledge Base
+Integration Documentation
+Timeline
+
+=== PAGE 37 ===
+Depends on project scope.
+PHASE 06
+Testing & Quality Assurance
+Objective
+Ensure every solution meets Vistaar's quality standards before launch.
+Testing Areas
+UI Testing
+Functional Testing
+Responsive Testing
+Browser Compatibility
+Security Testing
+Performance Testing
+SEO Validation
+Accessibility Testing
+Deliverables
+QA Report
+Bug Fix Report
+Performance Report
+PHASE 07
+Launch
+Objective
+Deploy the project smoothly with minimal downtime.
+Activities
+Production Deployment
+Domain Conﬁguration
+Hosting Setup
+SSL Conﬁguration
+Analytics Setup
+Search Console
+Backup Conﬁguration
+Deliverables
+
+=== PAGE 38 ===
+Live Website
+Launch Checklist
+Training Session
+Handover Documentation
+PHASE 08
+Grow & Optimize
+Objective
+Growth doesn't end after launch.
+This phase focuses on continuous improvement based on analytics, customer behaviour, and 
+market trends.
+Activities
+SEO Improvements
+Marketing Campaigns
+AI Optimization
+Performance Monitoring
+Feature Enhancements
+Content Updates
+Monthly Reports
+Strategy Reviews
+Deliverables
+Growth Reports
+Analytics Dashboard
+Quarterly Strategy Review
+Optimization Roadmap
+OUR WORKING PRINCIPLES
+Display these as premium glass cards with icons.
+Business First
+We understand your business before proposing technology.
+Strategy Over Trends
+We build sustainable systems instead of following short-lived trends.
+
+=== PAGE 39 ===
+Transparency
+Clear communication throughout every project.
+Innovation
+We continuously adopt emerging technologies to create better solutions.
+Collaboration
+Our clients become part of the creative and strategic process.
+Long-Term Growth
+Success is measured by your business growth—not project completion.
+CLIENT JOURNEY
+Present the experience from a client's perspective using an illustrated timeline.
+1.  Initial Enquiry
+2. Discovery Meeting
+3.  Proposal & Quotation
+4.  Project Kickoff
+5.  Research & Planning
+6.  Design Approval
+7.  Development
+8.  Testing
+9.  Launch
+10. Growth Partnership
+Each stage should include a short explanation and an estimated response time.
+PROJECT DASHBOARD PREVIEW
+Show a conceptual preview of the dashboard clients will use to track project progress.
+Suggested modules:
+Project Status
+Timeline
+Tasks
+Shared Files
+Feedback
+Meeting Notes
+Invoice Status
+
+=== PAGE 40 ===
+Team Members
+Milestones
+Support Requests
+Even if the dashboard is introduced later, this preview reinforces Vistaar's transparent 
+working style.
+WHY CLIENTS LOVE OUR PROCESS
+Display six cards highlighting the beneﬁts of the Vistaar Method.
+Clear Communication
+Deﬁned Timelines
+Dedicated Team
+No Hidden Processes
+Data-Driven Decisions
+Continuous Support
+Final CTA
+Heading
+Every Great Brand Begins With a Conversation.
+Supporting Text
+Whether you're building your ﬁrst startup, rebranding an established company, or scaling 
+through AI and technology, our process is designed to turn ambitious ideas into measurable 
+success.
+Buttons
+Primary
+Start Your Journey
+Secondary
+Book a Discovery Call
+UI/UX Recommendations
+Use a sticky timeline navigation that highlights the current phase as users scroll.
+Animate the roadmap with progress lines and glowing milestones.
+Add custom illustrations for each phase instead of generic icons.
+Use alternating layouts to maintain visual interest.
+
+=== PAGE 41 ===
+Keep transitions smooth (250–400 ms) and avoid excessive motion.
+Consider subtle sound effects only if user interaction warrants them (optional and 
+disabled by default).
+Developer Notes
+Build every phase as a reusable component driven by CMS content.
+Allow future editing of timelines, descriptions, deliverables, and durations through the 
+admin panel.
+Implement scroll-spy navigation for the roadmap.
+Ensure keyboard accessibility and semantic HTML throughout.
+Lazy-load illustrations and media assets.
+Optimize animations using GSAP or Framer Motion while maintaining excellent 
+performance on all devices.
+User Experience Goal
+By the end of this page, visitors should understand that Vistaar doesn't rely on guesswork or 
+one-off services. Instead, every project follows a proven, transparent methodology that 
+combines strategy, design, engineering, AI, and continuous optimization to create long-term 
+business growth.
+The next logical step is to introduce the people behind this process—showing that Vistaar's 
+success is driven by a passionate team with diverse expertise.
+VISTAAR WEBSITE PRODUCT REQUIREMENTS 
+DOCUMENT (PRD)
+PAGE 09 — INSIGHTS
+Where Ideas Become Impact.
+Creative Navigation Name: Insights
+(Instead of "Case Studies" or "Our Work")
+Purpose
+The Insights page is the knowledge hub of Vistaar.
+Instead of simply displaying completed projects, this page should demonstrate how Vistaar 
+thinks, solves problems, creates strategies, and delivers measurable business growth.
+
+=== PAGE 42 ===
+The objective is to establish Vistaar as an industry authority while simultaneously showcasing 
+successful client work.
+Every article, case study, and project should educate visitors and inspire conﬁdence.
+Goals
+The page should:
+Showcase completed projects.
+Build trust through measurable results.
+Improve SEO through blogs.
+Demonstrate expertise.
+Generate organic traffic.
+Encourage consultation bookings.
+Position Vistaar as a thought leader.
+Design Philosophy
+The page should resemble a premium digital magazine rather than a simple blog.
+Think of a blend between:
+Medium
+Linear Blog
+Stripe Newsroom
+Notion Blog
+Framer Blog
+Use large feature images, elegant typography, generous white space, and subtle motion 
+effects.
+HERO SECTION
+Heading
+Ideas.
+Strategy.
+Results.
+Supporting Text
+
+=== PAGE 43 ===
+Every successful business has a story.
+Discover how Vistaar transforms ideas into brands, brands into businesses, and businesses 
+into growth stories.
+CTA
+Explore Our Work
+SECTION 01 — FEATURED CASE STUDY
+This section highlights the latest or most impactful project.
+Layout
+Large horizontal card.
+Left
+Project Image / Mockup
+Right
+Project Details
+Display Information
+Project Name
+Client Name
+Industry
+Duration
+Services Delivered
+Technologies Used
+Results
+Example
+Client:
+ABC Coaching Institute
+Industry:
+Education
+Services:
+Branding
+
+=== PAGE 44 ===
+Website
+SEO
+Performance Marketing
+Results:
++120% Lead Growth
++65% Website Traffic
++42% Conversion Rate
+CTA
+Read Full Case Study
+SECTION 02 — CASE STUDIES
+Heading
+Success Stories
+Display projects as premium glass cards.
+Each card contains:
+Project Cover
+Project Name
+Industry
+Services Used
+Completion Date
+Result Summary
+Read More Button
+Suggested Categories
+Branding
+Website Development
+App Development
+AI Automation
+Marketing
+SaaS
+Consulting
+
+=== PAGE 45 ===
+SECTION 03 — PROJECT SHOWCASE
+Instead of screenshots only,
+show interactive project previews.
+Example
+Desktop Mockup
+↓
+Tablet Mockup
+↓
+Mobile Mockup
+↓
+Live Preview Button
+↓
+Project Gallery
+Hover animations should simulate device interactions.
+SECTION 04 — CLIENT RESULTS
+Instead of saying
+"We made a website"
+Show measurable impact.
+Examples
+Website Speed
+↑
+SEO Score
+↑
+Revenue Growth
+↑
+
+=== PAGE 46 ===
+Lead Generation
+↑
+Brand Reach
+↑
+Automation Efficiency
+↑
+Customer Engagement
+↑
+Present these using animated graphs and counters.
+SECTION 05 — INDUSTRY INSIGHTS
+Heading
+Latest Articles
+This section is SEO-focused.
+Every blog should educate readers while subtly introducing Vistaar's expertise.
+Suggested Blog Categories
+Branding
+Business Growth
+AI
+Marketing
+Web Development
+Technology
+Automation
+Startup
+Business Strategy
+Case Studies
+
+=== PAGE 47 ===
+Blog Card Structure
+Cover Image
+Category
+Title
+Reading Time
+Author
+Publish Date
+Short Description
+Read Article
+SECTION 06 — RESOURCE LIBRARY
+Offer downloadable resources.
+Examples
+Brand Checklist
+Website Planning Guide
+Marketing Calendar
+Business Growth Roadmap
+Brand Strategy Template
+Social Media Planner
+SEO Checklist
+Startup Launch Guide
+PDF downloads.
+Email capture before download.
+SECTION 07 — SEARCH
+Modern search experience.
+Features
+
+=== PAGE 48 ===
+Live Search
+Categories
+Tags
+Author Filter
+Industry Filter
+Services Filter
+Date Filter
+Reading Time Filter
+SECTION 08 — ADMIN PANEL FEATURES
+The Insights page should be completely dynamic.
+Admin should be able to:
+Create Blog
+Edit Blog
+Delete Blog
+Save Draft
+Schedule Posts
+Upload Images
+Upload Videos
+Manage Categories
+Manage Tags
+Feature Article
+SEO Metadata
+Author Management
+Reading Time
+Related Posts
+
+=== PAGE 49 ===
+Project Gallery
+Publish/Unpublish
+Comments Toggle
+Newsletter Integration
+SECTION 09 — CASE STUDY TEMPLATE
+Every case study should follow one standard structure.
+Hero Banner
+↓
+Client Overview
+↓
+Business Challenge
+↓
+Research
+↓
+Strategy
+↓
+Design Process
+↓
+Development
+↓
+Marketing
+↓
+Results
+↓
+Client Testimonial
+
+=== PAGE 50 ===
+↓
+Gallery
+↓
+Technology Stack
+↓
+Lessons Learned
+↓
+Next Steps
+This ensures consistency across all projects.
+SECTION 10 — NEWSLETTER
+Heading
+Stay Ahead of What's Next.
+Supporting Text
+Receive insights on branding, AI, marketing, business strategy, and technology directly from 
+the Vistaar team.
+Fields
+Email
+Name
+Company
+Button
+Subscribe
+SECTION 11 — FINAL CTA
+Heading
+Ready to Become Our Next Success Story?
+Supporting Text
+
+=== PAGE 51 ===
+Whether you're launching your ﬁrst startup or scaling an established business, we'd love to 
+build the next chapter of your journey together.
+Buttons
+Start Your Project
+Book a Strategy Call
+UI/UX Recommendations
+Featured Articles
+Use large editorial-style cards.
+Blog Grid
+Responsive Masonry Layout.
+Case Studies
+Glassmorphism cards.
+Animations
+Image zoom on hover.
+Scroll animations.
+Smooth page transitions.
+Animated statistics.
+Reading progress indicator.
+Reading Experience
+Dark Mode Toggle
+Estimated Reading Time
+Sticky Table of Contents
+Share Buttons
+Copy Link
+Related Articles
+
+=== PAGE 52 ===
+SEO Requirements
+Every article should include:
+SEO Title
+Meta Description
+Canonical URL
+Open Graph Image
+Twitter Card
+Schema.org Article
+Breadcrumbs
+Internal Linking
+Related Posts
+Sitemap Support
+Developer Notes
+CMS Requirements
+Admin Dashboard
+Rich Text Editor
+Markdown Support
+Media Library
+Role-Based Access
+SEO Editor
+Auto Slug Generator
+Autosave Draft
+Revision History
+Analytics Integration
+Preview Before Publishing
+
+=== PAGE 53 ===
+Recommended CMS
+Sanity CMS
+or
+Payload CMS
+Performance
+Use lazy loading.
+Use WebP.
+Generate RSS Feed.
+Static Generation using Next.js.
+CDN Optimized.
+User Experience Goal
+By the end of this page, visitors should see Vistaar not only as a company that delivers 
+projects but as a trusted source of knowledge and innovation.
+They should leave feeling conﬁdent that Vistaar understands modern business challenges 
+and has a proven track record of solving them through strategic thinking, technology, and 
+measurable results.
+The next logical step is to contact Vistaar and begin a conversation about their own business 
+goals.
+VISTAAR WEBSITE PRODUCT REQUIREMENTS 
+DOCUMENT (PRD)
+PAGE 10 — LET'S BUILD SOMETHING 
+EXTRAORDINARY
+Contact & Lead Generation
+Purpose
+The Contact page should be more than a form.
+
+=== PAGE 54 ===
+It should become Vistaar's primary conversion page, where visitors transition into qualiﬁed 
+leads.
+Every element on this page should reduce hesitation, answer common questions, and 
+encourage visitors to start a conversation.
+The experience should feel welcoming, premium, and effortless.
+Design Philosophy
+This page should not feel like a traditional "Contact Us" page.
+Instead, it should resemble a consultation booking experience.
+Visitors should feel they are beginning a partnership—not ﬁlling out paperwork.
+Hero Section
+Heading
+Let's Build Something Extraordinary.
+Supporting Text
+Whether you're launching your ﬁrst startup, redesigning your brand, developing a digital 
+product, or integrating AI into your business, we're here to help you build with conﬁdence.
+Background
+Animated mesh gradient.
+Floating geometric objects.
+Subtle particle effects.
+Animated glow behind the heading.
+SECTION 01 — START A PROJECT
+Instead of displaying a basic contact form immediately, ask visitors:
+What are you looking to build?
+Display interactive cards.
+
+=== PAGE 55 ===
+Branding
+Logo
+Identity
+Packaging
+Personal Branding
+Website
+Business Website
+Landing Page
+Portfolio
+E-commerce
+App Development
+Android
+iOS
+Cross Platform
+AI & Automation
+AI Chatbots
+Business Automation
+AI Agents
+CRM Automation
+Marketing
+SEO
+Google Ads
+Meta Ads
+Social Media
+Business Strategy
+Consulting
+
+=== PAGE 56 ===
+Growth Strategy
+Go-To-Market
+Digital Transformation
+When a card is selected, the contact form automatically adapts to that service.
+SECTION 02 — PROJECT ENQUIRY FORM
+Heading
+Tell Us About Your Project
+Fields
+Full Name
+Company Name
+Email Address
+Phone Number
+Country
+Business Website
+Industry
+Services Interested In
+Estimated Budget
+Preferred Timeline
+How did you hear about us?
+Project Description
+Attachment Upload
+Buttons
+Submit Project
+Save for Later
+Success Message
+
+=== PAGE 57 ===
+Thank you for reaching out.
+Our team will review your project and get back to you within one business day.
+SECTION 03 — BOOK A STRATEGY SESSION
+Allow visitors to schedule a consultation directly.
+Recommended Integration
+Calendly
+Google Calendar
+Microsoft Bookings
+Display available meeting slots.
+Meeting duration:
+30 Minutes
+60 Minutes
+Meeting Types
+Discovery Call
+Project Consultation
+AI Consultation
+Brand Audit
+Website Review
+Business Strategy Session
+SECTION 04 — OUR OFFICES
+Interactive map.
+Display:
+Office Address
+Working Hours
+Parking Information
+
+=== PAGE 58 ===
+Nearest Landmark
+Google Maps Button
+If future offices are added, support multiple locations.
+SECTION 05 — CONTACT DETAILS
+Email
+Phone
+WhatsApp
+LinkedIn
+Instagram
+Facebook
+Business Hours
+Emergency Contact (Optional)
+Each contact method should open the appropriate application.
+SECTION 06 — FREQUENTLY ASKED 
+QUESTIONS
+Suggested Questions
+How soon can we start?
+How much does a project cost?
+Do you work internationally?
+Can you sign an NDA?
+Do you provide post-launch support?
+Can we hire Vistaar for one service only?
+Do you work with startups?
+Accordion layout.
+Only one item expanded.
+
+=== PAGE 59 ===
+SECTION 07 — FINAL CTA
+Heading
+Your Next Big Idea Deserves the Right Partner.
+Buttons
+Start Your Project
+Schedule a Call
+Download Company Proﬁle
+Footer
+Include:
+Company Links
+Services
+Insights
+Resources
+Careers
+Privacy Policy
+Terms & Conditions
+Newsletter
+Social Media
+Developer Notes
+Dynamic form logic based on selected service.
+File upload support.
+CRM integration.
+Email notiﬁcations.
+Spam protection.
+Google Maps API.
+Calendar integration.
+Analytics tracking for form submissions.
+
+=== PAGE 60 ===
+User Experience Goal
+Visitors should leave this page feeling that contacting Vistaar is simple, transparent, and the 
+beginning of a long-term partnership—not just another inquiry.
+VISTAAR WEBSITE PRODUCT REQUIREMENTS 
+DOCUMENT (PRD)
+PAGE 13 — TECHNICAL ARCHITECTURE
+Built to Scale.
+Purpose
+This chapter deﬁnes the technical architecture required to build a scalable, secure, and 
+maintainable website.
+The system should be capable of supporting future products, AI integrations, and high traffic 
+without requiring major architectural changes.
+Frontend
+Framework:
+Next.js (App Router)
+Language:
+TypeScript
+Styling:
+Tailwind CSS
+UI Components:
+shadcn/ui
+Animations:
+GSAP
+Framer Motion
+
+=== PAGE 61 ===
+Backend
+Supabase
+PostgreSQL
+Prisma ORM (optional)
+Node.js APIs
+Authentication
+Clerk
+or
+Auth.js
+Support:
+Admin Login
+Team Login
+Future Client Login
+CMS
+Recommended
+Payload CMS
+or
+Sanity CMS
+CMS should manage:
+Homepage
+Services
+Team
+Careers
+Jobs
+Blogs
+Testimonials
+Client Logos
+Resources
+FAQs
+
+=== PAGE 62 ===
+File Storage
+Cloudinary
+or
+Supabase Storage
+Store:
+Images
+Videos
+Documents
+Resumes
+Downloads
+Email
+Resend
+SMTP Support
+Automated:
+Contact conﬁrmation
+Career application
+Newsletter
+Internal notiﬁcations
+APIs
+Google Maps
+Google Analytics
+Google Search Console
+Calendly
+Meta Pixel
+LinkedIn Insight Tag
+Cloudinary
+
+=== PAGE 63 ===
+OpenAI API (Future AI Assistant)
+Database Modules
+Users
+Blogs
+Jobs
+Applicants
+Testimonials
+Projects
+Services
+Resources
+Newsletter
+Leads
+Settings
+Performance Goals
+Lighthouse Score:
+90+
+Core Web Vitals:
+Pass
+Lazy Loading
+Image Optimization
+Code Splitting
+Caching
+CDN
+Security
+
+=== PAGE 64 ===
+HTTPS
+Rate Limiting
+Spam Protection
+Role-Based Access
+Two-Factor Authentication
+Backups
+Audit Logs
+Environment Variables
+Deployment
+Frontend:
+Vercel
+Database:
+Supabase
+Media:
+Cloudinary
+Monitoring:
+Sentry
+Analytics:
+Google Analytics
+Microsoft Clarity
+Future Scalability
+Architecture should support:
+Client Portal
+AI Assistant
+CRM
+Proposal Generator
+SaaS Dashboard
+
+=== PAGE 65 ===
+Mobile App
+without major rewrites.
+Developer Notes
+Adopt a component-based architecture with reusable UI, centralized state management 
+where necessary, environment-based conﬁguration, automated testing, CI/CD pipelines, and 
+comprehensive documentation for APIs and deployment.
+VISTAAR WEBSITE PRODUCT REQUIREMENTS 
+DOCUMENT (PRD)
+PAGE 14 — SEO, ACCESSIBILITY & 
+PERFORMANCE
+Designed to Be Found. Built to Perform.
+Purpose
+A beautiful website has little value if people cannot ﬁnd it, use it comfortably, or trust its 
+performance.
+This chapter deﬁnes the standards that every page of the Vistaar website must meet to 
+ensure excellent search visibility, accessibility, security, and user experience.
+The objective is to build a website that is fast, discoverable, inclusive, and technically 
+optimized from day one.
+SEO Strategy
+Primary Objectives
+Rank for high-intent business keywords.
+Generate qualiﬁed organic traffic.
+Establish Vistaar as a thought leader.
+Improve local search visibility.
+Increase conversions from search engines.
+Target Keyword Clusters
+
+=== PAGE 66 ===
+Branding
+Branding Agency
+Brand Strategy
+Brand Identity Design
+Personal Branding
+Web Development
+Website Development Company
+Business Website Development
+Custom Website Development
+Next.js Development
+AI & Automation
+AI Automation Company
+Business Automation
+AI Chatbot Development
+AI Workﬂow Solutions
+Marketing
+Digital Marketing Agency
+Performance Marketing
+SEO Services
+Google Ads Management
+Social Media Marketing
+Consulting
+Business Growth Consulting
+Startup Consulting
+Digital Transformation
+Business Strategy Services
+On-Page SEO Requirements
+Every page should include:
+Unique SEO Title
+Meta Description
+Canonical URL
+Open Graph Image
+Twitter Card
+Structured Headings (H1–H6)
+Internal Links
+Breadcrumb Navigation
+
+=== PAGE 67 ===
+Image Alt Text
+Descriptive URLs
+Structured Data (Schema.org)
+Implement structured data for:
+Organization
+Local Business
+Website
+Breadcrumb List
+Blog Posts
+Articles
+FAQs
+Services
+Job Postings
+Person (Founder)
+Reviews
+This improves visibility in search results and enables rich snippets.
+Content Strategy
+The Insights section should publish content around:
+Branding
+AI
+Business Growth
+Startup Advice
+Web Development
+Marketing
+Technology
+Automation
+Product Design
+Entrepreneurship
+Target at least 2–4 high-quality articles per month.
+Technical SEO
+The website should automatically generate:
+XML Sitemap
+Robots.txt
+Canonical Tags
+Structured Metadata
+
+=== PAGE 68 ===
+RSS Feed
+Open Graph Images
+JSON-LD Schema
+Image Optimization
+Use:
+WebP
+AVIF
+Implement:
+Lazy Loading
+Responsive Images
+Modern Compression
+CDN Delivery
+Performance Standards
+Lighthouse Score
+Target:
+Performance: 95+
+Accessibility: 100
+Best Practices: 100
+SEO: 100
+Core Web Vitals
+Largest Contentful Paint (LCP): Under 2.5 seconds
+Interaction to Next Paint (INP): Under 200 ms
+Cumulative Layout Shift (CLS): Below 0.1
+Accessibility Standards
+The website should comply with WCAG 2.2 AA guidelines.
+Requirements include:
+Keyboard navigation
+Visible focus indicators
+Screen reader compatibility
+High color contrast
+Descriptive link text
+
+=== PAGE 69 ===
+Form validation with clear error messages
+Captions for video content
+Alternative text for all meaningful images
+Reduced motion support
+Accessibility should be treated as a core feature rather than an afterthought.
+Security Standards
+The website should include:
+HTTPS
+Secure HTTP Headers
+Content Security Policy (CSP)
+Rate Limiting
+CSRF Protection
+XSS Protection
+Input Validation
+Secure Authentication
+Daily Backups
+Audit Logs
+Analytics & Tracking
+Integrate:
+Google Analytics 4
+Google Search Console
+Microsoft Clarity
+Meta Pixel
+LinkedIn Insight Tag
+Track:
+Website Traffic
+User Journeys
+Conversion Rates
+Form Submissions
+CTA Clicks
+Scroll Depth
+Blog Performance
+Career Applications
+Monitoring
+Recommended tools:
+
+=== PAGE 70 ===
+Sentry (Error Monitoring)
+UptimeRobot (Uptime Monitoring)
+Google PageSpeed Insights
+Lighthouse CI
+Browser & Device Support
+Support the latest two versions of:
+Chrome
+Edge
+Firefox
+Safari
+Ensure responsive layouts across:
+Desktop
+Laptop
+Tablet
+Mobile
+Developer Checklist
+Before deployment:
+✓  All metadata veriﬁed
+✓  Images optimized
+✓  Structured data validated
+✓  Forms tested
+✓  Accessibility audit completed
+✓  Performance audit completed
+✓  Broken links removed
+✓  Sitemap generated
+✓  Analytics conﬁgured
+✓  SSL certiﬁcate active
+User Experience Goal
+
+=== PAGE 71 ===
+Every visitor should experience a fast, secure, and accessible website regardless of their 
+device, browser, or accessibility needs. Search engines should be able to understand, index, 
+and rank every page effectively.
