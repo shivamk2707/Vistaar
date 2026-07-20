@@ -114,7 +114,7 @@ function StorySection() {
         </Reveal>
 
         <Reveal delay={1}>
-          <div className="mx-auto mt-12 max-w-3xl divide-y divide-border rounded-3xl border border-border bg-surface-strong shadow-card">
+          <div className="mx-auto mt-12 max-w-full divide-y divide-border rounded-3xl border border-border bg-surface-strong shadow-card">
             {STORY.map((item, i) => {
               const isOpen = open === i;
               return (

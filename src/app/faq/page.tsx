@@ -118,7 +118,7 @@ export default function FaqPage() {
       <section className="relative pt-10 sm:pt-14">
         <Container>
           <Reveal>
-            <div className="mx-auto max-w-3xl">
+            <div className="mx-auto w-full">
               <div className="relative">
                 <div className="pointer-events-none absolute -inset-2 rounded-full bg-[image:var(--gradient-primary)] opacity-10 blur-2xl" />
                 <div className="relative flex items-center gap-2 rounded-full border border-border bg-background-elevated p-1.5 shadow-card">
@@ -180,7 +180,7 @@ export default function FaqPage() {
               </GlassCard>
             </Reveal>
           ) : (
-            <div className="mx-auto max-w-3xl space-y-3">
+            <div className="mx-auto w-full space-y-3">
               {filtered.map((item, i) => (
                 <Reveal key={item.q} delay={(i % 4) + 1}>
                   <FaqRow q={item.q} a={item.a} cat={item.cat} />

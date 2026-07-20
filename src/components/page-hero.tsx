@@ -34,7 +34,7 @@ export function PageHero({
     pink: "pink",
   } as const;
   return (
-    <section className="relative isolate overflow-hidden pt-28 sm:pt-32 lg:pt-40">
+    <section className="relative isolate overflow-hidden py-28 sm:py-32 lg:py-40">
       <div
         aria-hidden
         className="pointer-events-none absolute inset-0 -z-10 bg-page-mesh"

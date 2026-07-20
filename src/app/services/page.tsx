@@ -1,10 +1,13 @@
 "use client";
 
 import Link from "next/link";
-import { ArrowRight, ArrowUpRight, Check, Sparkles, type LucideIcon } from "lucide-react";
+import { useEffect, useRef } from "react";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { ArrowRight, ArrowUpRight, Check, Sparkles } from "lucide-react";
 import { Button } from "@/components/button";
 import { Container } from "@/components/layout";
-import { PageHero, Stat } from "@/components/page-hero";
+import { PageHero } from "@/components/page-hero";
 import { Reveal } from "@/components/reveal";
 import { Halo, GlassCard } from "@/components/halo";
 import { cn } from "@/lib/utils";
@@ -29,16 +32,6 @@ const ECOSYSTEM = [
       "Digital Transformation",
       "Revenue Growth Planning",
       "Go-To-Market Strategy",
-      "Brand Positioning",
-      "Customer Journey Mapping",
-    ],
-    deliverables: [
-      "Growth Roadmap",
-      "Business Strategy Document",
-      "Market Analysis Report",
-      "SWOT Analysis",
-      "Digital Transformation Plan",
-      "Quarterly Growth Strategy",
     ],
     tone: "coral" as const,
   },
@@ -57,18 +50,7 @@ const ECOSYSTEM = [
       "Typography",
       "Visual Identity",
       "Packaging Design",
-      "Stationery Design",
       "Rebranding",
-      "Employer Branding",
-      "Personal Branding",
-    ],
-    deliverables: [
-      "Logo Package",
-      "Brand Book",
-      "Brand Guidelines",
-      "Social Media Kit",
-      "Print Assets",
-      "Digital Brand Assets",
     ],
     tone: "violet" as const,
   },
@@ -83,24 +65,13 @@ const ECOSYSTEM = [
       "Website Development",
       "Landing Pages",
       "Corporate Websites",
-      "Portfolio Websites",
       "E-Commerce",
       "Web Applications",
       "Mobile Applications",
       "SaaS Platforms",
-      "Dashboard Development",
       "API Integration",
-      "CRM Development",
-      "Maintenance & Support",
     ],
-    deliverables: [
-      "Production Website",
-      "Admin Dashboard",
-      "API Documentation",
-      "Source Code",
-      "Deployment Environment",
-    ],
-    tech: ["React", "Next.js", "Node.js", "Tailwind CSS", "TypeScript", "MongoDB", "Supabase", "Firebase", "Vercel", "Docker"],
+    tech: ["React", "Next.js", "Node.js", "Tailwind CSS", "TypeScript"],
     tone: "blue" as const,
   },
   {
@@ -118,17 +89,7 @@ const ECOSYSTEM = [
       "Email Automation",
       "WhatsApp Automation",
       "AI Agents",
-      "Business Intelligence Dashboards",
       "Process Optimization",
-      "Custom AI Solutions",
-    ],
-    benefits: [
-      "Reduce manual work",
-      "Save operational costs",
-      "Improve customer support",
-      "Faster response time",
-      "Better decision-making",
-      "Increased productivity",
     ],
     tone: "violet" as const,
   },
@@ -147,16 +108,7 @@ const ECOSYSTEM = [
       "Product Mockups",
       "Presentation Design",
       "Social Media Creatives",
-      "Event Branding",
-      "Marketing Collaterals",
       "Print Design",
-    ],
-    deliverables: [
-      "Design Systems",
-      "Marketing Assets",
-      "Brand Templates",
-      "Presentation Decks",
-      "Social Media Packs",
     ],
     tone: "coral" as const,
   },
@@ -175,251 +127,278 @@ const ECOSYSTEM = [
       "Meta Ads",
       "LinkedIn Marketing",
       "Email Marketing",
-      "Content Strategy",
-      "Social Media Management",
-      "Influencer Campaigns",
       "Analytics & Reporting",
-    ],
-    kpis: [
-      "Lead Generation",
-      "Conversion Rate",
-      "ROI",
-      "Brand Reach",
-      "Customer Retention",
-      "Website Traffic",
-      "Engagement Rate",
     ],
     tone: "blue" as const,
   },
 ];
 
 /* ============================================================
-   ECOSYSTEM MAP — visual node graph
+   ECOSYSTEM MAP — root/tree layout
+   VISTAAR sits at the top as the root; all six practices branch
+   down from it. Swap this in to replace the existing
+   EcosystemMap function in src/app/services/page.tsx
    ============================================================ */
-function EcosystemMap({ activeId, onSelect }: { activeId: string; onSelect: (id: string) => void }) {
-  const nodes = [
-    { id: "consulting", label: "Strategy", x: 50, y: 18, tone: "coral" as const },
-    { id: "branding", label: "Branding", x: 16, y: 42, tone: "violet" as const },
-    { id: "engineering", label: "Engineering", x: 84, y: 42, tone: "blue" as const },
-    { id: "ai", label: "AI & Automation", x: 26, y: 78, tone: "violet" as const },
-    { id: "creative", label: "Creative", x: 74, y: 78, tone: "coral" as const },
-    { id: "growth", label: "Growth", x: 50, y: 92, tone: "blue" as const },
-  ];
-  return (
-    <div className="relative aspect-[4/3] w-full">
-      <Halo tone="blue" className="top-1/2 left-1/2 -z-0 h-[280px] w-[280px] -translate-x-1/2 -translate-y-1/2" />
-      {/* SVG connecting lines */}
-      <svg
-        className="absolute inset-0 h-full w-full"
-        viewBox="0 0 100 100"
-        preserveAspectRatio="none"
-        aria-hidden
-      >
-        {nodes.map((a, i) =>
-          nodes.slice(i + 1).map((b) => (
+   function EcosystemMap({ activeId, onSelect }: { activeId: string; onSelect: (id: string) => void }) {
+    const root = { x: 50, y: 10 };
+  
+    const nodes = [
+      { id: "consulting", label: "Business Intelligence", x: 15, y: 45 },
+      { id: "branding", label: "Brand Design", x: 50, y: 45 },
+      { id: "engineering", label: "Engineering", x: 85, y: 45 },
+      { id: "ai", label: "AI & Automation", x: 15, y: 82 },
+      { id: "creative", label: "Creative", x: 50, y: 82 },
+      { id: "growth", label: "Growth", x: 85, y: 82 },
+    ];
+  
+    return (
+      <div className="relative aspect-[4/3] w-full">
+        <Halo tone="blue" className="top-1/2 left-1/2 -z-0 h-[280px] w-[280px] -translate-x-1/2 -translate-y-1/2" />
+  
+        <svg className="absolute inset-0 h-full w-full" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden>
+          {/* Branches: root → each node */}
+          {nodes.map((n) => (
             <line
-              key={`${a.id}-${b.id}`}
-              x1={a.x}
-              y1={a.y}
-              x2={b.x}
-              y2={b.y}
-              stroke={activeId === a.id || activeId === b.id ? "#ff5a36" : "#e2e6ef"}
-              strokeWidth={activeId === a.id || activeId === b.id ? 0.5 : 0.25}
-              strokeOpacity={activeId === a.id || activeId === b.id ? 0.8 : 0.5}
+              key={`root-${n.id}`}
+              x1={root.x}
+              y1={root.y}
+              x2={n.x}
+              y2={n.y}
+              stroke={activeId === n.id ? "#ff5a36" : "#e2e6ef"}
+              strokeWidth={activeId === n.id ? 0.5 : 0.25}
+              strokeOpacity={activeId === n.id ? 0.85 : 0.5}
               vectorEffect="non-scaling-stroke"
             />
-          ))
-        )}
-      </svg>
-      {/* Center label */}
-      <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
-        <div className="rounded-full border border-border bg-background-elevated px-4 py-2 text-xs font-semibold tracking-wider shadow-card">
-          VISTAAR
-        </div>
-      </div>
-      {/* Nodes */}
-      {nodes.map((n) => {
-        const isActive = activeId === n.id;
-        return (
-          <button
-            key={n.id}
-            type="button"
-            onClick={() => onSelect(n.id)}
-            className={cn(
-              "absolute -translate-x-1/2 -translate-y-1/2 rounded-full border border-border bg-background-elevated px-3.5 py-2 text-xs font-medium shadow-card transition-all hover:scale-105",
-              isActive && "scale-110 border-primary text-primary shadow-coral"
-            )}
-            style={{ left: `${n.x}%`, top: `${n.y}%` }}
-          >
-            {n.label}
-          </button>
-        );
-      })}
-    </div>
-  );
-}
-
-/* ============================================================
-   SERVICE SECTION
-   ============================================================ */
-function ServiceSection({
-  index,
-  item,
-  onSelect,
-}: {
-  index: number;
-  item: (typeof ECOSYSTEM)[number];
-  onSelect: (id: string) => void;
-}) {
-  const reverse = index % 2 === 1;
-  const toneClasses: Record<string, string> = {
-    coral: "bg-primary-soft text-primary",
-    blue: "bg-secondary-soft text-secondary",
-    violet: "bg-accent-soft text-accent",
-  };
-  return (
-    <section
-      id={item.id}
-      className="relative py-16 sm:py-20 lg:py-24"
-    >
-      <Container>
+          ))}
+        </svg>
+  
+        {/* Root node */}
         <div
-          className={cn(
-            "grid items-start gap-10 lg:grid-cols-12 lg:gap-16",
-            reverse && "lg:[&>*:first-child]:order-2"
-          )}
+          className="absolute -translate-x-1/2 -translate-y-1/2"
+          style={{ left: `${root.x}%`, top: `${root.y}%` }}
         >
-          <div className="lg:col-span-5">
-            <Reveal>
-              <div className="inline-flex items-center gap-2 rounded-full border border-border bg-surface px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.2em] text-text-muted">
-                <span className="font-display text-base not-italic">
-                  0{index + 1}
-                </span>
-                <span className="h-1 w-1 rounded-full bg-text-muted" />
-                {item.tagline}
-              </div>
-            </Reveal>
-            <Reveal delay={1}>
-              <h2 className="mt-5 font-display text-3xl font-bold leading-[1.1] tracking-tight text-text-primary sm:text-4xl">
-                {item.title}
-              </h2>
-            </Reveal>
-            <Reveal delay={2}>
-              <p className="mt-4 text-base leading-relaxed text-text-secondary">
-                {item.description}
-              </p>
-            </Reveal>
-            <Reveal delay={3}>
-              <button
-                type="button"
-                onClick={() => onSelect(item.id)}
-                className="mt-5 inline-flex items-center gap-1.5 text-sm font-medium text-primary transition-colors hover:text-primary-hover"
-              >
-                Highlight in ecosystem map
-                <ArrowUpRight className="h-4 w-4" />
-              </button>
-            </Reveal>
+          <div className="rounded-full border border-primary bg-background-elevated px-5 py-2.5 text-sm font-bold tracking-wider text-primary shadow-coral">
+            VISTAAR
           </div>
+        </div>
+  
+        {/* Practice nodes */}
+        {nodes.map((n) => {
+          const isActive = activeId === n.id;
+          return (
+            <button
+              key={n.id}
+              type="button"
+              onClick={() => onSelect(n.id)}
+              className={cn(
+                "absolute -translate-x-1/2 -translate-y-1/2 whitespace-nowrap rounded-full border border-border bg-background-elevated px-3.5 py-2 text-xs font-medium shadow-card transition-all hover:scale-105",
+                isActive && "scale-110 border-primary text-primary shadow-coral"
+              )}
+              style={{ left: `${n.x}%`, top: `${n.y}%` }}
+            >
+              {n.label}
+            </button>
+          );
+        })}
+      </div>
+    );
+  }
+/* ============================================================
+   STACKED SERVICES — sticky-stack pattern
+   ------------------------------------------------------------
+   Each card is `position: sticky; top: <offset>`. Because later
+   cards sit later in the DOM and get a higher z-index, they
+   naturally slide up and cover the previous card as you scroll —
+   no manual scroll-range math, no pin desync, works at any
+   viewport height out of the box.
 
-          <div className="lg:col-span-7">
-            <Reveal delay={1}>
-              <GlassCard tone={item.tone} className="p-7">
-                <div>
-                  <h3 className="text-xs font-semibold uppercase tracking-[0.18em] text-text-muted">
-                    What&rsquo;s included
-                  </h3>
-                  <ul className="mt-4 grid gap-2 sm:grid-cols-2">
-                    {item.services.map((s) => (
-                      <li
-                        key={s}
-                        className="flex items-start gap-2.5 text-sm text-text-primary"
-                      >
-                        <span className={cn("mt-0.5 inline-flex h-4 w-4 shrink-0 items-center justify-center rounded-full", toneClasses[item.tone])}>
-                          <Check className="h-2.5 w-2.5" />
-                        </span>
-                        {s}
-                      </li>
-                    ))}
-                  </ul>
+   GSAP layers on top for polish only:
+     - each card fades/slides in the first time it's revealed
+     - as the NEXT card arrives, the current card scales down,
+       dims, and blurs slightly to read as "receding" underneath
+   ============================================================ */
+function StackedServices() {
+  const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    gsap.registerPlugin(ScrollTrigger);
+
+    const cards = cardRefs.current.filter((el): el is HTMLDivElement => Boolean(el));
+    if (cards.length === 0) return;
+
+    const mm = gsap.matchMedia();
+
+    mm.add("(prefers-reduced-motion: no-preference)", () => {
+      const scrollTriggers: ScrollTrigger[] = [];
+
+      cards.forEach((card, i) => {
+        // Entrance: fade/slide up the first time each card comes into view
+        const enterTween = gsap.fromTo(
+          card,
+          { y: 48, opacity: 0 },
+          {
+            y: 0,
+            opacity: 1,
+            duration: 0.6,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: card,
+              start: "top 88%",
+              toggleActions: "play none none reverse",
+            },
+          }
+        );
+        if (enterTween.scrollTrigger) scrollTriggers.push(enterTween.scrollTrigger);
+
+        // Recede: as the NEXT card slides in over this one, scale/dim it
+        const next = cards[i + 1];
+        if (next) {
+          const recedeTween = gsap.fromTo(
+            card,
+            { scale: 1, opacity: 1, filter: "blur(0px)" },
+            {
+              scale: 0.94,
+              opacity: 0.55,
+              filter: "blur(1px)",
+              ease: "none",
+              scrollTrigger: {
+                trigger: next,
+                start: "top bottom",
+                end: "top top",
+                scrub: true,
+              },
+            }
+          );
+          if (recedeTween.scrollTrigger) scrollTriggers.push(recedeTween.scrollTrigger);
+        }
+      });
+
+      return () => {
+        scrollTriggers.forEach((t) => t.kill());
+      };
+    });
+
+    return () => mm.revert();
+  }, []);
+
+  return (
+    <section className="relative py-16 sm:py-20">
+      <Container>
+        <Reveal>
+          <div className="mx-auto max-w-2xl px-5 text-center">
+            <span className="inline-flex items-center gap-2 rounded-full border border-border bg-background px-3.5 py-1.5 text-xs font-semibold uppercase tracking-[0.18em] text-text-secondary">
+              <span className="h-1.5 w-1.5 rounded-full bg-primary animate-pulse-soft" />
+              The Six-Part Ecosystem
+            </span>
+            <h2 className="mt-5 font-display text-4xl font-bold leading-[1.05] tracking-tight text-text-primary sm:text-5xl">
+              One stack. <span className="text-primary">Six services.</span>
+            </h2>
+            <p className="mt-4 text-base leading-relaxed text-text-secondary sm:text-lg">
+              Scroll to peel the stack — each practice slides into place, layered over the last.
+            </p>
+          </div>
+        </Reveal>
+      </Container>
+
+      <div className="relative mt-14">
+        {ECOSYSTEM.map((item, i) => (
+          <div
+            key={item.id}
+            id={item.id}
+            className="sticky top-[6vh] pb-10 sm:top-[14vh]"
+            style={{ zIndex: i + 1 }}
+          >
+            <div
+              ref={(el) => {
+                cardRefs.current[i] = el;
+              }}
+              className="mx-auto w-[94%] origin-top will-change-transform"
+              style={{ maxWidth: "1100px" }}
+            >
+              <GlassCard tone={item.tone} className="relative overflow-hidden p-0 shadow-elevated">
+                {/* Top progress strip */}
+                <div className="flex items-center justify-between border-b border-border bg-background-soft/60 px-5 py-2.5 text-[11px] sm:px-7">
+                  <div className="flex items-center gap-2 font-mono">
+                    <span className="text-primary font-semibold">0{i + 1}</span>
+                    <span className="text-text-muted">/ 0{ECOSYSTEM.length}</span>
+                  </div>
+                  <span className="hidden text-text-muted sm:inline">{item.tagline}</span>
+                  <span className="text-text-muted">Vistaar · 2026</span>
                 </div>
 
-                {"deliverables" in item && item.deliverables && (
-                  <div className="mt-7 border-t border-border pt-6">
-                    <h3 className="text-xs font-semibold uppercase tracking-[0.18em] text-text-muted">
-                      Deliverables
+                {/* Two-column body — stacks to 1 column below lg */}
+                <div className="grid grid-cols-1 lg:grid-cols-12 lg:min-h-[420px]">
+                  <div className="flex flex-col justify-center p-7 sm:p-9 lg:col-span-5">
+                    <div className="inline-flex items-center gap-2 rounded-full border border-border bg-surface px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.2em] text-text-muted">
+                      <span className="font-display text-sm not-italic">0{i + 1}</span>
+                      <span className="h-1 w-1 rounded-full bg-text-muted" />
+                      {item.tagline}
+                    </div>
+                    <h3
+                      className="mt-4 font-display text-2xl font-bold leading-[1.1] tracking-tight text-text-primary sm:text-3xl"
+                      style={{ letterSpacing: "-0.025em" }}
+                    >
+                      {item.title}
                     </h3>
-                    <ul className="mt-3 flex flex-wrap gap-2">
-                      {item.deliverables.map((d) => (
-                        <li
-                          key={d}
-                          className="rounded-full border border-border bg-background px-3 py-1 text-xs text-text-secondary"
-                        >
-                          {d}
-                        </li>
-                      ))}
-                    </ul>
+                    <p className="mt-3 text-sm leading-relaxed text-text-secondary">{item.description}</p>
+                    <div className="mt-5 flex flex-wrap items-center gap-2">
+                      <Link href="/contact">
+                        <Button size="sm" variant="primary" rightIcon={<ArrowUpRight className="h-3.5 w-3.5" />}>
+                          Discuss this
+                        </Button>
+                      </Link>
+                      <Link href="/method">
+                        <Button size="sm" variant="secondary" rightIcon={<ArrowRight className="h-3.5 w-3.5" />}>
+                          See the process
+                        </Button>
+                      </Link>
+                    </div>
                   </div>
-                )}
 
-                {"tech" in item && item.tech && (
-                  <div className="mt-7 border-t border-border pt-6">
-                    <h3 className="text-xs font-semibold uppercase tracking-[0.18em] text-text-muted">
-                      Technologies
+                  <div className="border-t border-border bg-surface/40 p-7 sm:p-9 lg:col-span-7 lg:border-l lg:border-t-0">
+                    <h3 className="text-[10px] font-semibold uppercase tracking-[0.18em] text-text-muted">
+                      What&rsquo;s included
                     </h3>
-                    <ul className="mt-3 flex flex-wrap gap-2">
-                      {item.tech.map((t) => (
-                        <li
-                          key={t}
-                          className="rounded-full border border-border bg-background px-3 py-1 text-xs text-text-secondary"
-                        >
-                          {t}
+                    <ul className="mt-3 grid gap-1.5 sm:grid-cols-2">
+                      {item.services.slice(0, 8).map((s) => (
+                        <li key={s} className="flex items-start gap-2 text-sm text-text-primary">
+                          <span
+                            className={cn(
+                              "mt-0.5 inline-flex h-3.5 w-3.5 shrink-0 items-center justify-center rounded-full",
+                              item.tone === "coral" && "bg-primary-soft text-primary",
+                              item.tone === "blue" && "bg-secondary-soft text-secondary",
+                              item.tone === "violet" && "bg-accent-soft text-accent"
+                            )}
+                          >
+                            <Check className="h-2 w-2" />
+                          </span>
+                          {s}
                         </li>
                       ))}
                     </ul>
+                    {item.tech && (
+                      <div className="mt-5 border-t border-border pt-4">
+                        <h3 className="text-[10px] font-semibold uppercase tracking-[0.18em] text-text-muted">Tech</h3>
+                        <div className="mt-2 flex flex-wrap gap-1.5">
+                          {item.tech.slice(0, 5).map((t) => (
+                            <span
+                              key={t}
+                              className="rounded-full border border-border bg-background px-2.5 py-0.5 text-[10px] text-text-secondary"
+                            >
+                              {t}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+                    )}
                   </div>
-                )}
-
-                {"benefits" in item && item.benefits && (
-                  <div className="mt-7 border-t border-border pt-6">
-                    <h3 className="text-xs font-semibold uppercase tracking-[0.18em] text-text-muted">
-                      Business benefits
-                    </h3>
-                    <ul className="mt-3 grid gap-2 sm:grid-cols-2">
-                      {item.benefits.map((b) => (
-                        <li
-                          key={b}
-                          className="flex items-start gap-2 text-sm text-text-primary"
-                        >
-                          <Check className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
-                          {b}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                )}
-
-                {"kpis" in item && item.kpis && (
-                  <div className="mt-7 border-t border-border pt-6">
-                    <h3 className="text-xs font-semibold uppercase tracking-[0.18em] text-text-muted">
-                      KPIs we track
-                    </h3>
-                    <ul className="mt-3 flex flex-wrap gap-2">
-                      {item.kpis.map((k) => (
-                        <li
-                          key={k}
-                          className="rounded-full border border-border bg-background px-3 py-1 text-xs text-text-secondary"
-                        >
-                          {k}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                )}
+                </div>
               </GlassCard>
-            </Reveal>
+            </div>
           </div>
-        </div>
-      </Container>
+        ))}
+      </div>
     </section>
   );
 }
@@ -442,10 +421,7 @@ const FLOW = [
 function Flow() {
   return (
     <section className="relative py-20 sm:py-24 lg:py-28">
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-0 -z-10 bg-soft-tint"
-      />
+      <div aria-hidden className="pointer-events-none absolute inset-0 -z-10 bg-soft-tint" />
       <Container>
         <Reveal>
           <div className="mx-auto max-w-3xl text-center">
@@ -521,9 +497,6 @@ const REASONS = [
    PAGE
    ============================================================ */
 export default function ServicesPage() {
-  // For the interactive map highlight, we use a simple anchor-based approach
-  // (clicking a node scrolls to the section). This keeps the component
-  // server-renderable while still feeling interactive.
   const handleSelect = (id: string) => {
     if (typeof document !== "undefined") {
       const el = document.getElementById(id);
@@ -552,33 +525,29 @@ export default function ServicesPage() {
       </PageHero>
 
       {/* Ecosystem map */}
-      <section className="relative pb-20 sm:pb-24">
+      <section className="relative py-20 sm:py-24">
         <Container>
           <Reveal>
             <div className="mx-auto max-w-3xl text-center">
               <h2 className="font-display text-2xl font-bold leading-tight text-text-primary sm:text-3xl">
                 One ecosystem. Six connected practices.
               </h2>
-              <p className="mt-3 text-sm text-text-secondary sm:text-base">
-                Click any node to jump to its detail.
-              </p>
+              <p className="mt-3 text-sm text-text-secondary sm:text-base">Click any node to jump to its detail.</p>
             </div>
           </Reveal>
           <Reveal delay={1}>
-            <GlassCard tone="blue" className="mx-auto mt-10 max-w-4xl p-6 sm:p-10">
+            {/* <GlassCard tone="blue" className="mx-auto mt-10 max-w-4xl p-6 sm:p-10"> */}
               <EcosystemMap activeId="consulting" onSelect={handleSelect} />
-            </GlassCard>
+            {/* </GlassCard> */}
           </Reveal>
         </Container>
       </section>
 
-      {ECOSYSTEM.map((item, i) => (
-        <ServiceSection key={item.id} index={i} item={item} onSelect={handleSelect} />
-      ))}
+      {/* The GSAP-driven sticky-stacked service section */}
+      <StackedServices />
 
       <Flow />
 
-      {/* Why Growth Ecosystem */}
       <section className="relative py-20 sm:py-24 lg:py-28">
         <Container>
           <Reveal>
@@ -591,16 +560,9 @@ export default function ServicesPage() {
           <div className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {REASONS.map((r, i) => (
               <Reveal key={r.title} delay={(i % 3) + 1}>
-                <GlassCard
-                  tone={(["coral", "blue", "violet"] as const)[i % 3]}
-                  className="h-full p-7"
-                >
-                  <h3 className="font-display text-lg font-semibold text-text-primary">
-                    {r.title}
-                  </h3>
-                  <p className="mt-2 text-sm leading-relaxed text-text-secondary">
-                    {r.body}
-                  </p>
+                <GlassCard tone={(["coral", "blue", "violet"] as const)[i % 3]} className="h-full p-7">
+                  <h3 className="font-display text-lg font-semibold text-text-primary">{r.title}</h3>
+                  <p className="mt-2 text-sm leading-relaxed text-text-secondary">{r.body}</p>
                 </GlassCard>
               </Reveal>
             ))}
@@ -608,7 +570,6 @@ export default function ServicesPage() {
         </Container>
       </section>
 
-      {/* Final CTA */}
       <section className="relative py-20">
         <Container>
           <Reveal>
@@ -619,8 +580,8 @@ export default function ServicesPage() {
                   Ready to build something bigger than a website?
                 </h2>
                 <p className="mx-auto mt-4 max-w-xl text-base leading-relaxed text-text-secondary">
-                  Let&rsquo;s design a brand, build intelligent systems, and create
-                  a business that grows with confidence.
+                  Let&rsquo;s design a brand, build intelligent systems, and create a business that grows with
+                  confidence.
                 </p>
                 <div className="mt-7 flex flex-col items-center justify-center gap-3 sm:flex-row">
                   <Link href="/contact">

@@ -95,7 +95,7 @@ export function Footer() {
 
       <Container className="relative">
         {/* Newsletter */}
-        <div className="grid gap-10 border-b border-border py-14 lg:grid-cols-2 lg:items-center">
+        {/* <div className="grid gap-10 border-b border-border py-14 lg:grid-cols-2 lg:items-center">
           <div className="max-w-xl">
             <span className="inline-flex items-center gap-2 rounded-full border border-border bg-surface px-3.5 py-1.5 text-xs font-semibold uppercase tracking-[0.18em] text-text-secondary">
               <span className="h-1.5 w-1.5 rounded-full bg-primary animate-pulse-soft" />
@@ -143,7 +143,7 @@ export function Footer() {
               )}
             </button>
           </form>
-        </div>
+        </div> */}
 
         {/* Link columns */}
         <div className="grid gap-10 py-14 md:grid-cols-2 lg:grid-cols-6">

@@ -1,7 +1,19 @@
 "use client";
 
 import Link from "next/link";
-import { ArrowRight, ArrowUpRight, Check, Sparkles, type LucideIcon } from "lucide-react";
+import { useEffect, useMemo, useRef } from "react";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import {
+  ArrowRight,
+  ArrowUpRight,
+  Check,
+  Sparkles,
+  Zap,
+  CalendarDays,
+  Infinity,
+  type LucideIcon,
+} from "lucide-react";
 import { Button } from "@/components/button";
 import { Container } from "@/components/layout";
 import { PageHero } from "@/components/page-hero";
@@ -444,47 +456,232 @@ function Principles() {
 }
 
 /* ============================================================
-   CLIENT JOURNEY
+   CLIENT JOURNEY — vertical scrollspy timeline
+   ------------------------------------------------------------
+   Requires (assumed already present elsewhere in the file):
+     - CLIENT_JOURNEY: string[10]
+     - Container, Reveal, Halo, cn
+     - useState, useRef, useEffect, useMemo from "react"
+     - gsap, ScrollTrigger  (already registered in StackedServices)
+   New icon imports needed (add to the lucide-react import line):
+     - Zap, CalendarDays, Infinity
    ============================================================ */
+
+type Phase = "Days" | "Weeks" | "Ongoing";
+
+const PHASE_META: Record<
+  Phase,
+  { icon: typeof Zap; note: string; badge: string; dotActive: string }
+> = {
+  Days: {
+    icon: Zap,
+    note: "The first few days",
+    badge: "border-primary/30 bg-primary-soft text-primary",
+    dotActive: "border-primary bg-primary shadow-coral",
+  },
+  Weeks: {
+    icon: CalendarDays,
+    note: "Over the following weeks",
+    badge: "border-secondary/30 bg-secondary-soft text-secondary",
+    dotActive: "border-secondary bg-secondary shadow-blue",
+  },
+  Ongoing: {
+    icon: Infinity,
+    note: "From here on, together",
+    badge: "border-accent/30 bg-accent-soft text-accent",
+    dotActive: "border-accent bg-accent",
+  },
+};
+
+function getPhase(i: number): Phase {
+  return i < 4 ? "Days" : i < 8 ? "Weeks" : "Ongoing";
+}
+
 function ClientJourney() {
+  const timelineRef = useRef<HTMLDivElement>(null);
+  const lineFillRef = useRef<HTMLDivElement>(null);
+  const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const dotRefs = useRef<(HTMLSpanElement | null)[]>([]);
+
+  const groups = useMemo(() => {
+    const out: { phase: Phase; items: { label: string; index: number }[] }[] = [];
+    CLIENT_JOURNEY.forEach((step, i) => {
+      const phase = getPhase(i);
+      const last = out[out.length - 1];
+      if (last && last.phase === phase) {
+        last.items.push({ label: step, index: i });
+      } else {
+        out.push({ phase, items: [{ label: step, index: i }] });
+      }
+    });
+    return out;
+  }, []);
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    gsap.registerPlugin(ScrollTrigger);
+
+    const mm = gsap.matchMedia();
+
+    mm.add("(prefers-reduced-motion: no-preference)", () => {
+      const triggers: ScrollTrigger[] = [];
+
+      // Gradient progress line fills as the whole timeline scrolls through view
+      if (lineFillRef.current && timelineRef.current) {
+        const fillTween = gsap.fromTo(
+          lineFillRef.current,
+          { scaleY: 0 },
+          {
+            scaleY: 1,
+            ease: "none",
+            scrollTrigger: {
+              trigger: timelineRef.current,
+              start: "top 75%",
+              end: "bottom 55%",
+              scrub: true,
+            },
+          }
+        );
+        if (fillTween.scrollTrigger) triggers.push(fillTween.scrollTrigger);
+      }
+
+      // Each card fades/slides in, and its dot lights up while active
+      cardRefs.current.forEach((card, i) => {
+        if (!card) return;
+        const enterTween = gsap.fromTo(
+          card,
+          { opacity: 0, y: 32 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.55,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: card,
+              start: "top 88%",
+              toggleActions: "play none none reverse",
+            },
+          }
+        );
+        if (enterTween.scrollTrigger) triggers.push(enterTween.scrollTrigger);
+
+        const dot = dotRefs.current[i];
+        if (dot) {
+          const dotTrigger = ScrollTrigger.create({
+            trigger: card,
+            start: "top center",
+            end: "bottom center",
+            toggleClass: { targets: dot, className: "is-active" },
+          });
+          triggers.push(dotTrigger);
+        }
+      });
+
+      return () => triggers.forEach((t) => t.kill());
+    });
+
+    return () => mm.revert();
+  }, []);
+
   return (
-    <section className="relative py-20 sm:py-24 lg:py-28">
+    <section className="relative overflow-hidden py-20 sm:py-24 lg:py-28">
+      <div aria-hidden className="pointer-events-none absolute inset-0 -z-10 bg-soft-tint" />
+      <Halo tone="violet" className="right-[-120px] top-1/3 -z-0 h-[420px] w-[420px]" />
+
       <Container>
         <Reveal>
           <div className="mx-auto max-w-3xl text-center">
-            <h2 className="font-display text-3xl font-bold leading-[1.1] tracking-tight text-text-primary sm:text-4xl lg:text-5xl">
+            <span className="inline-flex items-center gap-2 rounded-full border border-border bg-background px-3.5 py-1.5 text-xs font-semibold uppercase tracking-[0.18em] text-text-secondary">
+              <span className="h-1.5 w-1.5 rounded-full bg-primary animate-pulse-soft" />
+              10 steps, 3 stages
+            </span>
+            <h2 className="mt-5 font-display text-3xl font-bold leading-[1.1] tracking-tight text-text-primary sm:text-4xl lg:text-5xl">
               The client journey.
             </h2>
             <p className="mt-4 text-base leading-relaxed text-text-secondary sm:text-lg">
-              Ten steps from first hello to long-term partnership.
+              From first hello to long-term partnership — scroll to follow the path.
             </p>
           </div>
         </Reveal>
 
-        <Reveal delay={1}>
-          <div className="mx-auto mt-12 max-w-5xl overflow-x-auto">
-            <ol className="flex min-w-max items-stretch gap-3 pb-4">
-              {CLIENT_JOURNEY.map((step, i) => (
-                <li
-                  key={step}
-                  className="relative flex w-44 shrink-0 flex-col rounded-2xl border border-border bg-surface-strong p-4 shadow-card"
-                >
-                  <span className="font-display text-xs font-semibold uppercase tracking-[0.2em] text-text-muted">
-                    Step {String(i + 1).padStart(2, "0")}
-                  </span>
-                  <span className="mt-2 text-sm font-semibold leading-snug text-text-primary">
-                    {step}
-                  </span>
-                  <span className="mt-3 inline-flex items-center gap-1 text-xs text-primary">
-                    <span className="h-1 w-1 rounded-full bg-primary" />
-                    {i < 4 ? "Days" : i < 8 ? "Weeks" : "Ongoing"}
-                  </span>
-                </li>
-              ))}
-            </ol>
+        <div ref={timelineRef} className="relative mx-auto mt-16 max-w-2xl">
+          {/* Track + animated gradient fill */}
+          <div className="absolute left-4 top-1 h-[calc(100%-8px)] w-px bg-border" aria-hidden>
+            <div
+              ref={lineFillRef}
+              className="h-full w-full origin-top bg-gradient-to-b from-primary via-secondary to-accent"
+              style={{ transform: "scaleY(0)" }}
+            />
           </div>
-        </Reveal>
+
+          <ol className="relative flex flex-col gap-12 sm:gap-14">
+            {groups.map((group) => {
+              const meta = PHASE_META[group.phase];
+              const PhaseIcon = meta.icon;
+              return (
+                <li key={group.phase}>
+                  {/* Phase milestone */}
+                  <div className="relative mb-6 flex items-center gap-3 pl-10">
+                    <span className="absolute left-4 top-1/2 flex h-8 w-8 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border-2 border-border bg-background-elevated shadow-card">
+                      <PhaseIcon className="h-4 w-4 text-text-primary" />
+                    </span>
+                    <span
+                      className={cn(
+                        "inline-flex items-center gap-1.5 rounded-full border px-3.5 py-1 text-xs font-semibold uppercase tracking-[0.16em]",
+                        meta.badge
+                      )}
+                    >
+                      {group.phase}
+                    </span>
+                    <span className="hidden text-xs text-text-muted sm:inline">{meta.note}</span>
+                  </div>
+
+                  {/* Steps within this phase */}
+                  <div className="flex flex-col gap-6 sm:gap-7">
+                    {group.items.map((item) => (
+                      <div key={item.index} className="relative pl-10">
+                        <span
+                          ref={(el) => {
+                            dotRefs.current[item.index] = el;
+                          }}
+                          className={cn(
+                            "dot absolute left-4 top-6 h-3 w-3 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-border bg-background transition-all duration-300",
+                            meta.dotActive
+                          )}
+                        />
+                        <div
+                          ref={(el) => {
+                            cardRefs.current[item.index] = el;
+                          }}
+                          className="group rounded-2xl border border-border bg-surface-strong p-5 shadow-card transition-all duration-300 hover:-translate-y-1 hover:border-primary/30 hover:shadow-elevated"
+                        >
+                          <span className="font-display text-xs font-semibold uppercase tracking-[0.2em] text-text-muted">
+                            Step {String(item.index + 1).padStart(2, "0")}
+                          </span>
+                          <p className="mt-1.5 text-sm font-semibold leading-snug text-text-primary sm:text-base">
+                            {item.label}
+                          </p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </li>
+              );
+            })}
+          </ol>
+        </div>
       </Container>
+
+      <style jsx>{`
+           .dot.is-active {
+             transform: translate(-50%, -50%) scale(1.35);
+           }
+           @media (prefers-reduced-motion: reduce) {
+             .dot {
+               transition: none;
+             }
+           }
+         `}</style>
     </section>
   );
 }

@@ -1,6 +1,9 @@
 "use client";
 
 import Link from "next/link";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import {
   ArrowRight,
   ArrowUpRight,
@@ -16,7 +19,6 @@ import { Container } from "@/components/layout";
 import { PageHero } from "@/components/page-hero";
 import { Reveal } from "@/components/reveal";
 import { Halo, GlassCard } from "@/components/halo";
-import { useState } from "react";
 import { cn } from "@/lib/utils";
 
 /* ============================================================
@@ -165,6 +167,126 @@ const RESOURCES = [
 const CATEGORIES = ["All", "Branding", "AI", "Startup", "Marketing", "Product", "Design"];
 
 /* ============================================================
+   FEATURED RESULTS — animated stat grid
+   ------------------------------------------------------------
+   Numbers count up from 0 the first time they scroll into view.
+   Parses "+120%", "−41%", "$1.2M" etc. into a prefix/number/suffix
+   so only the numeric part animates.
+   ============================================================ */
+function parseStatValue(value: string) {
+  const match = value.match(/^([^\d.]*)([\d,.]+)([^\d.]*)$/);
+  if (!match) return { prefix: "", number: null as number | null, suffix: value, decimals: 0 };
+  const [, prefix, numStr, suffix] = match;
+  const number = parseFloat(numStr.replace(/,/g, ""));
+  const decimals = numStr.includes(".") ? numStr.split(".")[1].length : 0;
+  return { prefix, number, suffix, decimals };
+}
+
+function formatCount(n: number, decimals: number) {
+  return n.toLocaleString(undefined, {
+    minimumFractionDigits: decimals,
+    maximumFractionDigits: decimals,
+  });
+}
+
+function StatCard({ label, value, index }: { label: string; value: string; index: number }) {
+  const cardRef = useRef<HTMLDivElement>(null);
+  const numRef = useRef<HTMLSpanElement>(null);
+  const parsed = useMemo(() => parseStatValue(value), [value]);
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    gsap.registerPlugin(ScrollTrigger);
+
+    const mm = gsap.matchMedia();
+
+    mm.add("(prefers-reduced-motion: no-preference)", () => {
+      const triggers: ScrollTrigger[] = [];
+
+      if (cardRef.current) {
+        const entrance = gsap.fromTo(
+          cardRef.current,
+          { opacity: 0, y: 20, scale: 0.94 },
+          {
+            opacity: 1,
+            y: 0,
+            scale: 1,
+            duration: 0.5,
+            delay: index * 0.08,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: cardRef.current,
+              start: "top 90%",
+              toggleActions: "play none none reverse",
+            },
+          }
+        );
+        if (entrance.scrollTrigger) triggers.push(entrance.scrollTrigger);
+      }
+
+      if (numRef.current && parsed.number !== null && cardRef.current) {
+        const counter = { val: 0 };
+        const countUp = gsap.to(counter, {
+          val: parsed.number,
+          duration: 1.3,
+          delay: index * 0.08,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: cardRef.current,
+            start: "top 90%",
+            toggleActions: "play none none none",
+          },
+          onUpdate: () => {
+            if (numRef.current) {
+              numRef.current.textContent =
+                parsed.prefix + formatCount(counter.val, parsed.decimals) + parsed.suffix;
+            }
+          },
+        });
+        if (countUp.scrollTrigger) triggers.push(countUp.scrollTrigger);
+      }
+
+      return () => triggers.forEach((t) => t.kill());
+    });
+
+    return () => mm.revert();
+  }, [index, parsed]);
+
+  return (
+    <div
+      ref={cardRef}
+      className="group relative overflow-hidden rounded-2xl border border-border bg-background p-3 transition-all duration-300 hover:-translate-y-1 hover:border-primary/40 hover:shadow-coral"
+    >
+      <div
+        aria-hidden
+        className="pointer-events-none absolute -right-6 -top-6 h-20 w-20 rounded-full bg-primary/15 opacity-0 blur-2xl transition-opacity duration-300 group-hover:opacity-100"
+      />
+      <div className="relative text-[10px] font-semibold uppercase tracking-wider text-text-muted">
+        {label}
+      </div>
+      <div className="relative mt-1 font-display text-xl font-bold sm:text-2xl">
+        <span
+          ref={numRef}
+          className="bg-gradient-to-br from-primary to-accent bg-clip-text text-transparent"
+        >
+          {parsed.number === null ? value : parsed.prefix + "0" + parsed.suffix}
+        </span>
+      </div>
+    </div>
+  );
+}
+
+function StatGrid({ results }: { results: { label: string; value: string }[] }) {
+  return (
+    <div className="mt-7 grid grid-cols-2 gap-3 sm:grid-cols-4">
+      {results.map((r, i) => (
+        <StatCard key={r.label} label={r.label} value={r.value} index={i} />
+      ))}
+    </div>
+  );
+}
+
+/* ============================================================
    FEATURED CASE STUDY
    ============================================================ */
 function Featured() {
@@ -228,21 +350,7 @@ function Featured() {
                   ))}
                 </div>
 
-                <div className="mt-7 grid grid-cols-2 gap-3 sm:grid-cols-4">
-                  {FEATURED.results.map((r) => (
-                    <div
-                      key={r.label}
-                      className="rounded-2xl border border-border bg-background p-3"
-                    >
-                      <div className="text-[10px] font-semibold uppercase tracking-wider text-text-muted">
-                        {r.label}
-                      </div>
-                      <div className="mt-1 font-display text-xl font-bold text-primary">
-                        {r.value}
-                      </div>
-                    </div>
-                  ))}
-                </div>
+                <StatGrid results={FEATURED.results} />
 
                 <div className="mt-7 flex items-center justify-between">
                   <span className="text-xs text-text-muted">
@@ -447,76 +555,6 @@ function Resources() {
 }
 
 /* ============================================================
-   NEWSLETTER + SEARCH
-   ============================================================ */
-function Newsletter() {
-  const [email, setEmail] = useState("");
-  const [done, setDone] = useState(false);
-  return (
-    <section className="relative py-16 sm:py-20">
-      <Container>
-        <Reveal>
-          <div className="relative overflow-hidden rounded-[2rem] border border-border bg-surface-strong px-6 py-12 sm:px-12">
-            <Halo tone="coral" className="top-1/2 left-1/2 -z-0 h-[360px] w-[600px] -translate-x-1/2 -translate-y-1/2" />
-            <div className="relative grid items-center gap-10 lg:grid-cols-2">
-              <div>
-                <h2 className="font-display text-2xl font-bold leading-tight text-text-primary sm:text-3xl">
-                  Stay ahead of what&rsquo;s next.
-                </h2>
-                <p className="mt-3 text-sm leading-relaxed text-text-secondary sm:text-base">
-                  Insights on branding, AI, marketing, business strategy, and
-                  technology — directly from the Vistaar team. One short read,
-                  every other Friday.
-                </p>
-              </div>
-              <form
-                onSubmit={(e) => {
-                  e.preventDefault();
-                  if (email) {
-                    setDone(true);
-                    setEmail("");
-                    setTimeout(() => setDone(false), 3500);
-                  }
-                }}
-                className="grid gap-3 sm:grid-cols-2"
-              >
-                <input
-                  type="text"
-                  placeholder="Your name"
-                  className="h-12 rounded-full border border-border bg-background px-5 text-sm text-text-primary outline-none focus:border-primary focus:ring-2 focus:ring-primary/20"
-                />
-                <input
-                  type="email"
-                  required
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  placeholder="you@company.com"
-                  className="h-12 rounded-full border border-border bg-background px-5 text-sm text-text-primary outline-none focus:border-primary focus:ring-2 focus:ring-primary/20"
-                />
-                <input
-                  type="text"
-                  placeholder="Company (optional)"
-                  className="h-12 rounded-full border border-border bg-background px-5 text-sm text-text-primary outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 sm:col-span-2"
-                />
-                <Button
-                  type="submit"
-                  size="lg"
-                  variant="primary"
-                  className="sm:col-span-2"
-                  rightIcon={done ? <ArrowRight className="h-5 w-5" /> : <Mail className="h-5 w-5" />}
-                >
-                  {done ? "Thanks — see you Friday" : "Subscribe"}
-                </Button>
-              </form>
-            </div>
-          </div>
-        </Reveal>
-      </Container>
-    </section>
-  );
-}
-
-/* ============================================================
    CTA
    ============================================================ */
 function InsightsCta() {
@@ -583,7 +621,6 @@ export default function InsightsPage() {
       <CaseStudies />
       <Articles />
       <Resources />
-      <Newsletter />
       <InsightsCta />
     </main>
   );

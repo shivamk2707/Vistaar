@@ -10,6 +10,8 @@ import {
   Phone,
   Clock,
   Sparkles,
+  ArrowLeft,
+  Paperclip,
 } from "lucide-react";
 import { Button } from "@/components/button";
 import { Container } from "@/components/layout";
@@ -71,17 +73,91 @@ const TIMELINES = [
 ];
 
 /* ============================================================
-   PROJECT ENQUIRY FORM
+   PROJECT ENQUIRY FORM — 3-step guided flow
+   ------------------------------------------------------------
+   Requires (unchanged from original, assumed already in file):
+     - Field, SERVICE_OPTIONS, BUDGETS, TIMELINES
+     - Container, Reveal, GlassCard, Button, cn
+     - useState from "react", Link from "next/link"
+   New icon import needed:
+     - ArrowLeft, Paperclip  (add to the lucide-react import line)
    ============================================================ */
+
+const STEPS = [
+  { id: 1, label: "Project" },
+  { id: 2, label: "Scope" },
+  { id: 3, label: "Contact" },
+] as const;
+
+function StepRail({ step }: { step: number }) {
+  return (
+    <div className="mx-auto flex max-w-md items-center justify-between">
+      {STEPS.map((s, i) => {
+        const isDone = step > s.id;
+        const isActive = step === s.id;
+        return (
+          <div key={s.id} className="flex flex-1 items-center last:flex-none">
+            <div className="flex flex-col items-center gap-2">
+              <span
+                className={cn(
+                  "flex h-9 w-9 items-center justify-center rounded-full border text-sm font-semibold transition-all",
+                  isDone && "border-primary bg-primary text-white",
+                  isActive && "border-primary bg-primary-soft text-primary shadow-coral",
+                  !isDone && !isActive && "border-border bg-surface text-text-muted"
+                )}
+              >
+                {isDone ? <Check className="h-4 w-4" /> : `0${s.id}`}
+              </span>
+              <span
+                className={cn(
+                  "text-[11px] font-medium uppercase tracking-[0.14em]",
+                  isActive ? "text-primary" : "text-text-muted"
+                )}
+              >
+                {s.label}
+              </span>
+            </div>
+            {i < STEPS.length - 1 && (
+              <span
+                className={cn(
+                  "mx-3 h-px flex-1 -translate-y-3",
+                  isDone ? "bg-primary" : "bg-border"
+                )}
+              />
+            )}
+          </div>
+        );
+      })}
+    </div>
+  );
+}
+
 function ProjectForm() {
+  const [step, setStep] = useState(1);
   const [picked, setPicked] = useState<string | null>(null);
   const [budget, setBudget] = useState<string | null>(null);
   const [timeline, setTimeline] = useState<string | null>(null);
+  const [fileName, setFileName] = useState<string | null>(null);
   const [submitted, setSubmitted] = useState(false);
+
+  const canContinue =
+    (step === 1 && Boolean(picked)) || (step === 2 && Boolean(budget) && Boolean(timeline));
+
+  const goNext = () => setStep((s) => Math.min(s + 1, 3));
+  const goBack = () => setStep((s) => Math.max(s - 1, 1));
 
   const onSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setSubmitted(true);
+  };
+
+  const reset = () => {
+    setStep(1);
+    setPicked(null);
+    setBudget(null);
+    setTimeline(null);
+    setFileName(null);
+    setSubmitted(false);
   };
 
   return (
@@ -93,8 +169,7 @@ function ProjectForm() {
               Tell us about your project.
             </h2>
             <p className="mt-4 text-base leading-relaxed text-text-secondary sm:text-lg">
-              The more we know, the more useful our first reply can be. We
-              respond within one business day.
+              Three quick steps. We reply within one business day.
             </p>
           </div>
         </Reveal>
@@ -106,240 +181,289 @@ function ProjectForm() {
                 <Check className="h-6 w-6" />
               </span>
               <h3 className="mt-5 font-display text-2xl font-bold text-text-primary">
-                Thank you for reaching out.
+                Your brief is in.
               </h3>
               <p className="mt-3 text-sm text-text-secondary sm:text-base">
-                Our team will review your project and get back to you within
-                one business day. If it&rsquo;s urgent, write to{" "}
+                We&rsquo;ll review it and reply within one business day. Urgent?
+                Write to{" "}
                 <a className="text-primary" href="mailto:hello@vistaar.com">
                   hello@vistaar.com
                 </a>
                 .
               </p>
+              <button
+                type="button"
+                onClick={reset}
+                className="mt-6 text-sm font-medium text-primary underline underline-offset-4"
+              >
+                Send another enquiry
+              </button>
             </GlassCard>
           </Reveal>
         ) : (
           <Reveal delay={1}>
-            <form
-              onSubmit={onSubmit}
-              className="mx-auto mt-12 grid max-w-4xl gap-8"
-            >
-              {/* Service picker */}
-              <div>
-                <label className="block">
-                  <span className="text-xs font-semibold uppercase tracking-[0.18em] text-text-muted">
-                    1 · What are you looking to build?
-                  </span>
-                </label>
-                <div className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-                  {SERVICE_OPTIONS.map((opt, i) => (
-                    <button
-                      key={opt.label}
-                      type="button"
-                      onClick={() => setPicked(opt.label)}
-                      className={cn(
-                        "rounded-2xl border border-border bg-surface p-4 text-left transition-all hover:-translate-y-0.5",
-                        picked === opt.label
-                          ? "border-primary bg-primary-soft shadow-coral"
-                          : "hover:border-primary/40"
+            <div className="mx-auto mt-12 w-full">
+              <div className="mx-auto max-w-xl">
+                <StepRail step={step} />
+              </div>
+
+              <GlassCard className="mt-8 p-7 sm:p-10">
+                <form onSubmit={onSubmit}>
+                  {/* STEP 1 — what are you building */}
+                  {step === 1 && (
+                    <div className="step-panel">
+                      <span className="text-xs font-semibold uppercase tracking-[0.18em] text-text-muted">
+                        What are you looking to build?
+                      </span>
+                      <div className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+                        {SERVICE_OPTIONS.map((opt) => {
+                          const isPicked = picked === opt.label;
+                          return (
+                            <button
+                              key={opt.label}
+                              type="button"
+                              onClick={() => setPicked(opt.label)}
+                              className={cn(
+                                "relative rounded-2xl border border-border bg-surface p-4 text-left transition-all hover:-translate-y-0.5",
+                                isPicked
+                                  ? "border-primary bg-primary-soft shadow-coral"
+                                  : "hover:border-primary/40"
+                              )}
+                            >
+                              {isPicked && (
+                                <span className="absolute right-3 top-3 flex h-5 w-5 items-center justify-center rounded-full bg-primary text-white">
+                                  <Check className="h-3 w-3" />
+                                </span>
+                              )}
+                              <div className="flex items-center gap-2">
+                                <span
+                                  className={cn(
+                                    "inline-flex h-7 w-7 items-center justify-center rounded-lg",
+                                    opt.tone === "coral" && "bg-primary-soft text-primary",
+                                    opt.tone === "blue" && "bg-secondary-soft text-secondary",
+                                    opt.tone === "violet" && "bg-accent-soft text-accent"
+                                  )}
+                                >
+                                  <Sparkles className="h-3.5 w-3.5" />
+                                </span>
+                                <span className="font-display text-sm font-semibold text-text-primary">
+                                  {opt.label}
+                                </span>
+                              </div>
+                              <div className="mt-2 text-xs text-text-secondary">
+                                {opt.items.join(" · ")}
+                              </div>
+                            </button>
+                          );
+                        })}
+                      </div>
+
+                      <div className="mt-6">
+                        <Field label="Project description" full>
+                          <textarea
+                            rows={4}
+                            placeholder="What are you building? What problem are you solving? Any links we should see?"
+                            className="input min-h-[120px] rounded-2xl py-3"
+                          />
+                        </Field>
+                      </div>
+                    </div>
+                  )}
+
+                  {/* STEP 2 — scope */}
+                  {step === 2 && (
+                    <div className="step-panel">
+                      <div>
+                        <span className="text-xs font-semibold uppercase tracking-[0.18em] text-text-muted">
+                          Estimated budget
+                        </span>
+                        <div className="mt-4 flex flex-wrap gap-2">
+                          {BUDGETS.map((b) => (
+                            <button
+                              key={b}
+                              type="button"
+                              onClick={() => setBudget(b)}
+                              className={cn(
+                                "rounded-full border border-border bg-surface px-4 py-2 text-sm transition-all",
+                                budget === b
+                                  ? "border-primary bg-primary text-white shadow-coral"
+                                  : "text-text-secondary hover:border-primary/40"
+                              )}
+                            >
+                              {b}
+                            </button>
+                          ))}
+                        </div>
+                      </div>
+
+                      <div className="mt-8">
+                        <span className="text-xs font-semibold uppercase tracking-[0.18em] text-text-muted">
+                          Preferred timeline
+                        </span>
+                        <div className="mt-4 flex flex-wrap gap-2">
+                          {TIMELINES.map((t) => (
+                            <button
+                              key={t}
+                              type="button"
+                              onClick={() => setTimeline(t)}
+                              className={cn(
+                                "rounded-full border border-border bg-surface px-4 py-2 text-sm transition-all",
+                                timeline === t
+                                  ? "border-primary bg-primary text-white shadow-coral"
+                                  : "text-text-secondary hover:border-primary/40"
+                              )}
+                            >
+                              {t}
+                            </button>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                  )}
+
+                  {/* STEP 3 — contact */}
+                  {step === 3 && (
+                    <div className="step-panel">
+                      <span className="text-xs font-semibold uppercase tracking-[0.18em] text-text-muted">
+                        How do we reach you?
+                      </span>
+                      <div className="mt-4 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+                        <Field label="Full name" required>
+                          <input required type="text" placeholder="Jane Doe" className="input" />
+                        </Field>
+                        <Field label="Company name">
+                          <input type="text" placeholder="Acme Inc." className="input" />
+                        </Field>
+                        <Field label="Email" required>
+                          <input required type="email" placeholder="jane@acme.com" className="input" />
+                        </Field>
+                        <Field label="Phone">
+                          <input type="tel" placeholder="+91 000 000 0000" className="input" />
+                        </Field>
+                        <Field label="Country">
+                          <input type="text" placeholder="India" className="input" />
+                        </Field>
+                        <Field label="Business website">
+                          <input type="url" placeholder="https://acme.com" className="input" />
+                        </Field>
+                        <Field label="Industry" full>
+                          <input type="text" placeholder="SaaS, E-commerce, Education…" className="input" />
+                        </Field>
+                        <Field label="How did you hear about us?" full>
+                          <input type="text" placeholder="Referral, search, social, event…" className="input" />
+                        </Field>
+                      </div>
+
+                      <div className="mt-5">
+                        <Field label="Attachment (optional)" full>
+                          <label className="flex cursor-pointer items-center justify-between gap-4 rounded-full border border-dashed border-border bg-surface px-5 py-3 text-sm text-text-secondary transition-colors hover:border-primary">
+                            <span className="flex items-center gap-2 truncate">
+                              <Paperclip className="h-4 w-4 shrink-0 text-text-muted" />
+                              {fileName ?? "Drop a brief, deck, or RFP — or click to browse"}
+                            </span>
+                            <span className="shrink-0 text-xs text-text-muted">
+                              PDF, DOCX, PNG, MP4 · max 25 MB
+                            </span>
+                            <input
+                              type="file"
+                              className="hidden"
+                              onChange={(e) => setFileName(e.target.files?.[0]?.name ?? null)}
+                            />
+                          </label>
+                        </Field>
+                      </div>
+                    </div>
+                  )}
+
+                  {/* NAV */}
+                  <div className="mt-9 flex flex-col gap-4 border-t border-border pt-6 sm:flex-row sm:items-center sm:justify-between">
+                    {step === 3 ? (
+                      <p className="text-xs text-text-muted">
+                        By submitting, you agree to our{" "}
+                        <Link href="/privacy" className="text-primary">
+                          privacy policy
+                        </Link>
+                        .
+                      </p>
+                    ) : (
+                      <span className="text-xs text-text-muted">
+                        Step {step} of {STEPS.length}
+                      </span>
+                    )}
+
+                    <div className="flex gap-3 sm:justify-end">
+                      {step > 1 && (
+                        <Button type="button" size="lg" variant="secondary" onClick={goBack} leftIcon={<ArrowLeft className="h-5 w-5" />}>
+                          Back
+                        </Button>
                       )}
-                    >
-                      <div className="flex items-center gap-2">
-                        <span
-                          className={cn(
-                            "inline-flex h-7 w-7 items-center justify-center rounded-lg",
-                            opt.tone === "coral" && "bg-primary-soft text-primary",
-                            opt.tone === "blue" && "bg-secondary-soft text-secondary",
-                            opt.tone === "violet" && "bg-accent-soft text-accent"
-                          )}
+                      {step < 3 ? (
+                        <Button
+                          type="button"
+                          size="lg"
+                          variant="primary"
+                          disabled={!canContinue}
+                          onClick={goNext}
+                          rightIcon={<ArrowRight className="h-5 w-5" />}
                         >
-                          <Sparkles className="h-3.5 w-3.5" />
-                        </span>
-                        <span className="font-display text-sm font-semibold text-text-primary">
-                          {opt.label}
-                        </span>
-                      </div>
-                      <div className="mt-2 text-xs text-text-secondary">
-                        {opt.items.join(" · ")}
-                      </div>
-                    </button>
-                  ))}
-                </div>
-              </div>
-
-              {/* Project details */}
-              <div className="grid gap-5 sm:grid-cols-2">
-                <Field label="Full name" required>
-                  <input
-                    required
-                    type="text"
-                    placeholder="Jane Doe"
-                    className="input"
-                  />
-                </Field>
-                <Field label="Company name">
-                  <input type="text" placeholder="Acme Inc." className="input" />
-                </Field>
-                <Field label="Email" required>
-                  <input
-                    required
-                    type="email"
-                    placeholder="jane@acme.com"
-                    className="input"
-                  />
-                </Field>
-                <Field label="Phone">
-                  <input type="tel" placeholder="+91 000 000 0000" className="input" />
-                </Field>
-                <Field label="Country">
-                  <input type="text" placeholder="India" className="input" />
-                </Field>
-                <Field label="Business website">
-                  <input type="url" placeholder="https://acme.com" className="input" />
-                </Field>
-                <Field label="Industry" full>
-                  <input type="text" placeholder="SaaS, E-commerce, Education…" className="input" />
-                </Field>
-              </div>
-
-              {/* Budget */}
-              <div>
-                <label className="block">
-                  <span className="text-xs font-semibold uppercase tracking-[0.18em] text-text-muted">
-                    2 · Estimated budget
-                  </span>
-                </label>
-                <div className="mt-4 flex flex-wrap gap-2">
-                  {BUDGETS.map((b) => (
-                    <button
-                      key={b}
-                      type="button"
-                      onClick={() => setBudget(b)}
-                      className={cn(
-                        "rounded-full border border-border bg-surface px-4 py-2 text-sm transition-all",
-                        budget === b
-                          ? "border-primary bg-primary text-white shadow-coral"
-                          : "text-text-secondary hover:border-primary/40"
+                          Continue
+                        </Button>
+                      ) : (
+                        <Button type="submit" size="lg" variant="primary" rightIcon={<ArrowRight className="h-5 w-5" />}>
+                          Send project brief
+                        </Button>
                       )}
-                    >
-                      {b}
-                    </button>
-                  ))}
-                </div>
-              </div>
-
-              {/* Timeline */}
-              <div>
-                <label className="block">
-                  <span className="text-xs font-semibold uppercase tracking-[0.18em] text-text-muted">
-                    3 · Preferred timeline
-                  </span>
-                </label>
-                <div className="mt-4 flex flex-wrap gap-2">
-                  {TIMELINES.map((t) => (
-                    <button
-                      key={t}
-                      type="button"
-                      onClick={() => setTimeline(t)}
-                      className={cn(
-                        "rounded-full border border-border bg-surface px-4 py-2 text-sm transition-all",
-                        timeline === t
-                          ? "border-primary bg-primary text-white shadow-coral"
-                          : "text-text-secondary hover:border-primary/40"
-                      )}
-                    >
-                      {t}
-                    </button>
-                  ))}
-                </div>
-              </div>
-
-              {/* Description */}
-              <Field label="Project description" full>
-                <textarea
-                  rows={5}
-                  placeholder="What are you building? What problem are you solving? Any links we should see?"
-                  className="input min-h-[140px] rounded-2xl py-3"
-                />
-              </Field>
-
-              {/* Attachment */}
-              <Field label="Attachment (optional)" full>
-                <label className="flex cursor-pointer items-center justify-between gap-4 rounded-full border border-dashed border-border bg-surface px-5 py-3 text-sm text-text-secondary transition-colors hover:border-primary">
-                  <span>Drop a brief, deck, or RFP — or click to browse</span>
-                  <span className="text-xs text-text-muted">PDF, DOCX, PNG, MP4 · max 25 MB</span>
-                  <input type="file" className="hidden" />
-                </label>
-              </Field>
-
-              {/* How did you hear */}
-              <Field label="How did you hear about us?">
-                <input
-                  type="text"
-                  placeholder="Referral, search, social, event…"
-                  className="input"
-                />
-              </Field>
-
-              <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-                <p className="text-xs text-text-muted">
-                  By submitting, you agree to our{" "}
-                  <Link href="/privacy" className="text-primary">
-                    privacy policy
-                  </Link>
-                  .
-                </p>
-                <div className="flex flex-col gap-3 sm:flex-row">
-                  <Button
-                    type="submit"
-                    size="lg"
-                    variant="primary"
-                    rightIcon={<ArrowRight className="h-5 w-5" />}
-                  >
-                    Submit Project
-                  </Button>
-                  <Button
-                    type="button"
-                    size="lg"
-                    variant="secondary"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      alert("Saved for later — feature coming soon.");
-                    }}
-                  >
-                    Save for Later
-                  </Button>
-                </div>
-              </div>
-            </form>
+                    </div>
+                  </div>
+                </form>
+              </GlassCard>
+            </div>
           </Reveal>
         )}
 
         <style jsx>{`
-          .input {
-            height: 48px;
-            width: 100%;
-            border-radius: 9999px;
-            border: 1px solid var(--border);
-            background: var(--background);
-            padding: 0 1.25rem;
-            font-size: 0.95rem;
-            color: var(--text-primary);
-            outline: none;
-            transition: border-color 200ms, box-shadow 200ms;
-          }
-          .input::placeholder {
-            color: var(--text-muted);
-          }
-          .input:focus {
-            border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(255, 90, 54, 0.2);
-          }
-          textarea.input {
-            border-radius: 1.25rem;
-            padding: 0.75rem 1.25rem;
-          }
-        `}</style>
+            .input {
+              height: 48px;
+              width: 100%;
+              border-radius: 9999px;
+              border: 1px solid var(--border);
+              background: var(--background);
+              padding: 0 1.25rem;
+              font-size: 0.95rem;
+              color: var(--text-primary);
+              outline: none;
+              transition: border-color 200ms, box-shadow 200ms;
+            }
+            .input::placeholder {
+              color: var(--text-muted);
+            }
+            .input:focus {
+              border-color: var(--primary);
+              box-shadow: 0 0 0 3px rgba(255, 90, 54, 0.2);
+            }
+            textarea.input {
+              border-radius: 1.25rem;
+              padding: 0.75rem 1.25rem;
+            }
+            .step-panel {
+              animation: step-in 320ms ease both;
+            }
+            @keyframes step-in {
+              from {
+                opacity: 0;
+                transform: translateY(8px);
+              }
+              to {
+                opacity: 1;
+                transform: translateY(0);
+              }
+            }
+            @media (prefers-reduced-motion: reduce) {
+              .step-panel {
+                animation: none;
+              }
+            }
+          `}</style>
       </Container>
     </section>
   );
@@ -563,7 +687,7 @@ function MiniFaq() {
           </div>
         </Reveal>
         <Reveal delay={1}>
-          <div className="mx-auto mt-12 max-w-3xl divide-y divide-border rounded-3xl border border-border bg-surface-strong">
+          <div className="mx-auto mt-12 w-full divide-y divide-border rounded-3xl border border-border bg-surface-strong">
             {FAQ.map((item, i) => {
               const isOpen = open === i;
               return (

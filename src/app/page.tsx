@@ -30,6 +30,7 @@ import { Button } from "@/components/button";
 import { Container } from "@/components/layout";
 import { Reveal } from "@/components/reveal";
 import { Halo, GlassCard } from "@/components/halo";
+import { PromptPill } from "@/components/prompt-pill";
 import { cn } from "@/lib/utils";
 import { useState } from "react";
 
@@ -38,7 +39,7 @@ import { useState } from "react";
    ============================================================ */
 function Hero() {
   return (
-    <section className="relative isolate overflow-hidden pt-28 sm:pt-32 lg:pt-40">
+    <section className="relative isolate overflow-hidden py-28 sm:py-32 lg:py-40">
       {/* Mesh + halos — the reference's signature look */}
       <div
         aria-hidden
@@ -51,23 +52,6 @@ function Hero() {
       <Halo tone="coral" className="-top-40 left-1/2 -z-10 h-[560px] w-[760px] -translate-x-1/2" />
       <Halo tone="blue" className="top-20 -right-32 -z-10 h-[420px] w-[420px] animate-float-slow" />
       <Halo tone="violet" className="top-60 -left-24 -z-10 h-[360px] w-[360px] animate-float" />
-
-      {/* Floating service icons */}
-      {[
-        { Icon: Brain, className: "top-[18%] left-[6%] hidden md:flex", delay: 0 },
-        { Icon: Bot, className: "top-[14%] right-[8%] hidden md:flex", delay: 0.6 },
-        { Icon: BarChart3, className: "bottom-[22%] left-[10%] hidden md:flex", delay: 1.2 },
-        { Icon: Sparkles, className: "bottom-[18%] right-[12%] hidden md:flex", delay: 1.8 },
-      ].map(({ Icon, className, delay }, i) => (
-        <div
-          key={i}
-          className={`pointer-events-none absolute -z-10 h-12 w-12 items-center justify-center rounded-2xl border border-border bg-surface-strong text-primary shadow-card animate-float ${className}`}
-          style={{ animationDelay: `${delay}s` }}
-          aria-hidden
-        >
-          <Icon className="h-5 w-5" />
-        </div>
-      ))}
 
       <Container className="relative">
         <div className="mx-auto flex max-w-4xl flex-col items-center text-center">
@@ -157,36 +141,14 @@ function Hero() {
 
           {/* Prompt input pill — the reference's signature element */}
           <Reveal delay={4}>
-            <div className="mt-10 w-full max-w-2xl">
-              <div className="relative">
-                <div className="pointer-events-none absolute -inset-2 rounded-full bg-[image:var(--gradient-primary)] opacity-15 blur-2xl" />
-                <form
-                  onSubmit={(e) => e.preventDefault()}
-                  className="relative flex items-center gap-2 rounded-full border border-border bg-background-elevated p-1.5 shadow-card"
-                >
-                  <div className="pl-4 text-text-muted">
-                    <Sparkles className="h-4 w-4" />
-                  </div>
-                  <input
-                    type="text"
-                    placeholder="Tell us about your project — branding, website, AI, growth…"
-                    className="h-12 flex-1 bg-transparent text-sm text-text-primary placeholder:text-text-muted outline-none"
-                    aria-label="Project description"
-                  />
-                  <Link href="/contact">
-                    <Button
-                      size="md"
-                      variant="primary"
-                      rightIcon={<ArrowRight className="h-4 w-4" />}
-                    >
-                      Start Project
-                    </Button>
-                  </Link>
-                </form>
-              </div>
-              <p className="mt-3 text-xs text-text-muted">
-                Free 30-min discovery call · NDA on request · Reply within 1 business day
-              </p>
+            <div className="mt-10 max-w-7xl">
+              <PromptPill
+                placeholder="Tell us about your project — branding, website, AI, growth…"
+                ctaLabel="Start Project"
+                ctaHref="/contact"
+                filename="vistaar.studio · brand-growth-workspace"
+                modelBadge="Vistaar AI"
+              />
             </div>
           </Reveal>
 
@@ -812,7 +774,7 @@ function FaqSection() {
         </Reveal>
 
         <Reveal delay={1}>
-          <div className="mx-auto mt-14 max-w-3xl divide-y divide-border rounded-3xl border border-border bg-surface-strong">
+          <div className="mx-auto mt-14 max-w-8xl divide-y divide-border rounded-3xl border border-border bg-surface-strong">
             {FAQ_ITEMS.map((item, i) => {
               const isOpen = open === i;
               return (
