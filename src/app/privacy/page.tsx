@@ -1,6 +1,6 @@
 "use client";
 
-import { Container } from "@/components/layout";
+import { Container, Section } from "@/components/layout";
 import { PageHero } from "@/components/page-hero";
 import { Reveal } from "@/components/reveal";
 
@@ -67,11 +67,11 @@ export default function PrivacyPage() {
         title="Your data, your rules."
         description="Plain-English summary of how we collect, use, and protect your information when you use vistaar.com or work with us."
       />
-      <section className="relative py-12 sm:py-16">
+      <Section className="bg-[var(--canvas)]">
         <Container>
           <div className="mx-auto max-w-3xl">
             <Reveal>
-              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-text-muted">
+              <p className="mono-eyebrow text-[var(--body)]">
                 Last updated · 17 March 2026
               </p>
             </Reveal>
@@ -79,10 +79,10 @@ export default function PrivacyPage() {
               {SECTIONS.map((s, i) => (
                 <Reveal key={s.title} delay={(i % 4) + 1}>
                   <div>
-                    <h2 className="font-display text-xl font-bold text-text-primary sm:text-2xl">
+                    <h2 className="text-[20px] font-medium text-[var(--ink)] sm:text-[22px]">
                       {s.title}
                     </h2>
-                    <p className="mt-3 text-sm leading-relaxed text-text-secondary sm:text-base">
+                    <p className="mt-3 text-[15px] leading-[1.5] text-[var(--body)]">
                       {s.body}
                     </p>
                   </div>
@@ -91,7 +91,7 @@ export default function PrivacyPage() {
             </div>
           </div>
         </Container>
-      </section>
+      </Section>
     </main>
   );
 }

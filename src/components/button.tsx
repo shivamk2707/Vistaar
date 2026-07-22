@@ -1,43 +1,73 @@
 "use client";
 
 import { type ReactNode, type ButtonHTMLAttributes, forwardRef } from "react";
+import Link from "next/link";
 import { cn } from "@/lib/utils";
 
-type Variant = "primary" | "secondary" | "ghost" | "outline" | "gradient";
+/* ============================================================
+   Button — Together-style.
+   - 4px radius, no shadow on light, no decorative chrome.
+   - Uppercase mono labels.
+   - Variants: primary (black), secondary-mint, secondary-white,
+     ghost-on-dark, outline.
+   ============================================================ */
+
+type Variant =
+  | "primary"
+  | "secondary-mint"
+  | "secondary-white"
+  | "ghost-on-dark"
+  | "outline"
+  | "ghost"
+  | "link";
+
 type Size = "sm" | "md" | "lg";
 
-interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+interface BaseProps {
   variant?: Variant;
   size?: Size;
   leftIcon?: ReactNode;
   rightIcon?: ReactNode;
   fullWidth?: boolean;
   loading?: boolean;
+  href?: string;
+  external?: boolean;
 }
 
+type ButtonProps =
+  | (BaseProps & ButtonHTMLAttributes<HTMLButtonElement> & { href?: undefined })
+  | (BaseProps & Omit<ButtonHTMLAttributes<HTMLButtonElement>, "href"> & { href: string });
+
 const sizeClasses: Record<Size, string> = {
-  sm: "h-9 px-3.5 text-sm rounded-full gap-1.5",
-  md: "h-11 px-5 text-[0.95rem] rounded-full gap-2",
-  lg: "h-12 px-6 text-base rounded-full gap-2",
+  sm: "h-8 px-4 text-[11px] gap-2",
+  md: "h-10 px-5 text-[12px] gap-2",
+  lg: "h-12 px-6 text-[12px] gap-2.5",
 };
+
+const baseClasses =
+  "relative inline-flex items-center justify-center font-mono font-medium uppercase tracking-[0.05em] rounded-[4px] transition-all duration-150 select-none disabled:opacity-50 disabled:pointer-events-none whitespace-nowrap";
 
 const variantClasses: Record<Variant, string> = {
-  // Coral solid — the primary reference look
   primary:
-    "relative text-white shadow-coral bg-[image:var(--gradient-primary)] hover:scale-[1.02] active:scale-[0.98] hover:shadow-[0_16px_50px_rgba(255,90,54,0.42)] transition-all duration-200 before:absolute before:inset-0 before:rounded-[inherit] before:opacity-0 hover:before:opacity-100 before:transition-opacity before:bg-white/10",
-  // Glassy neutral with border
-  secondary:
-    "bg-background-elevated text-text-primary border border-border hover:border-border-strong hover:shadow-card-hover hover:-translate-y-0.5 active:translate-y-0",
-  // Coral gradient (softer, more saturated)
-  gradient:
-    "relative text-white shadow-coral bg-[image:var(--gradient-accent)] bg-[length:200%_200%] animate-gradient-pan hover:scale-[1.02] active:scale-[0.98]",
-  ghost:
-    "text-text-primary hover:bg-background-muted active:bg-background-muted/80",
+    "bg-[var(--primary)] text-[var(--on-primary)] hover:opacity-90 active:opacity-80",
+  "secondary-mint":
+    "bg-[var(--accent-mint)] text-[var(--ink)] hover:opacity-90",
+  "secondary-white":
+    "bg-[var(--canvas)] text-[var(--ink)] border border-[var(--hairline)] hover:border-[var(--ink)]",
+  "ghost-on-dark":
+    "bg-[var(--surface-dark-soft)] text-[var(--on-dark)] hover:bg-[#3d4452]",
   outline:
-    "border border-border bg-transparent text-text-primary hover:bg-surface hover:border-border-strong",
+    "bg-[var(--canvas)] text-[var(--ink)] border border-[var(--hairline)] rounded-[3.25px] hover:border-[var(--ink)]",
+  ghost:
+    "bg-transparent text-[var(--ink)] hover:bg-[var(--hairline)]",
+  link:
+    "bg-transparent text-[var(--ink)] underline-offset-4 hover:underline p-0 h-auto",
 };
 
-export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
+export const Button = forwardRef<
+  HTMLButtonElement,
+  ButtonProps & { asLink?: boolean }
+>(
   (
     {
       className,
@@ -50,27 +80,17 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       loading,
       disabled,
       type = "button",
+      href,
+      external,
       ...rest
     },
     ref
   ) => {
-    return (
-      <button
-        ref={ref}
-        type={type}
-        disabled={disabled || loading}
-        className={cn(
-          "relative inline-flex items-center justify-center font-medium transition-all duration-200 select-none disabled:opacity-50 disabled:pointer-events-none",
-          sizeClasses[size],
-          variantClasses[variant],
-          fullWidth && "w-full",
-          className
-        )}
-        {...rest}
-      >
+    const content = (
+      <>
         {loading && (
           <span className="absolute inset-0 flex items-center justify-center">
-            <span className="h-4 w-4 animate-spin rounded-full border-2 border-current border-t-transparent" />
+            <span className="h-3 w-3 animate-spin rounded-full border-2 border-current border-t-transparent" />
           </span>
         )}
         <span
@@ -83,6 +103,46 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
           {children}
           {rightIcon}
         </span>
+      </>
+    );
+
+    const classes = cn(
+      baseClasses,
+      variantClasses[variant],
+      variant !== "link" && sizeClasses[size],
+      fullWidth && "w-full",
+      className
+    );
+
+    if (href) {
+      if (external) {
+        return (
+          <a
+            href={href}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={classes}
+          >
+            {content}
+          </a>
+        );
+      }
+      return (
+        <Link href={href} className={classes}>
+          {content}
+        </Link>
+      );
+    }
+
+    return (
+      <button
+        ref={ref}
+        type={type}
+        disabled={disabled || loading}
+        className={classes}
+        {...(rest as ButtonHTMLAttributes<HTMLButtonElement>)}
+      >
+        {content}
       </button>
     );
   }

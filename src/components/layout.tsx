@@ -7,7 +7,7 @@ export function Container({
 }: HTMLAttributes<HTMLDivElement>) {
   return (
     <div
-      className={cn("mx-auto w-full max-w-7xl px-5 sm:px-8 lg:px-10", className)}
+      className={cn("mx-auto w-full max-w-[1280px] px-5 sm:px-8 lg:px-8", className)}
       {...props}
     />
   );
@@ -15,31 +15,30 @@ export function Container({
 
 interface SectionProps extends HTMLAttributes<HTMLElement> {
   id?: string;
-  /** When true, gives the section a soft tinted background. */
-  tinted?: boolean;
-  /** When true, makes the section full-bleed with its own bg. */
-  contained?: boolean;
+  tone?: "light" | "dark";
+  className?: string;
 }
 
 export function Section({
   id,
   className,
   children,
-  tinted = false,
-  contained = false,
+  tone = "light",
   ...rest
 }: SectionProps) {
   return (
     <section
       id={id}
       className={cn(
-        "relative w-full py-20 sm:py-24 lg:py-28",
-        tinted && "bg-background-muted/60",
+        "relative w-full py-[80px] sm:py-[80px]",
+        tone === "dark"
+          ? "bg-[var(--canvas-dark)] text-[var(--on-dark)]"
+          : "bg-[var(--canvas)] text-[var(--ink)]",
         className
       )}
       {...rest}
     >
-      {contained ? <Container>{children}</Container> : children}
+      {children}
     </section>
   );
 }
@@ -51,6 +50,7 @@ interface SectionHeadingProps {
   align?: "left" | "center";
   className?: string;
   maxTitleWidth?: string;
+  onDark?: boolean;
 }
 
 export function SectionHeading({
@@ -60,6 +60,7 @@ export function SectionHeading({
   align = "center",
   className,
   maxTitleWidth = "max-w-3xl",
+  onDark = false,
 }: SectionHeadingProps) {
   return (
     <div
@@ -75,19 +76,28 @@ export function SectionHeading({
       {eyebrow && (
         <span
           className={cn(
-            "inline-flex items-center gap-2 rounded-full border border-border bg-surface px-3.5 py-1.5 text-xs font-semibold uppercase tracking-[0.18em] text-text-secondary",
-            align === "left" ? "" : "mx-auto"
+            "mono-eyebrow",
+            onDark ? "text-[var(--on-dark)] opacity-80" : "text-[var(--body)]"
           )}
         >
-          <span className="h-1.5 w-1.5 rounded-full bg-accent animate-pulse-soft" />
           {eyebrow}
         </span>
       )}
-      <h2 className="font-display text-3xl font-bold leading-[1.1] tracking-tight text-text-primary sm:text-4xl lg:text-5xl">
+      <h2
+        className={cn(
+          "text-display-xl",
+          onDark ? "text-[var(--on-dark)]" : "text-[var(--ink)]"
+        )}
+      >
         {title}
       </h2>
       {description && (
-        <p className="text-base leading-relaxed text-text-secondary sm:text-lg">
+        <p
+          className={cn(
+            "text-[17px] leading-relaxed",
+            onDark ? "text-[var(--on-dark)] opacity-80" : "text-[var(--body)]"
+          )}
+        >
           {description}
         </p>
       )}

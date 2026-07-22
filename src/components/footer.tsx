@@ -1,16 +1,10 @@
 "use client";
 
-import { useState } from "react";
 import Link from "next/link";
-import {
-  ArrowUpRight,
-  Send,
-  Check,
-  Mail,
-  MapPin,
-  Phone,
-  Clock,
-} from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
+import { Button } from "./button";
+import { Container } from "./layout";
+import { VistaarLogo } from "./vistaar-logo";
 import {
   LinkedinIcon,
   InstagramIcon,
@@ -18,9 +12,6 @@ import {
   XIcon as Twitter,
   YoutubeIcon,
 } from "./social-icons";
-import { Container } from "./layout";
-import { VistaarLogo } from "./vistaar-logo";
-import { cn } from "@/lib/utils";
 
 const FOOTER_LINKS = [
   {
@@ -35,8 +26,8 @@ const FOOTER_LINKS = [
   {
     title: "Services",
     items: [
-      { href: "/services#branding", label: "Branding" },
       { href: "/services#consulting", label: "Business Consulting" },
+      { href: "/services#branding", label: "Branding" },
       { href: "/services#engineering", label: "Website Development" },
       { href: "/services#ai", label: "AI Automation" },
       { href: "/services#creative", label: "Creative Studio" },
@@ -47,20 +38,10 @@ const FOOTER_LINKS = [
     title: "Resources",
     items: [
       { href: "/insights", label: "Insights" },
-      { href: "/insights#articles", label: "Articles" },
       { href: "/method", label: "Our Method" },
       { href: "/faq", label: "FAQs" },
       { href: "/privacy", label: "Privacy Policy" },
       { href: "/terms", label: "Terms & Conditions" },
-    ],
-  },
-  {
-    title: "Contact",
-    items: [
-      { href: "mailto:hello@vistaar.com", label: "hello@vistaar.com" },
-      { href: "tel:+910000000000", label: "+91 000 000 0000" },
-      { href: "/contact#offices", label: "Mumbai, India" },
-      { href: "/contact#offices", label: "Mon–Sat · 9:00–19:00" },
     ],
   },
 ];
@@ -78,104 +59,57 @@ const SOCIAL: Array<{
 ];
 
 export function Footer() {
-  const [email, setEmail] = useState("");
-  const [subscribed, setSubscribed] = useState(false);
-
-  const onSubscribe = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!email) return;
-    setSubscribed(true);
-    setEmail("");
-    setTimeout(() => setSubscribed(false), 4000);
-  };
-
   return (
-    <footer className="relative mt-12 overflow-hidden border-t border-border bg-background-elevated">
-      <div className="pointer-events-none absolute inset-x-0 -top-32 h-64 bg-glow opacity-60" />
-
-      <Container className="relative">
-        {/* Newsletter */}
-        {/* <div className="grid gap-10 border-b border-border py-14 lg:grid-cols-2 lg:items-center">
-          <div className="max-w-xl">
-            <span className="inline-flex items-center gap-2 rounded-full border border-border bg-surface px-3.5 py-1.5 text-xs font-semibold uppercase tracking-[0.18em] text-text-secondary">
-              <span className="h-1.5 w-1.5 rounded-full bg-primary animate-pulse-soft" />
-              Newsletter
-            </span>
-            <h3 className="mt-4 font-display text-2xl font-bold leading-tight sm:text-3xl">
-              Insights delivered to your inbox.
-            </h3>
-            <p className="mt-2 text-text-secondary">
-              Growth strategy, AI playbooks, and product thinking from the
-              Vistaar studio. One short read, every other Friday.
-            </p>
-          </div>
-          <form
-            onSubmit={onSubscribe}
-            className="flex w-full max-w-md flex-col gap-2 sm:flex-row lg:justify-self-end"
-          >
-            <div className="relative w-full">
-              <Mail className="pointer-events-none absolute left-5 top-1/2 h-4 w-4 -translate-y-1/2 text-text-muted" />
-              <input
-                type="email"
-                required
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="you@company.com"
-                className="h-12 w-full rounded-full border border-border bg-background pl-12 pr-4 text-sm text-text-primary outline-none transition-all focus:border-primary focus:ring-2 focus:ring-primary/20"
-                aria-label="Email address"
-              />
+    <footer className="bg-[var(--canvas)] text-[var(--ink)]">
+      {/* Newsletter + CTA strip */}
+      <div className="border-t border-[var(--hairline)]">
+        <Container>
+          <div className="grid gap-10 py-16 lg:grid-cols-2 lg:items-center">
+            <div>
+              <span className="mono-eyebrow text-[var(--body)]">Newsletter</span>
+              <h3 className="mt-3 text-display-md">
+                Insights delivered to your inbox.
+              </h3>
+              <p className="mt-3 max-w-md text-[15px] leading-relaxed text-[var(--body)]">
+                Growth strategy, AI playbooks, and product thinking from the
+                Vistaar studio. One short read, every other Friday.
+              </p>
             </div>
-            <button
-              type="submit"
-              className={cn(
-                "inline-flex h-12 items-center justify-center gap-2 rounded-full px-5 text-sm font-medium text-white shadow-coral transition-all hover:scale-[1.02] active:scale-[0.99]",
-                "bg-[image:var(--gradient-primary)]"
-              )}
-            >
-              {subscribed ? (
-                <>
-                  <Check className="h-4 w-4" /> Subscribed
-                </>
-              ) : (
-                <>
-                  <Send className="h-4 w-4" /> Subscribe
-                </>
-              )}
-            </button>
-          </form>
-        </div> */}
+            <div className="flex flex-col gap-3 sm:flex-row lg:justify-end">
+              <Link
+                href="/contact"
+                className="text-[14px] text-[var(--ink)] underline-offset-4 hover:underline"
+              >
+                hello@vistaar.com
+              </Link>
+              <Link href="/contact">
+                <Button variant="primary" rightIcon={<ArrowUpRight className="h-3.5 w-3.5" />}>
+                  Book a call
+                </Button>
+              </Link>
+            </div>
+          </div>
+        </Container>
+      </div>
 
-        {/* Link columns */}
-        <div className="grid gap-10 py-14 md:grid-cols-2 lg:grid-cols-6">
-          <div className="lg:col-span-2">
+      {/* Link columns */}
+      <Container>
+        <div className="grid gap-10 border-t border-[var(--hairline)] py-16 md:grid-cols-2 lg:grid-cols-6">
+          <div className="lg:col-span-3">
             <VistaarLogo />
-            <p className="mt-4 max-w-xs text-sm leading-relaxed text-text-secondary">
-              An AI-powered Brand Growth Company helping startups, founders,
-              and businesses build, launch, market, automate, and scale.
+            <p className="mt-5 max-w-xs text-[14px] leading-relaxed text-[var(--body)]">
+              An AI-powered Brand Growth Company helping startups, founders, and
+              businesses build, launch, market, automate, and scale.
             </p>
-            <ul className="mt-6 space-y-2 text-sm text-text-secondary">
-              <li className="flex items-start gap-2.5">
-                <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
-                Mumbai, India · Remote worldwide
-              </li>
-              <li className="flex items-start gap-2.5">
-                <Phone className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
-                +91 000 000 0000
-              </li>
-              <li className="flex items-start gap-2.5">
-                <Clock className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
-                Mon – Sat · 9:00 – 19:00 IST
-              </li>
-            </ul>
             <div className="mt-6 flex items-center gap-2">
               {SOCIAL.map(({ Icon, label, href }) => (
                 <a
                   key={label}
                   href={href}
                   aria-label={label}
-                  className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-border bg-surface text-text-secondary transition-all hover:scale-105 hover:border-primary/40 hover:text-text-primary"
+                  className="inline-flex h-8 w-8 items-center justify-center border border-[var(--hairline)] text-[var(--body)] transition-colors hover:border-[var(--ink)] hover:text-[var(--ink)]"
                 >
-                  <Icon className="h-4 w-4" />
+                  <Icon className="h-3.5 w-3.5" />
                 </a>
               ))}
             </div>
@@ -183,18 +117,15 @@ export function Footer() {
 
           {FOOTER_LINKS.map((col) => (
             <div key={col.title}>
-              <h4 className="text-xs font-semibold uppercase tracking-[0.18em] text-text-muted">
-                {col.title}
-              </h4>
-              <ul className="mt-4 space-y-3 text-sm">
+              <h4 className="mono-eyebrow text-[var(--body)]">{col.title}</h4>
+              <ul className="mt-5 space-y-3 text-[14px]">
                 {col.items.map((item) => (
                   <li key={item.label}>
                     <Link
                       href={item.href}
-                      className="group inline-flex items-center gap-1 text-text-secondary transition-colors hover:text-text-primary"
+                      className="group inline-flex items-center gap-1 text-[var(--ink)] transition-opacity hover:opacity-70"
                     >
                       <span>{item.label}</span>
-                      <ArrowUpRight className="h-3 w-3 -translate-y-0.5 opacity-0 transition-all group-hover:translate-x-0.5 group-hover:opacity-60" />
                     </Link>
                   </li>
                 ))}
@@ -204,14 +135,32 @@ export function Footer() {
         </div>
 
         {/* Bottom bar */}
-        <div className="flex flex-col items-center justify-between gap-3 border-t border-border py-6 text-xs text-text-muted sm:flex-row">
+        <div className="flex flex-col items-center justify-between gap-3 border-t border-[var(--hairline)] py-6 text-[12px] text-[var(--body)] sm:flex-row">
           <p>© 2026 Vistaar. All rights reserved.</p>
-          <p className="inline-flex items-center gap-1.5">
-            <span className="h-1.5 w-1.5 rounded-full bg-success animate-pulse-soft" />
-            Building Brands. Growing Businesses.
-          </p>
+          <div className="flex items-center gap-4">
+            <Link href="/privacy" className="hover:text-[var(--ink)]">Privacy</Link>
+            <Link href="/terms" className="hover:text-[var(--ink)]">Terms</Link>
+            <span className="mono-eyebrow">Mumbai · India</span>
+          </div>
         </div>
       </Container>
+
+      {/* Giant wordmark banner — the "you have arrived" sign-off */}
+      <div className="overflow-hidden bg-[var(--canvas)]">
+        <div
+          aria-hidden
+          className="select-none whitespace-nowrap text-center"
+          style={{
+            fontSize: "clamp(80px, 22vw, 320px)",
+            fontWeight: 500,
+            letterSpacing: "-0.05em",
+            lineHeight: 0.85,
+            color: "var(--hairline)",
+          }}
+        >
+          vistaar.ai
+        </div>
+      </div>
     </footer>
   );
 }

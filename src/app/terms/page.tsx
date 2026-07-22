@@ -1,6 +1,6 @@
 "use client";
 
-import { Container } from "@/components/layout";
+import { Container, Section } from "@/components/layout";
 import { PageHero } from "@/components/page-hero";
 import { Reveal } from "@/components/reveal";
 
@@ -79,11 +79,11 @@ export default function TermsPage() {
         title="The fine print, made human."
         description="Plain-English version of the terms that govern your use of vistaar.com and any services we deliver. We aim to be fair, transparent, and boring — in the best way."
       />
-      <section className="relative py-12 sm:py-16">
+      <Section className="bg-[var(--canvas)]">
         <Container>
           <div className="mx-auto max-w-3xl">
             <Reveal>
-              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-text-muted">
+              <p className="mono-eyebrow text-[var(--body)]">
                 Last updated · 17 March 2026
               </p>
             </Reveal>
@@ -91,10 +91,10 @@ export default function TermsPage() {
               {SECTIONS.map((s, i) => (
                 <Reveal key={s.title} delay={(i % 4) + 1}>
                   <div>
-                    <h2 className="font-display text-xl font-bold text-text-primary sm:text-2xl">
+                    <h2 className="text-[20px] font-medium text-[var(--ink)] sm:text-[22px]">
                       {s.title}
                     </h2>
-                    <p className="mt-3 text-sm leading-relaxed text-text-secondary sm:text-base">
+                    <p className="mt-3 text-[15px] leading-[1.5] text-[var(--body)]">
                       {s.body}
                     </p>
                   </div>
@@ -103,7 +103,7 @@ export default function TermsPage() {
             </div>
           </div>
         </Container>
-      </section>
+      </Section>
     </main>
   );
 }

@@ -1,14 +1,13 @@
 "use client";
 
 import Link from "next/link";
-import { ArrowRight, ArrowUpRight, Check, Sparkles } from "lucide-react";
-import { Button } from "@/components/button";
-import { Container } from "@/components/layout";
-import { PageHero, Stat } from "@/components/page-hero";
-import { Reveal } from "@/components/reveal";
-import { Halo, GlassCard } from "@/components/halo";
-import { cn } from "@/lib/utils";
 import { useState } from "react";
+import { ArrowRight, ArrowUpRight, Check, Plus } from "lucide-react";
+import { Button } from "@/components/button";
+import { Container, Section, SectionHeading } from "@/components/layout";
+import { PageHero } from "@/components/page-hero";
+import { Reveal } from "@/components/reveal";
+import { cn } from "@/lib/utils";
 
 /* ============================================================
    DATA
@@ -65,56 +64,52 @@ const TEAM = [
     role: "Founder & Strategy Lead",
     bio: "12+ years across brand strategy, growth, and product. Previously led growth at two SaaS unicorns.",
     initials: "AI",
-    tone: "coral" as const,
   },
   {
     name: "Sara Kapoor",
     role: "Head of Design",
     bio: "Brand identity and product design. Has shipped design systems used by 20M+ people.",
     initials: "SK",
-    tone: "blue" as const,
   },
   {
     name: "Devansh Rao",
     role: "Head of Engineering",
     bio: "Full-stack architect. Loves clean code, fast pages, and solving impossible migration problems.",
     initials: "DR",
-    tone: "violet" as const,
   },
   {
     name: "Maya Chen",
     role: "AI & Automation Lead",
     bio: "Builds production AI agents for B2B. Ex-researcher, current practitioner.",
     initials: "MC",
-    tone: "pink" as const,
   },
 ];
 
+const STATS = [
+  { value: "100+", label: "Brands Built" },
+  { value: "1K+", label: "Workflows Automated" },
+  { value: "40+", label: "Industries Served" },
+  { value: "98%", label: "Retention Rate" },
+];
+
 /* ============================================================
-   INTERACTIVE STORY ACCORDION
+   STORY ACCORDION
    ============================================================ */
 function StorySection() {
   const [open, setOpen] = useState<number | null>(0);
   return (
-    <section id="story" className="relative py-20 sm:py-24 lg:py-28">
+    <Section className="bg-[var(--canvas)]" id="story">
       <Container>
         <Reveal>
-          <div className="mx-auto max-w-3xl text-center">
-            <span className="inline-flex items-center gap-2 rounded-full border border-border bg-surface px-3.5 py-1.5 text-xs font-semibold uppercase tracking-[0.18em] text-text-secondary">
-              <span className="h-1.5 w-1.5 rounded-full bg-primary animate-pulse-soft" />
-              More than an agency
-            </span>
-            <h2 className="mt-5 font-display text-3xl font-bold leading-[1.1] tracking-tight text-text-primary sm:text-4xl lg:text-5xl">
-              A growth partner, not a vendor.
-            </h2>
-            <p className="mt-4 text-base leading-relaxed text-text-secondary sm:text-lg">
-              The four answers every founder wants before they hire anyone.
-            </p>
-          </div>
+          <SectionHeading
+            eyebrow="More than an agency"
+            title="A growth partner, not a vendor."
+            description="The four answers every founder wants before they hire anyone."
+          />
         </Reveal>
 
         <Reveal delay={1}>
-          <div className="mx-auto mt-12 max-w-full divide-y divide-border rounded-3xl border border-border bg-surface-strong shadow-card">
+          <div className="mx-auto mt-14 max-w-3xl divide-y divide-[var(--hairline)] border-y border-[var(--hairline)]">
             {STORY.map((item, i) => {
               const isOpen = open === i;
               return (
@@ -122,39 +117,34 @@ function StorySection() {
                   <button
                     type="button"
                     onClick={() => setOpen(isOpen ? null : i)}
-                    className={cn(
-                      "flex w-full items-center justify-between gap-4 px-5 py-5 text-left transition-colors sm:px-7",
-                      isOpen ? "bg-primary-soft/40" : "hover:bg-background-muted/40"
-                    )}
+                    className="flex w-full items-center justify-between gap-4 py-5 text-left transition-colors hover:bg-[#fafafa]"
                     aria-expanded={isOpen}
                   >
                     <div className="flex items-center gap-4">
                       <span
                         className={cn(
-                          "inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-xs font-semibold",
+                          "inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-[12px] font-medium",
                           isOpen
-                            ? "bg-primary text-white"
-                            : "bg-background-muted text-text-muted"
+                            ? "bg-[var(--ink)] text-[var(--canvas)]"
+                            : "bg-[var(--hairline)] text-[var(--body)]"
                         )}
                       >
                         0{i + 1}
                       </span>
-                      <span className="text-base font-semibold text-text-primary sm:text-lg">
+                      <span className="text-[18px] font-medium text-[var(--ink)]">
                         {item.q}
                       </span>
                     </div>
-                    <span
+                    <Plus
                       className={cn(
-                        "inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-border transition-transform",
-                        isOpen && "rotate-45 bg-primary/10 text-primary"
+                        "h-4 w-4 shrink-0 text-[var(--body)] transition-transform",
+                        isOpen && "rotate-45 text-[var(--ink)]"
                       )}
-                    >
-                      +
-                    </span>
+                    />
                   </button>
                   {isOpen && (
-                    <div className="px-5 pb-6 text-sm leading-relaxed text-text-secondary sm:px-7 sm:text-base">
-                      <p>{item.body}</p>
+                    <div className="pb-6 pl-13 pr-10 text-[15px] leading-[1.5] text-[var(--body)] sm:pl-[52px]">
+                      {item.body}
                     </div>
                   )}
                 </div>
@@ -163,7 +153,41 @@ function StorySection() {
           </div>
         </Reveal>
       </Container>
-    </section>
+    </Section>
+  );
+}
+
+/* ============================================================
+   STATS — dark band
+   ============================================================ */
+function Stats() {
+  return (
+    <Section tone="dark" className="bg-[var(--canvas-dark)]">
+      <Container>
+        <Reveal>
+          <span className="mono-eyebrow text-[var(--on-dark)] opacity-70">
+            By the numbers
+          </span>
+          <h2 className="mt-4 text-display-xl text-[var(--on-dark)] max-w-2xl">
+            Outcomes, not deliverables.
+          </h2>
+        </Reveal>
+        <div className="mt-14 grid grid-cols-2 gap-3 lg:grid-cols-4">
+          {STATS.map((s, i) => (
+            <Reveal key={s.label} delay={i + 1}>
+              <div className="rounded-[4px] bg-[var(--surface-dark-soft)] p-8">
+                <div className="text-[40px] font-medium leading-[1.1] tracking-[-0.02em] text-[var(--on-dark)]">
+                  {s.value}
+                </div>
+                <div className="mt-3 mono-eyebrow text-[var(--on-dark)] opacity-70">
+                  {s.label}
+                </div>
+              </div>
+            </Reveal>
+          ))}
+        </div>
+      </Container>
+    </Section>
   );
 }
 
@@ -172,72 +196,35 @@ function StorySection() {
    ============================================================ */
 function Principles() {
   return (
-    <section className="relative py-20 sm:py-24 lg:py-28">
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-0 -z-10 bg-soft-tint"
-      />
+    <Section className="bg-[var(--canvas)]">
       <Container>
         <Reveal>
-          <div className="mx-auto max-w-3xl text-center">
-            <h2 className="font-display text-3xl font-bold leading-[1.1] tracking-tight text-text-primary sm:text-4xl lg:text-5xl">
-              Six principles that shape every project.
-            </h2>
-            <p className="mt-4 text-base leading-relaxed text-text-secondary sm:text-lg">
-              We hold these as standards, not slogans. Every engagement, every
-              team, every deliverable.
-            </p>
-          </div>
+          <SectionHeading
+            eyebrow="Working principles"
+            title="Six principles that shape every project."
+            description="We hold these as standards, not slogans. Every engagement, every team, every deliverable."
+          />
         </Reveal>
 
-        <div className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-14 grid gap-px overflow-hidden rounded-[4px] border border-[var(--hairline)] bg-[var(--hairline)] md:grid-cols-2 lg:grid-cols-3">
           {PRINCIPLES.map((p, i) => (
             <Reveal key={p.title} delay={(i % 3) + 1}>
-              <GlassCard
-                tone={(["coral", "blue", "violet"] as const)[i % 3]}
-                className="h-full p-7"
-              >
-                <span className="inline-flex h-9 w-9 items-center justify-center rounded-full bg-success/10 text-success">
+              <div className="flex h-full flex-col bg-[var(--canvas)] p-8">
+                <span className="inline-flex h-8 w-8 items-center justify-center rounded-[4px] bg-[var(--ink)] text-[var(--canvas)]">
                   <Check className="h-4 w-4" />
                 </span>
-                <h3 className="mt-5 font-display text-lg font-semibold text-text-primary">
+                <h3 className="mt-6 text-[20px] font-medium leading-[1.2] tracking-[-0.01em] text-[var(--ink)]">
                   {p.title}
                 </h3>
-                <p className="mt-2 text-sm leading-relaxed text-text-secondary">
+                <p className="mt-3 text-[15px] leading-[1.5] text-[var(--body)]">
                   {p.body}
                 </p>
-              </GlassCard>
+              </div>
             </Reveal>
           ))}
         </div>
       </Container>
-    </section>
-  );
-}
-
-/* ============================================================
-   STATS
-   ============================================================ */
-function Stats() {
-  return (
-    <section className="relative border-y border-border bg-background-tint py-20">
-      <Container>
-        <div className="grid grid-cols-2 gap-y-10 sm:grid-cols-4">
-          <Reveal delay={1}>
-            <Stat value={<span className="bg-[image:var(--gradient-accent)] bg-clip-text text-transparent">100+</span>} label="Brands Built" />
-          </Reveal>
-          <Reveal delay={2}>
-            <Stat value={<span className="bg-[image:var(--gradient-cool)] bg-clip-text text-transparent">1K+</span>} label="Workflows Automated" />
-          </Reveal>
-          <Reveal delay={3}>
-            <Stat value={<span className="text-primary">40+</span>} label="Industries Served" />
-          </Reveal>
-          <Reveal delay={4}>
-            <Stat value={<span className="text-accent">98%</span>} label="Retention Rate" />
-          </Reveal>
-        </div>
-      </Container>
-    </section>
+    </Section>
   );
 }
 
@@ -246,48 +233,38 @@ function Stats() {
    ============================================================ */
 function Team() {
   return (
-    <section className="relative py-20 sm:py-24 lg:py-28">
+    <Section className="bg-[var(--canvas)]">
       <Container>
         <Reveal>
-          <div className="mx-auto max-w-3xl text-center">
-            <h2 className="font-display text-3xl font-bold leading-[1.1] tracking-tight text-text-primary sm:text-4xl lg:text-5xl">
-              The people behind the work.
-            </h2>
-            <p className="mt-4 text-base leading-relaxed text-text-secondary sm:text-lg">
-              Senior strategists, designers, engineers, and AI specialists —
-              in-house, not subcontracted.
-            </p>
-          </div>
+          <SectionHeading
+            eyebrow="The team"
+            title="The people behind the work."
+            description="Senior strategists, designers, engineers, and AI specialists — in-house, not subcontracted."
+          />
         </Reveal>
 
-        <div className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="mt-14 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {TEAM.map((m, i) => (
             <Reveal key={m.name} delay={(i % 4) + 1}>
-              <GlassCard tone={m.tone} className="h-full p-6">
-                <div className="relative">
-                  <div
-                    aria-hidden
-                    className="pointer-events-none absolute -right-6 -top-6 h-28 w-28 rounded-full bg-glow blur-2xl"
-                  />
-                  <div className="inline-flex h-16 w-16 items-center justify-center rounded-2xl bg-primary-soft text-base font-semibold text-primary">
-                    {m.initials}
-                  </div>
-                  <h3 className="mt-5 font-display text-base font-semibold text-text-primary">
-                    {m.name}
-                  </h3>
-                  <p className="mt-0.5 text-xs font-medium uppercase tracking-wider text-primary">
-                    {m.role}
-                  </p>
-                  <p className="mt-3 text-sm leading-relaxed text-text-secondary">
-                    {m.bio}
-                  </p>
+              <div className="rounded-[4px] border border-[var(--hairline)] bg-[var(--canvas)] p-6">
+                <div className="inline-flex h-14 w-14 items-center justify-center rounded-[4px] bg-[var(--hairline)] text-[14px] font-medium text-[var(--ink)]">
+                  {m.initials}
                 </div>
-              </GlassCard>
+                <h3 className="mt-5 text-[18px] font-medium text-[var(--ink)]">
+                  {m.name}
+                </h3>
+                <p className="mt-1 mono-eyebrow text-[var(--body)]">
+                  {m.role}
+                </p>
+                <p className="mt-4 text-[14px] leading-[1.5] text-[var(--body)]">
+                  {m.bio}
+                </p>
+              </div>
             </Reveal>
           ))}
         </div>
       </Container>
-    </section>
+    </Section>
   );
 }
 
@@ -296,36 +273,42 @@ function Team() {
    ============================================================ */
 function AboutCta() {
   return (
-    <section className="relative py-20">
+    <Section tone="dark" className="bg-[var(--canvas-dark)]">
       <Container>
         <Reveal>
-          <div className="relative overflow-hidden rounded-[2rem] border border-border bg-surface-strong px-6 py-12 text-center shadow-elevated sm:px-12">
-            <Halo tone="coral" className="top-1/2 left-1/2 -z-0 h-[360px] w-[600px] -translate-x-1/2 -translate-y-1/2" />
-            <div className="relative">
-              <h2 className="mx-auto max-w-2xl font-display text-3xl font-bold leading-[1.1] tracking-tight text-text-primary sm:text-4xl">
-                Ready to build something that lasts?
-              </h2>
-              <p className="mx-auto mt-4 max-w-xl text-base leading-relaxed text-text-secondary">
-                Start with a 30-minute call. We&rsquo;ll share our honest take on
-                what you&rsquo;re working on — no pitch, no pressure.
-              </p>
-              <div className="mt-7 flex flex-col items-center justify-center gap-3 sm:flex-row">
-                <Link href="/contact">
-                  <Button size="lg" variant="primary" rightIcon={<ArrowRight className="h-5 w-5" />}>
-                    Start Your Project
-                  </Button>
-                </Link>
-                <Link href="/method">
-                  <Button size="lg" variant="secondary" rightIcon={<ArrowUpRight className="h-5 w-5" />}>
-                    See How We Work
-                  </Button>
-                </Link>
-              </div>
+          <div className="mx-auto max-w-3xl text-center">
+            <span className="mono-eyebrow text-[var(--on-dark)] opacity-70">
+              Get started
+            </span>
+            <h2 className="mt-5 text-display-xl text-[var(--on-dark)]">
+              Ready to build something that lasts?
+            </h2>
+            <p className="mt-5 text-[17px] leading-[1.5] text-[var(--on-dark)] opacity-80">
+              Start with a 30-minute call. We&rsquo;ll share our honest take on
+              what you&rsquo;re working on — no pitch, no pressure.
+            </p>
+            <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
+              <Button
+                size="lg"
+                variant="secondary-mint"
+                rightIcon={<ArrowRight className="h-4 w-4" />}
+                href="/contact"
+              >
+                Start your project
+              </Button>
+              <Button
+                size="lg"
+                variant="secondary-white"
+                rightIcon={<ArrowUpRight className="h-4 w-4" />}
+                href="/method"
+              >
+                See how we work
+              </Button>
             </div>
           </div>
         </Reveal>
       </Container>
-    </section>
+    </Section>
   );
 }
 
@@ -341,16 +324,22 @@ export default function AboutPage() {
         highlight="A growth partner."
         description="We exist for founders and businesses who want more than deliverables. Strategy, brand, technology, and AI — under one vision, one team, one partnership."
       >
-        <Link href="/contact">
-          <Button size="lg" variant="primary" rightIcon={<ArrowRight className="h-5 w-5" />}>
-            Start a Conversation
-          </Button>
-        </Link>
-        <Link href="/services">
-          <Button size="lg" variant="secondary" rightIcon={<ArrowUpRight className="h-5 w-5" />}>
-            See What We Do
-          </Button>
-        </Link>
+        <Button
+          size="lg"
+          variant="secondary-mint"
+          rightIcon={<ArrowRight className="h-4 w-4" />}
+          href="/contact"
+        >
+          Start a conversation
+        </Button>
+        <Button
+          size="lg"
+          variant="secondary-white"
+          rightIcon={<ArrowUpRight className="h-4 w-4" />}
+          href="/services"
+        >
+          See what we do
+        </Button>
       </PageHero>
 
       <StorySection />

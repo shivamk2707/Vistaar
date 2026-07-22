@@ -2,12 +2,11 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import { ArrowRight, ArrowUpRight, Search } from "lucide-react";
+import { ArrowRight, ArrowUpRight, Plus, Search } from "lucide-react";
 import { Button } from "@/components/button";
-import { Container } from "@/components/layout";
+import { Container, Section, SectionHeading } from "@/components/layout";
 import { PageHero } from "@/components/page-hero";
 import { Reveal } from "@/components/reveal";
-import { Halo, GlassCard } from "@/components/halo";
 import { cn } from "@/lib/utils";
 
 const FAQ = [
@@ -20,7 +19,7 @@ const FAQ = [
       },
       {
         q: "How much does a project cost?",
-        a: "Projects range from $5K for focused sprints to $150K+ for full ecosystem builds. We share a detailed quote after the discovery call, with line-item breakdown. No surprise change orders, ever.",
+        a: "Projects range from ₹5L for focused sprints to ₹1.25Cr+ for full ecosystem builds. We share a detailed quote after the discovery call, with line-item breakdown. No surprise change orders, ever.",
       },
       {
         q: "How soon can we start?",
@@ -107,34 +106,34 @@ export default function FaqPage() {
         highlight="Honestly."
         description="The things founders and teams ask us most often. Can't find what you need? Send us a note — we usually reply within a day."
       >
-        <Link href="/contact">
-          <Button size="lg" variant="primary" rightIcon={<ArrowRight className="h-5 w-5" />}>
-            Ask Us Directly
-          </Button>
-        </Link>
+        <Button
+          size="lg"
+          variant="secondary-mint"
+          rightIcon={<ArrowRight className="h-4 w-4" />}
+          href="/contact"
+        >
+          Ask us directly
+        </Button>
       </PageHero>
 
       {/* Search + filter */}
-      <section className="relative pt-10 sm:pt-14">
+      <Section className="bg-[var(--canvas)] pt-12">
         <Container>
           <Reveal>
-            <div className="mx-auto w-full">
+            <div className="mx-auto w-full max-w-3xl">
               <div className="relative">
-                <div className="pointer-events-none absolute -inset-2 rounded-full bg-[image:var(--gradient-primary)] opacity-10 blur-2xl" />
-                <div className="relative flex items-center gap-2 rounded-full border border-border bg-background-elevated p-1.5 shadow-card">
-                  <div className="pl-4 text-text-muted">
-                    <Search className="h-4 w-4" />
-                  </div>
-                  <input
-                    value={query}
-                    onChange={(e) => setQuery(e.target.value)}
-                    placeholder="Search the FAQ…"
-                    className="h-12 flex-1 bg-transparent text-sm text-text-primary placeholder:text-text-muted outline-none"
-                  />
+                <div className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-[var(--body)]">
+                  <Search className="h-4 w-4" />
                 </div>
+                <input
+                  value={query}
+                  onChange={(e) => setQuery(e.target.value)}
+                  placeholder="Search the FAQ…"
+                  className="h-12 w-full rounded-[4px] border border-[var(--hairline)] bg-[var(--canvas)] pl-11 pr-4 text-[15px] text-[var(--ink)] outline-none transition-colors placeholder:text-[var(--body)] focus:border-[var(--ink)]"
+                />
               </div>
-              <div className="mt-5 flex flex-wrap items-center gap-2">
-                <span className="text-xs font-semibold uppercase tracking-[0.18em] text-text-muted">
+              <div className="mt-5 flex flex-wrap items-center gap-1">
+                <span className="mono-eyebrow mr-2 text-[var(--body)]">
                   Category
                 </span>
                 {["All", ...FAQ.map((g) => g.cat)].map((c) => (
@@ -143,10 +142,10 @@ export default function FaqPage() {
                     type="button"
                     onClick={() => setActiveCat(c)}
                     className={cn(
-                      "rounded-full border border-border bg-surface px-3 py-1 text-xs font-medium transition-colors",
+                      "h-8 rounded-[3.25px] border border-[var(--hairline)] bg-[var(--canvas)] px-3 text-[12px] font-medium transition-colors",
                       activeCat === c
-                        ? "border-primary bg-primary text-white"
-                        : "text-text-secondary hover:border-primary/40"
+                        ? "border-[var(--ink)] bg-[var(--ink)] text-[var(--canvas)]"
+                        : "text-[var(--body)] hover:text-[var(--ink)]"
                     )}
                   >
                     {c}
@@ -156,103 +155,101 @@ export default function FaqPage() {
             </div>
           </Reveal>
         </Container>
-      </section>
+      </Section>
 
       {/* FAQ list */}
-      <section className="relative py-12 sm:py-16">
+      <Section className="bg-[var(--canvas)]">
         <Container>
           {filtered.length === 0 ? (
             <Reveal>
-              <GlassCard tone="coral" className="mx-auto max-w-2xl p-10 text-center">
-                <h3 className="font-display text-xl font-bold text-text-primary">
+              <div className="mx-auto max-w-2xl rounded-[4px] border border-[var(--hairline)] bg-[var(--canvas)] p-10 text-center">
+                <h3 className="text-[20px] font-medium text-[var(--ink)]">
                   No matches for &ldquo;{query}&rdquo;.
                 </h3>
-                <p className="mt-2 text-sm text-text-secondary">
+                <p className="mt-2 text-[14px] text-[var(--body)]">
                   Try a broader search, or just ask us directly.
                 </p>
                 <div className="mt-5">
                   <Link href="/contact">
                     <Button size="md" variant="primary" rightIcon={<ArrowRight className="h-4 w-4" />}>
-                      Ask Us
-                    </Button>
-                  </Link>
-                </div>
-              </GlassCard>
-            </Reveal>
-          ) : (
-            <div className="mx-auto w-full space-y-3">
-              {filtered.map((item, i) => (
-                <Reveal key={item.q} delay={(i % 4) + 1}>
-                  <FaqRow q={item.q} a={item.a} cat={item.cat} />
-                </Reveal>
-              ))}
-            </div>
-          )}
-        </Container>
-      </section>
-
-      {/* CTA */}
-      <section className="relative py-16">
-        <Container>
-          <Reveal>
-            <div className="relative overflow-hidden rounded-[2rem] border border-border bg-surface-strong px-6 py-12 text-center shadow-elevated sm:px-12">
-              <Halo tone="coral" className="top-1/2 left-1/2 -z-0 h-[360px] w-[600px] -translate-x-1/2 -translate-y-1/2" />
-              <div className="relative">
-                <h2 className="mx-auto max-w-2xl font-display text-3xl font-bold leading-[1.1] tracking-tight text-text-primary sm:text-4xl">
-                  Still have a question?
-                </h2>
-                <p className="mx-auto mt-4 max-w-xl text-base leading-relaxed text-text-secondary">
-                  We respond to every enquiry within one business day. Real
-                  humans, no auto-replies.
-                </p>
-                <div className="mt-7">
-                  <Link href="/contact">
-                    <Button size="lg" variant="primary" rightIcon={<ArrowRight className="h-5 w-5" />}>
-                      Contact Us
+                      Ask us
                     </Button>
                   </Link>
                 </div>
               </div>
+            </Reveal>
+          ) : (
+            <div className="mx-auto max-w-3xl divide-y divide-[var(--hairline)] border-y border-[var(--hairline)]">
+              {filtered.map((item, i) => (
+                <FaqRow key={item.q} q={item.q} a={item.a} cat={item.cat} index={i} />
+              ))}
+            </div>
+          )}
+        </Container>
+      </Section>
+
+      <Section tone="dark" className="bg-[var(--canvas-dark)]">
+        <Container>
+          <Reveal>
+            <div className="mx-auto max-w-3xl text-center">
+              <span className="mono-eyebrow text-[var(--on-dark)] opacity-70">
+                Still curious?
+              </span>
+              <h2 className="mt-5 text-display-xl text-[var(--on-dark)]">
+                Still have a question?
+              </h2>
+              <p className="mt-5 text-[17px] leading-[1.5] text-[var(--on-dark)] opacity-80">
+                We respond to every enquiry within one business day. Real
+                humans, no auto-replies.
+              </p>
+              <div className="mt-7">
+                <Button
+                  size="lg"
+                  variant="secondary-mint"
+                  rightIcon={<ArrowRight className="h-4 w-4" />}
+                  href="/contact"
+                >
+                  Contact us
+                </Button>
+              </div>
             </div>
           </Reveal>
         </Container>
-      </section>
+      </Section>
     </main>
   );
 }
 
-function FaqRow({ q, a, cat }: { q: string; a: string; cat: string }) {
+function FaqRow({ q, a, cat }: { q: string; a: string; cat: string; index: number }) {
   const [open, setOpen] = useState(false);
   return (
-    <div className="rounded-2xl border border-border bg-surface-strong shadow-sm">
-      <button
-        type="button"
-        onClick={() => setOpen((o) => !o)}
-        className="flex w-full items-center justify-between gap-4 px-5 py-5 text-left transition-colors hover:bg-background-muted/40 sm:px-7"
-        aria-expanded={open}
-      >
-        <div>
-          <div className="text-[10px] font-semibold uppercase tracking-[0.2em] text-text-muted">
-            {cat}
-          </div>
-          <div className="mt-1 text-sm font-semibold text-text-primary sm:text-base">
-            {q}
-          </div>
-        </div>
-        <span
-          className={cn(
-            "inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-border text-base transition-transform",
-            open && "rotate-45 border-primary text-primary"
-          )}
+    <Reveal delay={(Number(q.length) % 4) + 1}>
+      <div>
+        <button
+          type="button"
+          onClick={() => setOpen((o) => !o)}
+          className="flex w-full items-center justify-between gap-4 py-5 text-left transition-colors hover:bg-[#fafafa]"
+          aria-expanded={open}
         >
-          +
-        </span>
-      </button>
-      {open && (
-        <div className="px-5 pb-6 text-sm leading-relaxed text-text-secondary sm:px-7">
-          {a}
-        </div>
-      )}
-    </div>
+          <div>
+            <div className="mono-eyebrow text-[var(--body)]">{cat}</div>
+            <div className="mt-1 text-[16px] font-medium text-[var(--ink)]">
+              {q}
+            </div>
+          </div>
+          <Plus
+            className={cn(
+              "h-4 w-4 shrink-0 text-[var(--body)] transition-transform",
+              open && "rotate-45 text-[var(--ink)]"
+            )}
+          />
+        </button>
+        {open && (
+          <div className="pb-6 pr-10 text-[15px] leading-[1.5] text-[var(--body)]">
+            {a}
+          </div>
+        )}
+      </div>
+    </Reveal>
   );
 }
