@@ -229,90 +229,6 @@ function Principles() {
 }
 
 /* ============================================================
-   TEAM
-   ============================================================ */
-function Team() {
-  return (
-    <Section className="bg-[var(--canvas)]">
-      <Container>
-        <Reveal>
-          <SectionHeading
-            eyebrow="The team"
-            title="The people behind the work."
-            description="Senior strategists, designers, engineers, and AI specialists — in-house, not subcontracted."
-          />
-        </Reveal>
-
-        <div className="mt-14 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          {TEAM.map((m, i) => (
-            <Reveal key={m.name} delay={(i % 4) + 1}>
-              <div className="rounded-[4px] border border-[var(--hairline)] bg-[var(--canvas)] p-6">
-                <div className="inline-flex h-14 w-14 items-center justify-center rounded-[4px] bg-[var(--hairline)] text-[14px] font-medium text-[var(--ink)]">
-                  {m.initials}
-                </div>
-                <h3 className="mt-5 text-[18px] font-medium text-[var(--ink)]">
-                  {m.name}
-                </h3>
-                <p className="mt-1 mono-eyebrow text-[var(--body)]">
-                  {m.role}
-                </p>
-                <p className="mt-4 text-[14px] leading-[1.5] text-[var(--body)]">
-                  {m.bio}
-                </p>
-              </div>
-            </Reveal>
-          ))}
-        </div>
-      </Container>
-    </Section>
-  );
-}
-
-/* ============================================================
-   CTA
-   ============================================================ */
-function AboutCta() {
-  return (
-    <Section tone="dark" className="bg-[var(--canvas-dark)]">
-      <Container>
-        <Reveal>
-          <div className="mx-auto max-w-3xl text-center">
-            <span className="mono-eyebrow text-[var(--on-dark)] opacity-70">
-              Get started
-            </span>
-            <h2 className="mt-5 text-display-xl text-[var(--on-dark)]">
-              Ready to build something that lasts?
-            </h2>
-            <p className="mt-5 text-[17px] leading-[1.5] text-[var(--on-dark)] opacity-80">
-              Start with a 30-minute call. We&rsquo;ll share our honest take on
-              what you&rsquo;re working on — no pitch, no pressure.
-            </p>
-            <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
-              <Button
-                size="lg"
-                variant="secondary-mint"
-                rightIcon={<ArrowRight className="h-4 w-4" />}
-                href="/contact"
-              >
-                Start your project
-              </Button>
-              <Button
-                size="lg"
-                variant="secondary-white"
-                rightIcon={<ArrowUpRight className="h-4 w-4" />}
-                href="/method"
-              >
-                See how we work
-              </Button>
-            </div>
-          </div>
-        </Reveal>
-      </Container>
-    </Section>
-  );
-}
-
-/* ============================================================
    PAGE
    ============================================================ */
 export default function AboutPage() {
@@ -345,8 +261,6 @@ export default function AboutPage() {
       <StorySection />
       <Stats />
       <Principles />
-      <Team />
-      <AboutCta />
     </main>
   );
 }

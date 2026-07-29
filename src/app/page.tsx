@@ -102,50 +102,6 @@ function Hero() {
 }
 
 /* ============================================================
-   TRUSTED BY — infinite logo marquee on light band
-   ============================================================ */
-const TRUSTED_LOGOS = [
-  "Helios",
-  "Lumen",
-  "Northwind",
-  "Atlas",
-  "Kibo",
-  "Verity",
-  "Crescent",
-  "Aurelia",
-  "Lattice",
-  "Orbit",
-  "Quantum",
-  "Sable",
-];
-
-function TrustedBy() {
-  return (
-    <section className="border-y border-[var(--hairline)] bg-[var(--canvas)] py-12">
-      <Container>
-        <Reveal>
-          <p className="text-center mono-eyebrow text-[var(--body)]">
-            Trusted by founders and teams at
-          </p>
-        </Reveal>
-      </Container>
-      <div className="mt-8 overflow-hidden" aria-hidden>
-        <div className="flex w-max items-center gap-16 animate-marquee">
-          {[...TRUSTED_LOGOS, ...TRUSTED_LOGOS].map((name, i) => (
-            <span
-              key={i}
-              className="text-[24px] font-medium tracking-tight text-[var(--body)] transition-colors hover:text-[var(--ink)]"
-            >
-              {name}
-            </span>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-/* ============================================================
    SERVICE TABS — full-stack cloud
    ============================================================ */
 const SERVICE_TABS = [
@@ -309,73 +265,6 @@ function ServicesTabs() {
             </div>
           </div>
         </Reveal>
-      </Container>
-    </Section>
-  );
-}
-
-/* ============================================================
-   RESEARCH / DARK BAND — "Grounded in cutting-edge work"
-   ============================================================ */
-const RESEARCH = [
-  {
-    eyebrow: "01",
-    title: "Brand systems",
-    body: "Build a brand that works across product, marketing, and motion — without drifting.",
-  },
-  {
-    eyebrow: "02",
-    title: "AI workflows",
-    body: "Production-grade agents and automations that ship into your stack, not a slide deck.",
-  },
-  {
-    eyebrow: "03",
-    title: "Growth engine",
-    body: "Acquisition, activation, retention — wired together as a system, not a series of campaigns.",
-  },
-  {
-    eyebrow: "04",
-    title: "Engineering",
-    body: "Marketing sites, SaaS, mobile apps. Fast, accessible, and built to extend for years.",
-  },
-];
-
-function ResearchBand() {
-  return (
-    <Section tone="dark" className="bg-[var(--canvas-dark)]">
-      <Container>
-        <Reveal>
-          <div className="max-w-3xl">
-            <span className="mono-eyebrow text-[var(--on-dark)] opacity-70">
-              The platform
-            </span>
-            <h2 className="mt-5 text-display-xl text-[var(--on-dark)]">
-              Grounded in cutting-edge work.
-            </h2>
-            <p className="mt-4 text-[17px] leading-[1.5] text-[var(--on-dark)] opacity-80">
-              Every Vistaar engagement combines research-grade thinking with
-              shipping-grade execution. Four pillars carry every project.
-            </p>
-          </div>
-        </Reveal>
-
-        <div className="mt-14 grid gap-px overflow-hidden rounded-[4px] border border-[var(--surface-dark-soft)] bg-[var(--surface-dark-soft)] md:grid-cols-2 lg:grid-cols-4">
-          {RESEARCH.map((r, i) => (
-            <Reveal key={r.title} delay={(i % 4) + 1}>
-              <div className="flex h-full flex-col bg-[var(--canvas-dark)] p-8">
-                <span className="mono-eyebrow text-[var(--on-dark)] opacity-50">
-                  {r.eyebrow}
-                </span>
-                <h3 className="mt-6 text-display-md text-[var(--on-dark)]">
-                  {r.title}
-                </h3>
-                <p className="mt-3 text-[15px] leading-[1.5] text-[var(--on-dark)] opacity-70">
-                  {r.body}
-                </p>
-              </div>
-            </Reveal>
-          ))}
-        </div>
       </Container>
     </Section>
   );
@@ -691,17 +580,72 @@ function FinalCta() {
 }
 
 /* ============================================================
+   FLOW — flow diagram on light
+   ============================================================ */
+const FLOW = [
+  "Business Idea",
+  "Business Strategy",
+  "Brand Identity",
+  "Website Development",
+  "Marketing",
+  "Lead Generation",
+  "AI Automation",
+  "Business Growth",
+  "Scale",
+];
+
+function Flow() {
+  return (
+    <Section className="bg-[var(--canvas)]">
+      <Container>
+        <Reveal>
+          <SectionHeading
+            eyebrow="The flow"
+            title="How everything connects."
+            description="One flow, no dead ends. Each service feeds the next."
+          />
+        </Reveal>
+
+        <Reveal delay={1}>
+          <div className="mx-auto mt-12 max-w-5xl">
+            <div className="flex flex-wrap items-center justify-center gap-2">
+              {FLOW.map((step, i) => (
+                <div key={step} className="flex items-center gap-2">
+                  <span
+                    className={cn(
+                      "rounded-[3.25px] border border-[var(--hairline)] bg-[var(--canvas)] px-4 py-2 text-[14px] font-medium text-[var(--ink)]",
+                      i === FLOW.length - 1 && "border-[var(--ink)] bg-[var(--ink)] text-[var(--canvas)]",
+                      i === 0 && "border-[var(--ink)]"
+                    )}
+                  >
+                    {step}
+                  </span>
+                  {i < FLOW.length - 1 && (
+                    <span className="text-[var(--body)]" aria-hidden>
+                      →
+                    </span>
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
+        </Reveal>
+      </Container>
+    </Section>
+  );
+}
+
+/* ============================================================
    PAGE
    ============================================================ */
 export default function HomePage() {
   return (
     <main className="relative">
       <Hero />
-      <TrustedBy />
-      <ServicesTabs />
-      <ResearchBand />
-      <Stats />
       <Comparison />
+      <Stats />
+      <ServicesTabs />
+      <Flow />
       <Testimonials />
       <FaqSection />
       <FinalCta />

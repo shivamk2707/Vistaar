@@ -14,7 +14,6 @@ const NAV_LINKS = [
   { href: "/services", label: "Services" },
   { href: "/method", label: "Method" },
   { href: "/insights", label: "Insights" },
-  { href: "/faq", label: "FAQ" },
   { href: "/contact", label: "Contact" },
 ] as const;
 
@@ -71,11 +70,6 @@ export function Navbar() {
                   rightIcon={<ArrowUpRight className="h-3.5 w-3.5" />}
                 >
                   Get started
-                </Button>
-              </Link>
-              <Link href="/contact" className="hidden sm:inline-flex">
-                <Button size="sm" variant="primary">
-                  Sign in
                 </Button>
               </Link>
               <button

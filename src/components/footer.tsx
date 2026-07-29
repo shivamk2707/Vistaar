@@ -39,7 +39,6 @@ const FOOTER_LINKS = [
     items: [
       { href: "/insights", label: "Insights" },
       { href: "/method", label: "Our Method" },
-      { href: "/faq", label: "FAQs" },
       { href: "/privacy", label: "Privacy Policy" },
       { href: "/terms", label: "Terms & Conditions" },
     ],
@@ -61,37 +60,6 @@ const SOCIAL: Array<{
 export function Footer() {
   return (
     <footer className="bg-[var(--canvas)] text-[var(--ink)]">
-      {/* Newsletter + CTA strip */}
-      <div className="border-t border-[var(--hairline)]">
-        <Container>
-          <div className="grid gap-10 py-16 lg:grid-cols-2 lg:items-center">
-            <div>
-              <span className="mono-eyebrow text-[var(--body)]">Newsletter</span>
-              <h3 className="mt-3 text-display-md">
-                Insights delivered to your inbox.
-              </h3>
-              <p className="mt-3 max-w-md text-[15px] leading-relaxed text-[var(--body)]">
-                Growth strategy, AI playbooks, and product thinking from the
-                Vistaar studio. One short read, every other Friday.
-              </p>
-            </div>
-            <div className="flex flex-col gap-3 sm:flex-row lg:justify-end">
-              <Link
-                href="/contact"
-                className="text-[14px] text-[var(--ink)] underline-offset-4 hover:underline"
-              >
-                hello@vistaar.com
-              </Link>
-              <Link href="/contact">
-                <Button variant="primary" rightIcon={<ArrowUpRight className="h-3.5 w-3.5" />}>
-                  Book a call
-                </Button>
-              </Link>
-            </div>
-          </div>
-        </Container>
-      </div>
-
       {/* Link columns */}
       <Container>
         <div className="grid gap-10 border-t border-[var(--hairline)] py-16 md:grid-cols-2 lg:grid-cols-6">
@@ -107,7 +75,7 @@ export function Footer() {
                   key={label}
                   href={href}
                   aria-label={label}
-                  className="inline-flex h-8 w-8 items-center justify-center border border-[var(--hairline)] text-[var(--body)] transition-colors hover:border-[var(--ink)] hover:text-[var(--ink)]"
+                  className="inline-flex h-8 w-8 items-center justify-center text-[var(--body)] transition-colors hover:text-[var(--ink)]"
                 >
                   <Icon className="h-3.5 w-3.5" />
                 </a>
@@ -144,23 +112,6 @@ export function Footer() {
           </div>
         </div>
       </Container>
-
-      {/* Giant wordmark banner — the "you have arrived" sign-off */}
-      <div className="overflow-hidden bg-[var(--canvas)]">
-        <div
-          aria-hidden
-          className="select-none whitespace-nowrap text-center"
-          style={{
-            fontSize: "clamp(80px, 22vw, 320px)",
-            fontWeight: 500,
-            letterSpacing: "-0.05em",
-            lineHeight: 0.85,
-            color: "var(--hairline)",
-          }}
-        >
-          vistaar.ai
-        </div>
-      </div>
     </footer>
   );
 }

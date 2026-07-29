@@ -293,62 +293,6 @@ function StackedServices() {
 }
 
 /* ============================================================
-   FLOW — flow diagram on light
-   ============================================================ */
-const FLOW = [
-  "Business Idea",
-  "Business Strategy",
-  "Brand Identity",
-  "Website Development",
-  "Marketing",
-  "Lead Generation",
-  "AI Automation",
-  "Business Growth",
-  "Scale",
-];
-
-function Flow() {
-  return (
-    <Section className="bg-[var(--canvas)]">
-      <Container>
-        <Reveal>
-          <SectionHeading
-            eyebrow="The flow"
-            title="How everything connects."
-            description="One flow, no dead ends. Each service feeds the next."
-          />
-        </Reveal>
-
-        <Reveal delay={1}>
-          <div className="mx-auto mt-12 max-w-5xl">
-            <div className="flex flex-wrap items-center justify-center gap-2">
-              {FLOW.map((step, i) => (
-                <div key={step} className="flex items-center gap-2">
-                  <span
-                    className={cn(
-                      "rounded-[3.25px] border border-[var(--hairline)] bg-[var(--canvas)] px-4 py-2 text-[14px] font-medium text-[var(--ink)]",
-                      i === FLOW.length - 1 && "border-[var(--ink)] bg-[var(--ink)] text-[var(--canvas)]",
-                      i === 0 && "border-[var(--ink)]"
-                    )}
-                  >
-                    {step}
-                  </span>
-                  {i < FLOW.length - 1 && (
-                    <span className="text-[var(--body)]" aria-hidden>
-                      →
-                    </span>
-                  )}
-                </div>
-              ))}
-            </div>
-          </div>
-        </Reveal>
-      </Container>
-    </Section>
-  );
-}
-
-/* ============================================================
    REASONS — 3-up cards
    ============================================================ */
 const REASONS = [
@@ -409,35 +353,6 @@ export default function ServicesPage() {
       </PageHero>
 
       <StackedServices />
-      <Flow />
-
-      <Section className="bg-[var(--canvas)]">
-        <Container>
-          <Reveal>
-            <SectionHeading
-              eyebrow="Why the ecosystem model works"
-              title="Six reasons it works."
-            />
-          </Reveal>
-          <div className="mt-14 grid gap-px overflow-hidden rounded-[4px] border border-[var(--hairline)] bg-[var(--hairline)] md:grid-cols-2 lg:grid-cols-3">
-            {REASONS.map((r, i) => (
-              <Reveal key={r.title} delay={(i % 3) + 1}>
-                <div className="flex h-full flex-col bg-[var(--canvas)] p-8">
-                  <span className="mono-eyebrow text-[var(--body)]">
-                    0{i + 1}
-                  </span>
-                  <h3 className="mt-5 text-[18px] font-medium text-[var(--ink)]">
-                    {r.title}
-                  </h3>
-                  <p className="mt-3 text-[14px] leading-[1.5] text-[var(--body)]">
-                    {r.body}
-                  </p>
-                </div>
-              </Reveal>
-            ))}
-          </div>
-        </Container>
-      </Section>
 
       <Section tone="dark" className="bg-[var(--canvas-dark)]">
         <Container>

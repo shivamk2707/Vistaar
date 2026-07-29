@@ -443,65 +443,6 @@ function Field({
 }
 
 /* ============================================================
-   STRATEGY SESSION — 3-up cards
-   ============================================================ */
-const SESSIONS = [
-  { name: "Discovery Call", duration: "30 min", desc: "Quick alignment on what you're building and how Vistaar can help." },
-  { name: "Project Consultation", duration: "60 min", desc: "Deeper scope review with a strategist and a relevant specialist." },
-  { name: "AI Consultation", duration: "60 min", desc: "Map your workflows and identify the highest-ROI AI automations." },
-  { name: "Brand Audit", duration: "45 min", desc: "Honest teardown of your current brand, with a written summary." },
-  { name: "Website Review", duration: "45 min", desc: "Conversion, performance, and SEO audit with prioritized fixes." },
-  { name: "Business Strategy", duration: "60 min", desc: "GTM, positioning, or growth strategy session with our founder." },
-];
-
-function StrategySession() {
-  return (
-    <Section className="bg-[var(--canvas)]">
-      <Container>
-        <Reveal>
-          <div className="mx-auto max-w-3xl text-center">
-            <span className="mono-eyebrow text-[var(--body)]">Or book a session</span>
-            <h2 className="mt-3 text-display-xl text-[var(--ink)]">
-              Or book a strategy session.
-            </h2>
-            <p className="mt-4 text-[17px] leading-[1.5] text-[var(--body)]">
-              Pick the conversation that fits where you are. Free, no pitch, real
-              takeaways.
-            </p>
-          </div>
-        </Reveal>
-        <div className="mt-14 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-          {SESSIONS.map((s, i) => (
-            <Reveal key={s.name} delay={(i % 3) + 1}>
-              <div className="flex h-full flex-col rounded-[4px] border border-[var(--hairline)] bg-[var(--canvas)] p-6">
-                <div className="flex items-center justify-between">
-                  <span className="rounded-[3.25px] border border-[var(--hairline)] bg-[var(--canvas)] px-2.5 py-0.5 text-[11px] font-medium text-[var(--ink)]">
-                    {s.duration}
-                  </span>
-                  <span className="mono-eyebrow text-[var(--body)]">Free</span>
-                </div>
-                <h3 className="mt-4 text-[18px] font-medium text-[var(--ink)]">
-                  {s.name}
-                </h3>
-                <p className="mt-2 text-[14px] leading-[1.5] text-[var(--body)]">
-                  {s.desc}
-                </p>
-                <button
-                  type="button"
-                  className="mt-5 inline-flex items-center gap-1 text-[13px] font-medium text-[var(--ink)] hover:opacity-70"
-                >
-                  Pick a time <ArrowUpRight className="h-4 w-4" />
-                </button>
-              </div>
-            </Reveal>
-          ))}
-        </div>
-      </Container>
-    </Section>
-  );
-}
-
-/* ============================================================
    OFFICES
    ============================================================ */
 function Offices() {
@@ -537,8 +478,8 @@ function Offices() {
                 <li className="flex items-start gap-3">
                   <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-[var(--ink)]" />
                   <div>
-                    <div className="font-medium text-[var(--ink)]">Mumbai HQ</div>
-                    <div className="text-[var(--body)]">Bandra Kurla Complex · Mumbai 400 051</div>
+                    <div className="font-medium text-[var(--ink)]">Pune HQ</div>
+                    <div className="text-[var(--body)]">Pune City · Pune 411041</div>
                   </div>
                 </li>
                 <li className="flex items-start gap-3">
@@ -546,7 +487,7 @@ function Offices() {
                   <div>
                     <div className="font-medium text-[var(--ink)]">Phone</div>
                     <a href="tel:+910000000000" className="text-[var(--body)] hover:text-[var(--ink)]">
-                      +91 000 000 0000
+                      +91 985 415 8521
                     </a>
                   </div>
                 </li>
@@ -563,110 +504,11 @@ function Offices() {
                   <Clock className="mt-0.5 h-4 w-4 shrink-0 text-[var(--ink)]" />
                   <div>
                     <div className="font-medium text-[var(--ink)]">Business hours</div>
-                    <div className="text-[var(--body)]">Mon – Sat · 9:00 – 19:00 IST</div>
+                    <div className="text-[var(--body)]">Mon – Fri  · 9:00 AM – 06:00 PM (IST)</div>
                   </div>
                 </li>
               </ul>
             </div>
-          </div>
-        </Reveal>
-      </Container>
-    </Section>
-  );
-}
-
-/* ============================================================
-   MINI FAQ
-   ============================================================ */
-const FAQ = [
-  {
-    q: "How soon can we start?",
-    a: "Most engagements kick off within 1–2 weeks of contract signature. For urgent work, we can sometimes start in 3 days.",
-  },
-  {
-    q: "How much does a project cost?",
-    a: "Projects range from ₹5L for focused sprints to ₹1.25Cr+ for full ecosystem builds. We share a detailed quote after the discovery call.",
-  },
-  {
-    q: "Do you work internationally?",
-    a: "Yes. We've delivered projects across 14 countries. We work async, overlap for key calls, and contract under your jurisdiction.",
-  },
-  {
-    q: "Can you sign an NDA?",
-    a: "Of course. Mutual NDAs are standard and we can sign before any sensitive details are shared.",
-  },
-  {
-    q: "Do you provide post-launch support?",
-    a: "Yes. Every project includes 30 / 90 / 365-day growth reviews and an optional ongoing retainer.",
-  },
-  {
-    q: "Can we hire Vistaar for one service?",
-    a: "Absolutely. Single-service engagements are common and we won't try to upsell you into something you don't need.",
-  },
-  {
-    q: "Do you work with startups?",
-    a: "Yes — and often. We have a specific pricing tier and a faster sprint model for seed and Series A teams.",
-  },
-];
-
-function MiniFaq() {
-  const [open, setOpen] = useState<number | null>(0);
-  return (
-    <Section className="bg-[var(--canvas)]">
-      <Container>
-        <Reveal>
-          <div className="mx-auto max-w-3xl text-center">
-            <span className="mono-eyebrow text-[var(--body)]">Quick answers</span>
-            <h2 className="mt-3 text-display-xl text-[var(--ink)]">
-              Quick answers.
-            </h2>
-            <p className="mt-4 text-[17px] leading-[1.5] text-[var(--body)]">
-              Still curious? The fastest way is the contact form above.
-            </p>
-          </div>
-        </Reveal>
-        <Reveal delay={1}>
-          <div className="mx-auto mt-12 max-w-3xl divide-y divide-[var(--hairline)] border-y border-[var(--hairline)]">
-            {FAQ.map((item, i) => {
-              const isOpen = open === i;
-              return (
-                <div key={item.q}>
-                  <button
-                    type="button"
-                    onClick={() => setOpen(isOpen ? null : i)}
-                    className="flex w-full items-center justify-between gap-4 py-5 text-left transition-colors hover:bg-[#fafafa]"
-                    aria-expanded={isOpen}
-                  >
-                    <span className="text-[15px] font-medium text-[var(--ink)]">
-                      {item.q}
-                    </span>
-                    <span
-                      className={cn(
-                        "inline-flex h-7 w-7 items-center justify-center rounded-full border border-[var(--hairline)] text-[var(--body)] transition-transform",
-                        isOpen && "rotate-45 border-[var(--ink)] text-[var(--ink)]"
-                      )}
-                    >
-                      +
-                    </span>
-                  </button>
-                  {isOpen && (
-                    <div className="pb-6 pr-10 text-[14px] leading-[1.5] text-[var(--body)]">
-                      {item.a}
-                    </div>
-                  )}
-                </div>
-              );
-            })}
-          </div>
-        </Reveal>
-        <Reveal delay={2}>
-          <div className="mt-8 text-center">
-            <Link
-              href="/faq"
-              className="inline-flex items-center gap-1 text-[14px] font-medium text-[var(--ink)] hover:opacity-70"
-            >
-              See the full FAQ <ArrowUpRight className="h-4 w-4" />
-            </Link>
           </div>
         </Reveal>
       </Container>
@@ -686,9 +528,7 @@ export default function ContactPage() {
         description="Whether you're launching your first startup, redesigning your brand, developing a digital product, or integrating AI — we're here to help you build with confidence."
       />
       <ProjectForm />
-      <StrategySession />
       <Offices />
-      <MiniFaq />
     </main>
   );
 }

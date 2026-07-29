@@ -467,93 +467,6 @@ function Articles() {
 }
 
 /* ============================================================
-   RESOURCES
-   ============================================================ */
-function Resources() {
-  return (
-    <Section className="bg-[var(--canvas)]">
-      <Container>
-        <Reveal>
-          <SectionHeading
-            eyebrow="Free resources"
-            title="Free resources, no email gate."
-            description="Templates, checklists, and playbooks we use on our own projects."
-          />
-        </Reveal>
-        <div className="mt-12 grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
-          {RESOURCES.map((r, i) => (
-            <Reveal key={r.name} delay={(i % 3) + 1}>
-              <a
-                href="#"
-                className="group flex items-center justify-between gap-4 rounded-[4px] border border-[var(--hairline)] bg-[var(--canvas)] p-5 transition-colors hover:border-[var(--ink)]"
-              >
-                <div className="flex items-center gap-3">
-                  <span className="inline-flex h-10 w-10 items-center justify-center rounded-[4px] bg-[var(--hairline)] text-[var(--ink)]">
-                    <Bookmark className="h-4 w-4" />
-                  </span>
-                  <div>
-                    <div className="text-[14px] font-medium text-[var(--ink)]">
-                      {r.name}
-                    </div>
-                    <div className="text-[12px] text-[var(--body)]">{r.kind}</div>
-                  </div>
-                </div>
-                <ArrowUpRight className="h-4 w-4 text-[var(--body)] transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-[var(--ink)]" />
-              </a>
-            </Reveal>
-          ))}
-        </div>
-      </Container>
-    </Section>
-  );
-}
-
-/* ============================================================
-   CTA
-   ============================================================ */
-function InsightsCta() {
-  return (
-    <Section tone="dark" className="bg-[var(--canvas-dark)]">
-      <Container>
-        <Reveal>
-          <div className="mx-auto max-w-3xl text-center">
-            <span className="mono-eyebrow text-[var(--on-dark)] opacity-70">
-              Get started
-            </span>
-            <h2 className="mt-5 text-display-xl text-[var(--on-dark)]">
-              Ready to become our next success story?
-            </h2>
-            <p className="mt-5 text-[17px] leading-[1.5] text-[var(--on-dark)] opacity-80">
-              Whether you&rsquo;re launching your first startup or scaling an
-              established business, we&rsquo;d love to build the next chapter
-              with you.
-            </p>
-            <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
-              <Button
-                size="lg"
-                variant="secondary-mint"
-                rightIcon={<ArrowRight className="h-4 w-4" />}
-                href="/contact"
-              >
-                Start your project
-              </Button>
-              <Button
-                size="lg"
-                variant="secondary-white"
-                rightIcon={<ArrowUpRight className="h-4 w-4" />}
-                href="/contact"
-              >
-                Book a strategy call
-              </Button>
-            </div>
-          </div>
-        </Reveal>
-      </Container>
-    </Section>
-  );
-}
-
-/* ============================================================
    PAGE
    ============================================================ */
 export default function InsightsPage() {
@@ -586,8 +499,6 @@ export default function InsightsPage() {
       <Featured />
       <CaseStudies />
       <Articles />
-      <Resources />
-      <InsightsCta />
     </main>
   );
 }
