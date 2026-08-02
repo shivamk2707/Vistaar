@@ -49,14 +49,6 @@ const SERVICE_OPTIONS = [
   },
 ];
 
-const BUDGETS = [
-  "< ₹5L",
-  "₹5L – ₹15L",
-  "₹15L – ₹50L",
-  "₹50L – ₹1.25Cr",
-  "₹1.25Cr+",
-];
-
 const TIMELINES = [
   "ASAP",
   "1–2 months",
@@ -121,14 +113,29 @@ function StepRail({ step }: { step: number }) {
    ============================================================ */
 function ProjectForm() {
   const [step, setStep] = useState(1);
-  const [picked, setPicked] = useState<string | null>(null);
-  const [budget, setBudget] = useState<string | null>(null);
+  const [picked, setPicked] = useState<string[]>([]);
+  const [budget, setBudget] = useState<string>("");
   const [timeline, setTimeline] = useState<string | null>(null);
   const [fileName, setFileName] = useState<string | null>(null);
   const [submitted, setSubmitted] = useState(false);
 
+  const togglePicked = (label: string) => {
+    setPicked((prev) =>
+      prev.includes(label) ? prev.filter((l) => l !== label) : [...prev, label]
+    );
+  };
+  const clearPicked = () => setPicked([]);
+
+  // Strip everything that's not a digit (defence-in-depth — the onChange
+  // already filters, but this also blocks paste/drag-drop of non-digits).
+  const onBudgetChange = (raw: string) => {
+    const digits = raw.replace(/\D/g, "");
+    setBudget(digits);
+  };
+
   const canContinue =
-    (step === 1 && Boolean(picked)) || (step === 2 && Boolean(budget) && Boolean(timeline));
+    (step === 1 && picked.length > 0) ||
+    (step === 2 && budget.trim().length > 0 && Boolean(timeline));
 
   const goNext = () => setStep((s) => Math.min(s + 1, 3));
   const goBack = () => setStep((s) => Math.max(s - 1, 1));
@@ -140,8 +147,8 @@ function ProjectForm() {
 
   const reset = () => {
     setStep(1);
-    setPicked(null);
-    setBudget(null);
+    setPicked([]);
+    setBudget("");
     setTimeline(null);
     setFileName(null);
     setSubmitted(false);
@@ -197,30 +204,68 @@ function ProjectForm() {
                 <form onSubmit={onSubmit}>
                   {step === 1 && (
                     <div>
-                      <span className="mono-eyebrow text-[var(--body)]">
-                        What are you looking to build?
-                      </span>
+                      <div className="flex flex-wrap items-end justify-between gap-3">
+                        <div>
+                          <span className="mono-eyebrow text-[var(--body)]">
+                            What are you looking to build?
+                          </span>
+                          <p className="mt-1 text-[12px] text-[var(--body)]">
+                            Select all that apply — you can pick more than one.
+                          </p>
+                        </div>
+                        <div className="flex items-center gap-3">
+                          <span
+                            className={cn(
+                              "mono-eyebrow",
+                              picked.length > 0
+                                ? "text-[var(--ink)]"
+                                : "text-[var(--body)]"
+                            )}
+                            aria-live="polite"
+                          >
+                            {picked.length > 0
+                              ? `${picked.length} selected`
+                              : "0 selected"}
+                          </span>
+                          {picked.length > 0 && (
+                            <button
+                              type="button"
+                              onClick={clearPicked}
+                              className="text-[12px] font-medium text-[var(--body)] underline underline-offset-4 transition-colors hover:text-[var(--ink)]"
+                            >
+                              Clear
+                            </button>
+                          )}
+                        </div>
+                      </div>
+
                       <div className="mt-4 grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
                         {SERVICE_OPTIONS.map((opt) => {
-                          const isPicked = picked === opt.label;
+                          const isPicked = picked.includes(opt.label);
                           return (
                             <button
                               key={opt.label}
                               type="button"
-                              onClick={() => setPicked(opt.label)}
+                              onClick={() => togglePicked(opt.label)}
+                              aria-pressed={isPicked}
                               className={cn(
                                 "relative rounded-[4px] border bg-[var(--canvas)] p-4 text-left transition-colors",
                                 isPicked
-                                  ? "border-[var(--ink)]"
+                                  ? "border-[var(--ink)] ring-1 ring-[var(--ink)]"
                                   : "border-[var(--hairline)] hover:border-[var(--ink)]"
                               )}
                             >
-                              {isPicked && (
+                              {isPicked ? (
                                 <span className="absolute right-3 top-3 flex h-5 w-5 items-center justify-center rounded-full bg-[var(--ink)] text-[var(--canvas)]">
                                   <Check className="h-3 w-3" />
                                 </span>
+                              ) : (
+                                <span
+                                  className="absolute right-3 top-3 flex h-5 w-5 items-center justify-center rounded-full border border-[var(--hairline)] text-transparent"
+                                  aria-hidden
+                                />
                               )}
-                              <div className="text-[14px] font-medium text-[var(--ink)]">
+                              <div className="pr-7 text-[14px] font-medium text-[var(--ink)]">
                                 {opt.label}
                               </div>
                               <div className="mt-2 text-[12px] text-[var(--body)]">
@@ -230,6 +275,46 @@ function ProjectForm() {
                           );
                         })}
                       </div>
+
+                      {/* Selection summary */}
+                      {picked.length > 0 ? (
+                        <div className="mt-5 flex flex-wrap items-center gap-2 rounded-[4px] border border-dashed border-[var(--hairline)] bg-[#fafafa] px-4 py-3">
+                          <span className="mono-eyebrow text-[var(--body)]">
+                            You picked
+                          </span>
+                          <div className="flex flex-wrap items-center gap-1.5">
+                            {picked.map((label) => (
+                              <span
+                                key={label}
+                                className="inline-flex items-center gap-1.5 rounded-[3.25px] border border-[var(--ink)] bg-[var(--ink)] px-2.5 py-1 text-[11px] font-medium text-[var(--canvas)]"
+                              >
+                                {label}
+                                <button
+                                  type="button"
+                                  onClick={() => togglePicked(label)}
+                                  aria-label={`Remove ${label}`}
+                                  className="rounded-full p-0.5 transition-colors hover:bg-white/15"
+                                >
+                                  <svg
+                                    viewBox="0 0 8 8"
+                                    className="h-2.5 w-2.5"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    strokeWidth="1.5"
+                                    strokeLinecap="round"
+                                  >
+                                    <path d="M1 1L7 7M7 1L1 7" />
+                                  </svg>
+                                </button>
+                              </span>
+                            ))}
+                          </div>
+                        </div>
+                      ) : (
+                        <p className="mt-5 text-[12px] text-[var(--body)]">
+                          Nothing picked yet — tap a card to select.
+                        </p>
+                      )}
 
                       <div className="mt-6">
                         <Field label="Project description" full>
@@ -246,26 +331,71 @@ function ProjectForm() {
                   {step === 2 && (
                     <div>
                       <div>
-                        <span className="mono-eyebrow text-[var(--body)]">
-                          Estimated budget
-                        </span>
-                        <div className="mt-4 flex flex-wrap gap-2">
-                          {BUDGETS.map((b) => (
-                            <button
-                              key={b}
-                              type="button"
-                              onClick={() => setBudget(b)}
-                              className={cn(
-                                "h-9 rounded-[3.25px] border border-[var(--hairline)] bg-[var(--canvas)] px-4 text-[13px] transition-colors",
-                                budget === b
-                                  ? "border-[var(--ink)] bg-[var(--ink)] text-[var(--canvas)]"
-                                  : "text-[var(--body)] hover:border-[var(--ink)] hover:text-[var(--ink)]"
-                              )}
-                            >
-                              {b}
-                            </button>
-                          ))}
+                        <div className="flex items-end justify-between gap-3">
+                          <span className="mono-eyebrow text-[var(--body)]">
+                            Estimated budget
+                          </span>
+                          <span className="mono-eyebrow text-[var(--body)]">
+                            in INR
+                          </span>
                         </div>
+
+                        <div className="mt-3 relative">
+                          <span
+                            className="pointer-events-none absolute inset-y-0 left-0 flex w-12 items-center justify-center text-[18px] font-medium text-[var(--ink)]"
+                            aria-hidden
+                          >
+                            ₹
+                          </span>
+                          <input
+                            type="text"
+                            inputMode="numeric"
+                            pattern="[0-9]*"
+                            autoComplete="off"
+                            value={budget}
+                            onChange={(e) => onBudgetChange(e.target.value)}
+                            onKeyDown={(e) => {
+                              // Block letters, spaces, operators, etc. at the keypress level.
+                              const allowed = new Set([
+                                "Backspace",
+                                "Delete",
+                                "Tab",
+                                "ArrowLeft",
+                                "ArrowRight",
+                                "Home",
+                                "End",
+                                "Enter",
+                              ]);
+                              if (
+                                e.ctrlKey ||
+                                e.metaKey ||
+                                allowed.has(e.key) ||
+                                /^[0-9]$/.test(e.key)
+                              ) {
+                                return;
+                              }
+                              e.preventDefault();
+                            }}
+                            onPaste={(e) => {
+                              e.preventDefault();
+                              const text = e.clipboardData.getData("text");
+                              onBudgetChange(text);
+                            }}
+                            placeholder="e.g. 800000"
+                            aria-label="Estimated budget in Indian rupees"
+                            className="form-input w-full !pl-12 !pr-16 !h-12 text-[15px] tabular-nums tracking-wide"
+                          />
+                          <span
+                            className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-4 text-[12px] text-[var(--body)]"
+                            aria-hidden
+                          >
+                            INR
+                          </span>
+                        </div>
+
+                        <p className="mt-2 text-[12px] text-[var(--body)]">
+                          Approximate is fine — we&rsquo;ll confirm in the next call. Numbers only.
+                        </p>
                       </div>
 
                       <div className="mt-8">
