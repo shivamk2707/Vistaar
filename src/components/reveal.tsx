@@ -19,6 +19,7 @@ export function Reveal({
   className,
   threshold = 0.12,
   rootMargin = "0px 0px -8% 0px",
+  direction,
 }: {
   children: ReactNode;
   delay?: number;
@@ -26,6 +27,7 @@ export function Reveal({
   className?: string;
   threshold?: number;
   rootMargin?: string;
+  direction?: "up" | "down" | "left" | "right";
 }) {
   const ref = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState(false);
@@ -57,8 +59,9 @@ export function Reveal({
   return (
     <div
       ref={ref}
-      data-reveal={visible ? "visible" : undefined}
+      data-reveal={visible ? "visible" : "hidden"}
       data-reveal-delay={delay || undefined}
+      data-reveal-dir={direction || undefined}
       className={className}
     >
       {children}

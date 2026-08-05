@@ -277,9 +277,18 @@ body {
   transition: opacity 0.7s ease-out, transform 0.7s ease-out;
   will-change: opacity, transform;
 }
+[data-reveal][data-reveal-dir="up"] {
+  transform: translateY(-20px);
+}
+[data-reveal][data-reveal-dir="left"] {
+  transform: translateX(-20px);
+}
+[data-reveal][data-reveal-dir="right"] {
+  transform: translateX(20px);
+}
 [data-reveal="visible"] {
   opacity: 1;
-  transform: translateY(0);
+  transform: translateY(0) translateX(0);
 }
 
 [data-reveal-delay="1"] { transition-delay: 0.05s; }

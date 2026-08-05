@@ -5,7 +5,6 @@ import { useState } from "react";
 import { ArrowRight, ArrowUpRight, Check, Plus } from "lucide-react";
 import { Button } from "@/components/button";
 import { Container, Section, SectionHeading } from "@/components/layout";
-import { PageHero } from "@/components/page-hero";
 import { Reveal } from "@/components/reveal";
 import { cn } from "@/lib/utils";
 
@@ -195,6 +194,38 @@ function Stats() {
    PRINCIPLES
    ============================================================ */
 function Principles() {
+  const cardGradients = [
+    "from-blue-100/60 via-indigo-50/60 to-purple-100/60",
+    "from-emerald-100/60 via-teal-50/60 to-cyan-100/60",
+    "from-orange-100/60 via-rose-50/60 to-red-100/60",
+    "from-fuchsia-100/60 via-pink-50/60 to-rose-100/60",
+    "from-amber-100/60 via-yellow-50/60 to-orange-100/60",
+    "from-violet-100/60 via-purple-50/60 to-fuchsia-100/60",
+  ];
+
+  const renderParticles = (i: number) => {
+    const isEven = i % 2 === 0;
+    return (
+      <div className="absolute inset-0 opacity-0 transition-opacity duration-700 group-hover:opacity-100 overflow-hidden pointer-events-none z-0">
+        {/* Soft glowing orbs */}
+        <div className={`absolute ${isEven ? '-top-4 -left-4' : '-bottom-4 -right-4'} h-24 w-24 rounded-full bg-indigo-500/10 blur-xl animate-float-slow`}></div>
+        <div className={`absolute ${isEven ? 'bottom-8 right-8' : 'top-8 left-8'} h-16 w-16 rounded-full bg-fuchsia-500/10 blur-lg animate-float-slow`} style={{ animationDelay: '1s' }}></div>
+        <div className="absolute top-1/4 left-1/4 h-20 w-20 rounded-full bg-orange-500/10 blur-2xl animate-pulse-soft" style={{ animationDelay: '2s' }}></div>
+        
+        {/* Geometric structures / particles */}
+        <svg className={`absolute ${isEven ? 'top-1/4 right-1/4' : 'bottom-1/4 left-1/4'} h-4 w-4 text-indigo-500/30 animate-pulse-soft`} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+          <path d="M12 5v14M5 12h14" />
+        </svg>
+        <svg className={`absolute ${isEven ? 'bottom-1/3 right-1/2' : 'top-1/3 left-1/2'} h-3 w-3 text-fuchsia-500/30 animate-float-slow`} style={{ animationDelay: '1.5s' }} viewBox="0 0 24 24" fill="currentColor">
+          <circle cx="12" cy="12" r="10" />
+        </svg>
+        <svg className={`absolute ${isEven ? 'top-1/2 left-8' : 'bottom-1/2 right-8'} h-5 w-5 text-orange-500/30 animate-pulse-soft`} style={{ animationDelay: '0.5s' }} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+          <path d="M12 2L15 8L22 9L17 14L18 21L12 17.5L6 21L7 14L2 9L9 8L12 2Z" />
+        </svg>
+      </div>
+    );
+  };
+
   return (
     <Section className="bg-[var(--canvas)]">
       <Container>
@@ -206,19 +237,30 @@ function Principles() {
           />
         </Reveal>
 
-        <div className="mt-14 grid gap-px overflow-hidden rounded-[4px] border border-[var(--hairline)] bg-[var(--hairline)] md:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-16 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {PRINCIPLES.map((p, i) => (
             <Reveal key={p.title} delay={(i % 3) + 1}>
-              <div className="flex h-full flex-col bg-[var(--canvas)] p-8">
-                <span className="inline-flex h-8 w-8 items-center justify-center rounded-[4px] bg-[var(--ink)] text-[var(--canvas)]">
-                  <Check className="h-4 w-4" />
-                </span>
-                <h3 className="mt-6 text-[20px] font-medium leading-[1.2] tracking-[-0.01em] text-[var(--ink)]">
-                  {p.title}
-                </h3>
-                <p className="mt-3 text-[15px] leading-[1.5] text-[var(--body)]">
-                  {p.body}
-                </p>
+              <div className="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-[var(--hairline)] bg-[var(--canvas)] p-8 transition-all duration-500 hover:shadow-[0_8px_30px_rgb(0,0,0,0.06)] hover:-translate-y-1 hover:border-transparent">
+                {/* Animated gradient background on hover */}
+                <div className={`absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100 bg-gradient-to-br ${cardGradients[i]} animate-gradient-shift pointer-events-none z-0`}></div>
+                
+                {/* Particle Effects */}
+                {renderParticles(i)}
+
+                {/* Top gradient border highlight on hover */}
+                <div className="absolute top-0 left-0 h-1 w-full scale-x-0 bg-gradient-brand transition-transform duration-500 origin-left group-hover:scale-x-100 pointer-events-none z-10"></div>
+
+                <div className="relative z-10 flex h-full flex-col">
+                  <div className="mb-6 flex h-12 w-12 items-center justify-center rounded-full bg-[var(--ink)] text-[var(--canvas)] transition-transform duration-500 group-hover:scale-110 group-hover:-rotate-3 shadow-sm">
+                    <Check className="h-5 w-5" />
+                  </div>
+                  <h3 className="text-[20px] font-semibold leading-[1.2] tracking-[-0.01em] text-[var(--ink)] transition-colors duration-300">
+                    {p.title}
+                  </h3>
+                  <p className="mt-4 text-[15px] leading-[1.6] text-[var(--body)] transition-colors duration-300 group-hover:text-[var(--ink)]">
+                    {p.body}
+                  </p>
+                </div>
               </div>
             </Reveal>
           ))}
@@ -229,34 +271,57 @@ function Principles() {
 }
 
 /* ============================================================
+   GLASS HERO
+   ============================================================ */
+function GlassHero() {
+  return (
+    <div
+      className="flex min-h-[80vh] items-center justify-center bg-cover bg-center px-4 pt-28 pb-12 sm:pt-32 sm:pb-16"
+      style={{ backgroundImage: 'url("https://img.magnific.com/free-vector/dark-background-with-dynamic-shapes_361591-3104.jpg?semt=ais_hybrid&w=740&q=80")' }}
+    >
+      <div className="bg-white/10 backdrop-blur-lg p-10 sm:p-14 rounded-2xl shadow-2xl max-w-3xl w-full text-center">
+        <span className="mono-eyebrow text-white mb-6 block uppercase tracking-wider text-sm font-semibold opacity-90">About Vistaar</span>
+        <h1 className="text-4xl sm:text-5xl md:text-6xl font-semibold text-white mb-6 leading-tight">
+          <Reveal direction="up" className="block">
+            More than an agency.
+          </Reveal>
+          <Reveal direction="down" delay={1} className="block -mt-4">
+            <span className="text-gradient-brand">A growth partner.</span>
+          </Reveal>
+        </h1>
+        <p className="text-lg sm:text-xl text-white/90 mb-10 max-w-2xl mx-auto leading-relaxed">
+          We exist for founders and businesses who want more than deliverables. Strategy, brand, technology, and AI — under one vision, one team, one partnership.
+        </p>
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+          <Button
+            size="lg"
+            variant="secondary-mint"
+            rightIcon={<ArrowRight className="h-4 w-4" />}
+            href="/contact"
+          >
+            Start a conversation
+          </Button>
+          <Button
+            size="lg"
+            variant="secondary-white"
+            rightIcon={<ArrowUpRight className="h-4 w-4" />}
+            href="/services"
+          >
+            See what we do
+          </Button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* ============================================================
    PAGE
    ============================================================ */
 export default function AboutPage() {
   return (
     <main className="relative">
-      <PageHero
-        eyebrow="About Vistaar"
-        title="More than an agency."
-        highlight="A growth partner."
-        description="We exist for founders and businesses who want more than deliverables. Strategy, brand, technology, and AI — under one vision, one team, one partnership."
-      >
-        <Button
-          size="lg"
-          variant="secondary-mint"
-          rightIcon={<ArrowRight className="h-4 w-4" />}
-          href="/contact"
-        >
-          Start a conversation
-        </Button>
-        <Button
-          size="lg"
-          variant="secondary-white"
-          rightIcon={<ArrowUpRight className="h-4 w-4" />}
-          href="/services"
-        >
-          See what we do
-        </Button>
-      </PageHero>
+      <GlassHero />
 
       <StorySection />
       <Stats />

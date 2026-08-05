@@ -21,7 +21,7 @@ import {
   Check,
   type LucideIcon,
 } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Button } from "@/components/button";
 import { Container, Section, SectionHeading } from "@/components/layout";
 import { Reveal } from "@/components/reveal";
@@ -32,8 +32,93 @@ import { cn } from "@/lib/utils";
    HERO — dark canvas band with display headline + gradient ribbon
    ============================================================ */
 function Hero() {
+  const bgRef = useRef<HTMLDivElement>(null);
+  const pointerRef = useRef<HTMLDivElement>(null);
+  const animationFrame = useRef<number | null>(null);
+  const targetOffset = useRef({ x: 0, y: 0 });
+  const currentOffset = useRef({ x: 0, y: 0 });
+  const pointerTarget = useRef({ x: 0, y: 0 });
+  const pointerCurrent = useRef({ x: 0, y: 0 });
+  const [pointerVisible, setPointerVisible] = useState(false);
+
+  useEffect(() => {
+    const animate = () => {
+      if (bgRef.current) {
+        currentOffset.current.x += (targetOffset.current.x - currentOffset.current.x) * 0.12;
+        currentOffset.current.y += (targetOffset.current.y - currentOffset.current.y) * 0.12;
+        bgRef.current.style.transform = `translate3d(${currentOffset.current.x}px, ${currentOffset.current.y}px, 0) scale(1.08)`;
+      }
+
+      if (pointerRef.current) {
+        pointerCurrent.current.x += (pointerTarget.current.x - pointerCurrent.current.x) * 0.18;
+        pointerCurrent.current.y += (pointerTarget.current.y - pointerCurrent.current.y) * 0.18;
+        pointerRef.current.style.transform = `translate3d(calc(${pointerCurrent.current.x}px - 50%), calc(${pointerCurrent.current.y}px - 50%), 0)`;
+      }
+
+      animationFrame.current = requestAnimationFrame(animate);
+    };
+
+    animationFrame.current = requestAnimationFrame(animate);
+
+    return () => {
+      if (animationFrame.current) cancelAnimationFrame(animationFrame.current);
+    };
+  }, []);
+
+  const handleMouseMove = (event: React.MouseEvent<HTMLElement>) => {
+    const rect = event.currentTarget.getBoundingClientRect();
+    const x = (event.clientX - rect.left) / rect.width;
+    const y = (event.clientY - rect.top) / rect.height;
+
+    targetOffset.current = {
+      x: (x - 0.5) * 32,
+      y: (y - 0.5) * 26,
+    };
+    pointerTarget.current = {
+      x: x * rect.width,
+      y: y * rect.height,
+    };
+    setPointerVisible(true);
+  };
+
+  const handleMouseLeave = () => {
+    targetOffset.current = { x: 0, y: 0 };
+    pointerTarget.current = { x: 0, y: 0 };
+    setPointerVisible(false);
+  };
+
   return (
-    <section className="relative overflow-hidden bg-[var(--canvas-dark)] text-[var(--on-dark)]">
+    <section
+      className="relative overflow-hidden bg-[var(--canvas-dark)] text-[var(--on-dark)]"
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+    >
+      <div className="pointer-events-none absolute inset-0 overflow-hidden">
+        <div
+          ref={bgRef}
+          className="absolute inset-0 bg-[url('/images/home-hero-bg.png')] bg-cover bg-center opacity-90 transition-transform will-change-transform"
+          style={{ transform: "translate3d(0, 0, 0) scale(1.08)" }}
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/35 to-black/70" />
+        <div
+          ref={pointerRef}
+          className={cn(
+            "pointer-events-none absolute h-44 w-44 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.2)_0%,rgba(255,255,255,0.06)_30%,rgba(255,255,255,0.02)_45%,transparent_72%)] shadow-[0_0_140px_rgba(255,255,255,0.14)] transition-opacity duration-300",
+            pointerVisible ? "opacity-100" : "opacity-0"
+          )}
+          style={{ borderRadius: "52% 48% 56% 44% / 48% 50% 50% 52%", filter: "blur(10px)", transform: "rotate(10deg)" }}
+        >
+          <div
+            className="absolute inset-0"
+            style={{
+              backgroundImage:
+                'radial-gradient(circle, transparent 52%, rgba(255,255,255,0.08) 56%, rgba(255,255,255,0.04) 65%, transparent 74%)',
+              opacity: 0.9,
+            }}
+          />
+        </div>
+      </div>
+
       <div className="relative py-20 sm:py-24 lg:py-28">
         <Container>
           <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
@@ -539,10 +624,14 @@ function FaqSection() {
    ============================================================ */
 function FinalCta() {
   return (
-    <Section tone="dark" className="bg-[var(--canvas-dark)]">
+    <Section
+      tone="dark"
+      className="relative overflow-hidden bg-[url('/images/home-cta-bg.png')] bg-cover bg-center"
+    >
+      <div className="pointer-events-none absolute inset-0" />
       <Container>
         <Reveal>
-          <div className="mx-auto max-w-3xl text-center">
+          <div className="relative mx-auto max-w-3xl text-center">
             <span className="mono-eyebrow text-[var(--on-dark)] opacity-70">
               Get started
             </span>
