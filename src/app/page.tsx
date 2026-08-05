@@ -27,6 +27,8 @@ import { Container, Section, SectionHeading } from "@/components/layout";
 import { Reveal } from "@/components/reveal";
 import { GradientRibbon } from "@/components/gradient-ribbon";
 import { cn } from "@/lib/utils";
+import BackgroundBeamsDemo from "@/components/beams-background";
+import ModernLandingHero from "@/components/modern-landing-hero";
 
 /* ============================================================
    HERO — dark canvas band with display headline + gradient ribbon
@@ -94,7 +96,7 @@ function Hero() {
       onMouseLeave={handleMouseLeave}
     >
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
-        <video
+        {/* <video
           ref={bgRef}
           autoPlay
           loop
@@ -104,31 +106,15 @@ function Hero() {
           style={{ transform: "translate3d(0, 0, 0) scale(1.08)" }}
         >
           <source src="/videos/vistaar_home_bg_1.mp4" type="video/mp4" />
-        </video>
+        </video> */}
+        <BackgroundBeamsDemo />
         <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/35 to-black/70" />
-        <div
-          ref={pointerRef}
-          className={cn(
-            "pointer-events-none absolute h-44 w-44 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.2)_0%,rgba(255,255,255,0.06)_30%,rgba(255,255,255,0.02)_45%,transparent_72%)] shadow-[0_0_140px_rgba(255,255,255,0.14)] transition-opacity duration-300",
-            pointerVisible ? "opacity-100" : "opacity-0"
-          )}
-          style={{ borderRadius: "52% 48% 56% 44% / 48% 50% 50% 52%", filter: "blur(10px)", transform: "rotate(10deg)" }}
-        >
-          <div
-            className="absolute inset-0"
-            style={{
-              backgroundImage:
-                'radial-gradient(circle, transparent 52%, rgba(255,255,255,0.08) 56%, rgba(255,255,255,0.04) 65%, transparent 74%)',
-              opacity: 0.9,
-            }}
-          />
-        </div>
       </div>
 
-      <div className="relative py-20 sm:py-24 lg:py-28">
+      {/* <div className="relative py-20 sm:py-24 lg:py-28">
         <Container>
           <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
-            {/* Left: headline cluster */}
+
             <div className="max-w-2xl">
               <Reveal>
                 <span className="mono-eyebrow text-[var(--on-dark)] opacity-70">
@@ -179,7 +165,6 @@ function Hero() {
               </Reveal>
             </div>
 
-            {/* Right: gradient ribbon graphic */}
             <Reveal delay={2}>
               <div className="relative aspect-square w-full max-w-[520px] mx-auto lg:ml-auto lg:mr-0">
                 <GradientRibbon className="absolute inset-0" />
@@ -187,7 +172,8 @@ function Hero() {
             </Reveal>
           </div>
         </Container>
-      </div>
+      </div> */}
+      <ModernLandingHero />
     </section>
   );
 }
