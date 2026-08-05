@@ -32,7 +32,7 @@ import { cn } from "@/lib/utils";
    HERO — dark canvas band with display headline + gradient ribbon
    ============================================================ */
 function Hero() {
-  const bgRef = useRef<HTMLDivElement>(null);
+  const bgRef = useRef<HTMLVideoElement>(null);
   const pointerRef = useRef<HTMLDivElement>(null);
   const animationFrame = useRef<number | null>(null);
   const targetOffset = useRef({ x: 0, y: 0 });
@@ -94,11 +94,17 @@ function Hero() {
       onMouseLeave={handleMouseLeave}
     >
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
-        <div
+        <video
           ref={bgRef}
-          className="absolute inset-0 bg-[url('/images/home-hero-bg.png')] bg-cover bg-center opacity-90 transition-transform will-change-transform"
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="absolute inset-0 h-full w-full object-cover opacity-90 transition-transform will-change-transform"
           style={{ transform: "translate3d(0, 0, 0) scale(1.08)" }}
-        />
+        >
+          <source src="/videos/vistaar_home_bg_1.mp4" type="video/mp4" />
+        </video>
         <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/35 to-black/70" />
         <div
           ref={pointerRef}

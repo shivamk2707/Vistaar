@@ -654,7 +654,8 @@ export default function ContactPage() {
     <main className="relative">
       <PageHero
         eyebrow="Let's Build Something Extraordinary"
-        title="Start a project, or just a conversation."
+        title="Start a project,"
+        highlight=" or just a conversation."
         description="Whether you're launching your first startup, redesigning your brand, developing a digital product, or integrating AI — we're here to help you build with confidence."
       />
       <ProjectForm />
