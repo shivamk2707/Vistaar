@@ -19,9 +19,11 @@ import {
   Search,
   ChevronDown,
   Check,
+  X,
   type LucideIcon,
 } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
+import { motion } from "framer-motion";
 import { Button } from "@/components/button";
 import { Container, Section, SectionHeading } from "@/components/layout";
 import { Reveal } from "@/components/reveal";
@@ -96,83 +98,9 @@ function Hero() {
       onMouseLeave={handleMouseLeave}
     >
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
-        {/* <video
-          ref={bgRef}
-          autoPlay
-          loop
-          muted
-          playsInline
-          className="absolute inset-0 h-full w-full object-cover opacity-90 transition-transform will-change-transform"
-          style={{ transform: "translate3d(0, 0, 0) scale(1.08)" }}
-        >
-          <source src="/videos/vistaar_home_bg_1.mp4" type="video/mp4" />
-        </video> */}
         <BackgroundBeamsDemo />
         <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/35 to-black/70" />
       </div>
-
-      {/* <div className="relative py-20 sm:py-24 lg:py-28">
-        <Container>
-          <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
-
-            <div className="max-w-2xl">
-              <Reveal>
-                <span className="mono-eyebrow text-[var(--on-dark)] opacity-70">
-                  AI-Powered Brand Growth Company
-                </span>
-              </Reveal>
-              <Reveal delay={1}>
-                <h1 className="mt-6 text-display-xxl text-[var(--on-dark)]">
-                  Build what&rsquo;s next on the AI Native Cloud.
-                </h1>
-              </Reveal>
-              <Reveal delay={2}>
-                <p className="mt-6 max-w-xl text-[18px] leading-[1.45] text-[var(--on-dark)] opacity-80">
-                  Vistaar partners with startups, founders, and businesses to
-                  create impactful brands, modern websites, intelligent AI
-                  solutions, and scalable growth systems that transform ideas
-                  into successful businesses.
-                </p>
-              </Reveal>
-              <Reveal delay={3}>
-                <div className="mt-8 flex flex-wrap items-center gap-3">
-                  <Button
-                    size="lg"
-                    variant="secondary-mint"
-                    rightIcon={<ArrowUpRight className="h-4 w-4" />}
-                    href="/contact"
-                  >
-                    Start a project
-                  </Button>
-                  <Button
-                    size="lg"
-                    variant="secondary-white"
-                    rightIcon={<ArrowUpRight className="h-4 w-4" />}
-                    href="/method"
-                  >
-                    See the method
-                  </Button>
-                </div>
-              </Reveal>
-              <Reveal delay={4}>
-                <div className="mt-10 flex flex-wrap items-center gap-x-6 gap-y-2 text-[12px] text-[var(--on-dark)] opacity-60">
-                  <span className="mono-label">Free 30-min discovery call</span>
-                  <span className="hidden h-3 w-px bg-white/20 sm:inline-block" />
-                  <span className="mono-label">NDA on request</span>
-                  <span className="hidden h-3 w-px bg-white/20 sm:inline-block" />
-                  <span className="mono-label">Reply within 1 business day</span>
-                </div>
-              </Reveal>
-            </div>
-
-            <Reveal delay={2}>
-              <div className="relative aspect-square w-full max-w-[520px] mx-auto lg:ml-auto lg:mr-0">
-                <GradientRibbon className="absolute inset-0" />
-              </div>
-            </Reveal>
-          </div>
-        </Container>
-      </div> */}
       <ModernLandingHero />
     </section>
   );
@@ -285,7 +213,7 @@ function ServicesTabs() {
 
         {/* Tab pill row */}
         <Reveal delay={1}>
-          <div className="mt-14 flex flex-wrap items-center justify-center gap-1 rounded-[8px] bg-[var(--hairline)] p-1 max-w-3xl mx-auto">
+          <div className="mt-14 flex flex-wrap items-center justify-center gap-1 rounded-[8px] bg-[var(--hairline)] p-1 max-w-4xl mx-auto">
             {SERVICE_TABS.map((s) => {
               const isActive = active === s.id;
               return (
@@ -308,40 +236,52 @@ function ServicesTabs() {
         </Reveal>
 
         {/* Active tab content */}
-        <Reveal delay={2}>
-          <div className="mt-12 grid gap-6 rounded-[8px] border border-[var(--hairline)] bg-[var(--canvas)] p-8 lg:grid-cols-5 lg:p-12">
+        <div className="mt-12 overflow-hidden rounded-2xl border border-[var(--hairline)] bg-white/50 backdrop-blur-xl shadow-sm">
+          <motion.div
+            key={active}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.4 }}
+            className="grid gap-8 p-8 lg:grid-cols-5 lg:p-12"
+          >
             <div className="lg:col-span-2">
-              <div className="inline-flex h-10 w-10 items-center justify-center rounded-[4px] bg-[var(--hairline)]">
-                <current.Icon className="h-5 w-5 text-[var(--ink)]" />
+              <div className="inline-flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-blue-50 to-blue-100/50 border border-blue-100 shadow-sm">
+                <current.Icon className="h-6 w-6 text-blue-600" />
               </div>
-              <h3 className="mt-5 text-display-md">{current.label}</h3>
-              <p className="mt-3 text-[16px] leading-[1.5] text-[var(--body)]">
+              <h3 className="mt-6 text-3xl font-bold tracking-tight text-neutral-900">{current.label}</h3>
+              <p className="mt-4 text-[16px] leading-[1.6] text-neutral-600">
                 {current.description}
               </p>
               <Link
                 href="/services"
-                className="mt-6 inline-flex items-center gap-1 text-[14px] font-medium text-[var(--ink)] hover:opacity-70"
+                className="group mt-8 inline-flex items-center gap-2 text-[14px] font-semibold text-blue-600 hover:text-blue-700 transition-colors"
               >
                 Learn more
-                <ArrowUpRight className="h-4 w-4" />
+                <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
               </Link>
             </div>
-            <div className="lg:col-span-3">
-              <h4 className="mono-eyebrow text-[var(--body)]">What&rsquo;s included</h4>
-              <ul className="mt-5 space-y-3">
-                {current.deliverables.map((d) => (
-                  <li
+            <div className="lg:col-span-3 lg:pl-12 lg:border-l border-[var(--hairline)]">
+              <h4 className="text-xs font-bold uppercase tracking-wider text-neutral-400">What&rsquo;s included</h4>
+              <ul className="mt-6 space-y-4">
+                {current.deliverables.map((d, i) => (
+                  <motion.li
+                    initial={{ opacity: 0, x: 20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.3, delay: i * 0.1 }}
                     key={d}
-                    className="flex items-center gap-3 border-b border-[var(--hairline)] pb-3 last:border-0"
+                    className="flex items-center gap-4 group"
                   >
-                    <Check className="h-4 w-4 shrink-0 text-[var(--ink)]" />
-                    <span className="text-[15px] text-[var(--ink)]">{d}</span>
-                  </li>
+                    <div className="rounded-full bg-blue-50 p-1 group-hover:bg-blue-100 transition-colors">
+                      <Check className="h-4 w-4 shrink-0 text-blue-600" />
+                    </div>
+                    <span className="text-[15px] font-medium text-neutral-700">{d}</span>
+                  </motion.li>
                 ))}
               </ul>
             </div>
-          </div>
-        </Reveal>
+          </motion.div>
+        </div>
       </Container>
     </Section>
   );
@@ -359,20 +299,31 @@ const STATS = [
 
 function Stats() {
   return (
-    <Section className="bg-[var(--canvas)]">
+    <Section className="bg-[var(--canvas)] py-[0px] sm:py-[0px]">
       <Container>
-        <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {STATS.map((s, i) => (
-            <Reveal key={s.label} delay={i + 1}>
-              <div className={cn("rounded-[4px] p-8", s.tone)}>
-                <div className="text-[40px] font-medium leading-[1.1] tracking-[-0.02em] text-[var(--ink)]">
-                  {s.value}
-                </div>
-                <div className="mt-3 mono-eyebrow text-[var(--ink)] opacity-70">
-                  {s.label}
-                </div>
+            <motion.div
+              key={s.label}
+              initial={{ opacity: 0, scale: 0.95, y: 20 }}
+              whileInView={{ opacity: 1, scale: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: i * 0.1 }}
+              whileHover={{ y: -5, scale: 1.02 }}
+              className={cn("rounded-2xl p-8 border border-black/5 shadow-sm transition-all cursor-default", s.tone)}
+            >
+              <motion.div 
+                initial={{ opacity: 0, x: -10 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.5, delay: i * 0.1 + 0.3 }}
+                className="text-[40px] font-bold leading-[1.1] tracking-tight text-[var(--ink)]"
+              >
+                {s.value}
+              </motion.div>
+              <div className="mt-3 text-sm font-semibold uppercase tracking-wider text-[var(--ink)] opacity-70">
+                {s.label}
               </div>
-            </Reveal>
+            </motion.div>
           ))}
         </div>
       </Container>
@@ -418,46 +369,79 @@ const COMPARISON = [
 
 function Comparison() {
   return (
-    <Section className="bg-[var(--canvas)]">
-      <Container>
-        <Reveal>
+    <Section className="bg-[var(--canvas)] relative overflow-hidden">
+      {/* Decorative background elements */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-gradient-to-tr from-blue-500/5 to-purple-500/5 rounded-full blur-[120px] pointer-events-none" />
+
+      <Container className="relative z-10">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+        >
           <SectionHeading
             eyebrow="Vistaar vs. Traditional Agency"
             title="Why teams pick Vistaar over a traditional agency."
             description="Six honest differences you'll feel inside the first two weeks."
           />
-        </Reveal>
+        </motion.div>
 
-        <Reveal delay={1}>
-          <div className="mt-14 overflow-hidden rounded-[4px] border border-[var(--hairline)]">
-            <div className="hidden grid-cols-12 border-b border-[var(--hairline)] bg-[var(--hairline)] px-6 py-4 md:grid">
-              <div className="col-span-4 mono-eyebrow text-[var(--body)]">What matters</div>
-              <div className="col-span-4 mono-eyebrow text-[var(--ink)]">Vistaar</div>
-              <div className="col-span-4 mono-eyebrow text-[var(--body)]">Traditional agency</div>
+        <div className="mt-16 overflow-hidden rounded-2xl border border-[var(--hairline)] bg-white/50 backdrop-blur-xl shadow-[0_8px_40px_rgba(0,0,0,0.04)]">
+          <div className="hidden grid-cols-12 border-b border-[var(--hairline)] bg-neutral-50/80 px-6 py-5 md:grid">
+            <div className="col-span-4 text-xs font-semibold uppercase tracking-wider text-neutral-500">What matters</div>
+            <div className="col-span-4 text-xs font-bold uppercase tracking-wider text-blue-600 flex items-center gap-2">
+              <div className="w-2 h-2 rounded-full bg-blue-500 animate-pulse" />
+              Vistaar
             </div>
+            <div className="col-span-4 text-xs font-semibold uppercase tracking-wider text-neutral-400">Traditional agency</div>
+          </div>
+
+          <div className="divide-y divide-[var(--hairline)]">
             {COMPARISON.map((row, i) => (
-              <div
+              <motion.div
+                initial={{ opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true, margin: "-50px" }}
+                transition={{ duration: 0.4, delay: i * 0.1 }}
                 key={row.feature}
-                className={cn(
-                  "grid grid-cols-1 gap-3 border-b border-[var(--hairline)] px-6 py-5 last:border-0 md:grid-cols-12 md:gap-6",
-                  i % 2 === 1 && "bg-[#fafafa]"
-                )}
+                className="group grid grid-cols-1 gap-4 px-6 py-6 transition-colors hover:bg-white md:grid-cols-12 md:gap-6 items-center"
               >
-                <div className="md:col-span-4 text-[15px] font-medium text-[var(--ink)]">
+                <div className="md:col-span-4 text-[16px] font-semibold text-neutral-900 group-hover:text-blue-900 transition-colors">
                   {row.feature}
                 </div>
-                <div className="md:col-span-4 text-[15px] text-[var(--ink)]">
-                  <span className="md:hidden mono-eyebrow text-[var(--ink)] mb-1 block">Vistaar</span>
-                  {row.vistaar}
+
+                <div className="md:col-span-4 flex flex-col gap-1 relative">
+                  <span className="md:hidden text-xs font-bold uppercase tracking-wider text-blue-600 mb-1 flex items-center gap-1">
+                    <Check className="w-3 h-3" /> Vistaar
+                  </span>
+                  <div className="flex items-start gap-3">
+                    <div className="mt-0.5 rounded-full bg-blue-100 p-1 hidden md:block">
+                      <Check className="w-3 h-3 text-blue-600" />
+                    </div>
+                    <p className="text-[15px] font-medium text-neutral-800 leading-snug">
+                      {row.vistaar}
+                    </p>
+                  </div>
                 </div>
-                <div className="md:col-span-4 text-[15px] text-[var(--body)]">
-                  <span className="md:hidden mono-eyebrow text-[var(--body)] mb-1 block">Traditional</span>
-                  {row.other}
+
+                <div className="md:col-span-4 flex flex-col gap-1 relative">
+                  <span className="md:hidden text-xs font-semibold uppercase tracking-wider text-neutral-400 mb-1 flex items-center gap-1">
+                    <X className="w-3 h-3" /> Traditional
+                  </span>
+                  <div className="flex items-start gap-3">
+                    <div className="mt-0.5 rounded-full bg-neutral-100 p-1 hidden md:block">
+                      <X className="w-3 h-3 text-neutral-400" />
+                    </div>
+                    <p className="text-[15px] text-neutral-500 leading-snug">
+                      {row.other}
+                    </p>
+                  </div>
                 </div>
-              </div>
+              </motion.div>
             ))}
           </div>
-        </Reveal>
+        </div>
       </Container>
     </Section>
   );
@@ -473,6 +457,7 @@ const TESTIMONIALS = [
     name: "Ananya Rao",
     role: "Co-founder, Helios",
     initials: "AR",
+    image: "https://i.pravatar.cc/150?u=Ananya",
   },
   {
     quote:
@@ -480,6 +465,7 @@ const TESTIMONIALS = [
     name: "Marcus Whitfield",
     role: "Head of Growth, Lattice",
     initials: "MW",
+    image: "https://i.pravatar.cc/150?u=Marcus",
   },
   {
     quote:
@@ -487,6 +473,7 @@ const TESTIMONIALS = [
     name: "Priya Mehta",
     role: "Founder, Aurelia",
     initials: "PM",
+    image: "https://i.pravatar.cc/150?u=Priya",
   },
 ];
 
@@ -502,28 +489,41 @@ function Testimonials() {
           />
         </Reveal>
 
-        <div className="mt-14 grid gap-4 lg:grid-cols-3">
+        <div className="mt-14 grid gap-6 lg:grid-cols-3">
           {TESTIMONIALS.map((t, i) => (
-            <Reveal key={t.name} delay={i + 1}>
-              <div className="flex h-full flex-col rounded-[4px] border border-[var(--hairline)] bg-[var(--canvas)] p-7">
-                <Quote className="h-5 w-5 text-[var(--ink)]" />
-                <p className="mt-5 flex-1 text-[16px] leading-[1.5] text-[var(--ink)]">
-                  &ldquo;{t.quote}&rdquo;
-                </p>
-                <div className="mt-7 flex items-center gap-3">
-                  <div className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-[var(--hairline)] text-[14px] font-medium text-[var(--ink)]">
+            <motion.div 
+              key={t.name}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: i * 0.1 }}
+              whileHover={{ y: -5 }}
+              className="group flex h-full flex-col rounded-2xl border border-black/5 bg-white p-7 shadow-sm transition-all hover:shadow-md cursor-default"
+            >
+              <div className="mb-4 rounded-full bg-blue-50 w-10 h-10 flex items-center justify-center group-hover:bg-blue-100 transition-colors">
+                <Quote className="h-4 w-4 text-blue-600" />
+              </div>
+              <p className="flex-1 text-[16px] leading-[1.6] text-neutral-700">
+                &ldquo;{t.quote}&rdquo;
+              </p>
+              <div className="mt-8 flex items-center gap-4 border-t border-[var(--hairline)] pt-6">
+                {t.image ? (
+                  <img
+                    src={t.image}
+                    alt={t.name}
+                    className="h-11 w-11 rounded-full object-cover shadow-sm"
+                  />
+                ) : (
+                  <div className="inline-flex h-11 w-11 items-center justify-center rounded-full bg-blue-50 text-[14px] font-bold text-blue-700 shadow-inner">
                     {t.initials}
                   </div>
-                  <div>
-                    <div className="text-[14px] font-medium text-[var(--ink)]">{t.name}</div>
-                    <div className="text-[12px] text-[var(--body)]">{t.role}</div>
-                  </div>
-                </div>
-                <div className="mt-5 border-t border-[var(--hairline)] pt-4">
-                  <span className="mono-caption text-[var(--body)]">GA-DEC '25</span>
+                )}
+                <div>
+                  <div className="text-[15px] font-bold text-neutral-900">{t.name}</div>
+                  <div className="text-[13px] font-medium text-neutral-500">{t.role}</div>
                 </div>
               </div>
-            </Reveal>
+            </motion.div>
           ))}
         </div>
       </Container>
@@ -574,38 +574,49 @@ function FaqSection() {
           />
         </Reveal>
 
-        <Reveal delay={1}>
-          <div className="mt-14 max-w-3xl mx-auto divide-y divide-[var(--hairline)] border-y border-[var(--hairline)]">
-            {FAQ_ITEMS.map((item, i) => {
-              const isOpen = open === i;
-              return (
-                <div key={item.q}>
-                  <button
-                    type="button"
-                    onClick={() => setOpen(isOpen ? null : i)}
-                    className="flex w-full items-center justify-between gap-4 py-5 text-left transition-colors hover:bg-[#fafafa]"
-                    aria-expanded={isOpen}
-                  >
-                    <span className="text-[16px] font-medium text-[var(--ink)]">
-                      {item.q}
-                    </span>
+        <div className="mt-14 max-w-3xl mx-auto divide-y divide-[var(--hairline)] border-y border-[var(--hairline)]">
+          {FAQ_ITEMS.map((item, i) => {
+            const isOpen = open === i;
+            return (
+              <motion.div 
+                key={item.q}
+                initial={{ opacity: 0, y: 10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.4, delay: i * 0.05 }}
+              >
+                <button
+                  type="button"
+                  onClick={() => setOpen(isOpen ? null : i)}
+                  className="flex w-full items-center justify-between gap-4 py-6 text-left transition-colors hover:bg-neutral-50/50"
+                  aria-expanded={isOpen}
+                >
+                  <span className={cn("text-[17px] font-semibold transition-colors", isOpen ? "text-blue-600" : "text-neutral-900")}>
+                    {item.q}
+                  </span>
+                  <div className={cn("flex h-8 w-8 shrink-0 items-center justify-center rounded-full transition-colors", isOpen ? "bg-blue-50" : "bg-neutral-50")}>
                     <ChevronDown
                       className={cn(
-                        "h-4 w-4 shrink-0 text-[var(--body)] transition-transform",
-                        isOpen && "rotate-180 text-[var(--ink)]"
+                        "h-4 w-4 transition-transform duration-300",
+                        isOpen ? "rotate-180 text-blue-600" : "text-neutral-500"
                       )}
                     />
-                  </button>
-                  {isOpen && (
-                    <div className="pb-6 pr-10 text-[15px] leading-[1.5] text-[var(--body)]">
-                      {item.a}
-                    </div>
-                  )}
-                </div>
-              );
-            })}
-          </div>
-        </Reveal>
+                  </div>
+                </button>
+                <motion.div
+                  initial={false}
+                  animate={{ height: isOpen ? "auto" : 0, opacity: isOpen ? 1 : 0 }}
+                  transition={{ duration: 0.3, ease: "easeInOut" }}
+                  className="overflow-hidden"
+                >
+                  <div className="pb-8 pr-12 text-[15px] leading-[1.6] text-neutral-600">
+                    {item.a}
+                  </div>
+                </motion.div>
+              </motion.div>
+            );
+          })}
+        </div>
       </Container>
     </Section>
   );
@@ -687,30 +698,42 @@ function Flow() {
           />
         </Reveal>
 
-        <Reveal delay={1}>
-          <div className="mx-auto mt-12 max-w-5xl">
-            <div className="flex flex-wrap items-center justify-center gap-2">
-              {FLOW.map((step, i) => (
-                <div key={step} className="flex items-center gap-2">
-                  <span
-                    className={cn(
-                      "rounded-[3.25px] border border-[var(--hairline)] bg-[var(--canvas)] px-4 py-2 text-[14px] font-medium text-[var(--ink)]",
-                      i === FLOW.length - 1 && "border-[var(--ink)] bg-[var(--ink)] text-[var(--canvas)]",
-                      i === 0 && "border-[var(--ink)]"
-                    )}
-                  >
-                    {step}
-                  </span>
-                  {i < FLOW.length - 1 && (
-                    <span className="text-[var(--body)]" aria-hidden>
-                      →
-                    </span>
+        <div className="mx-auto mt-16 max-w-5xl">
+          <div className="flex flex-wrap items-center justify-center gap-y-4 gap-x-2">
+            {FLOW.map((step, i) => (
+              <motion.div 
+                key={step} 
+                className="flex items-center gap-2"
+                initial={{ opacity: 0, scale: 0.9, x: -10 }}
+                whileInView={{ opacity: 1, scale: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.4, delay: i * 0.1 }}
+              >
+                <motion.span
+                  whileHover={{ y: -2, scale: 1.05 }}
+                  className={cn(
+                    "rounded-full border border-black/10 bg-white px-5 py-2.5 text-[14px] font-semibold text-neutral-700 shadow-sm transition-all cursor-default",
+                    i === FLOW.length - 1 && "border-blue-600 bg-blue-600 text-white shadow-md",
+                    i === 0 && "border-blue-200 bg-blue-50 text-blue-700"
                   )}
-                </div>
-              ))}
-            </div>
+                >
+                  {step}
+                </motion.span>
+                {i < FLOW.length - 1 && (
+                  <motion.span 
+                    initial={{ opacity: 0, width: 0 }}
+                    whileInView={{ opacity: 1, width: "auto" }}
+                    transition={{ duration: 0.3, delay: i * 0.1 + 0.2 }}
+                    className="text-neutral-300 mx-1" 
+                    aria-hidden
+                  >
+                    <ArrowRight className="h-4 w-4" />
+                  </motion.span>
+                )}
+              </motion.div>
+            ))}
           </div>
-        </Reveal>
+        </div>
       </Container>
     </Section>
   );
