@@ -50,12 +50,12 @@ const SOCIAL: Array<{
   href: string;
   Icon: React.ComponentType<React.SVGProps<SVGSVGElement>>;
 }> = [
-  { Icon: LinkedinIcon, label: "LinkedIn", href: "#" },
-  { Icon: InstagramIcon, label: "Instagram", href: "#" },
-  { Icon: FacebookIcon, label: "Facebook", href: "#" },
-  { Icon: Twitter, label: "X (Twitter)", href: "#" },
-  { Icon: YoutubeIcon, label: "YouTube", href: "#" },
-];
+    { Icon: LinkedinIcon, label: "LinkedIn", href: "#" },
+    { Icon: InstagramIcon, label: "Instagram", href: "#" },
+    { Icon: FacebookIcon, label: "Facebook", href: "#" },
+    { Icon: Twitter, label: "X (Twitter)", href: "#" },
+    { Icon: YoutubeIcon, label: "YouTube", href: "#" },
+  ];
 
 export function Footer() {
   return (
@@ -108,7 +108,7 @@ export function Footer() {
           <div className="flex items-center gap-4">
             <Link href="/privacy" className="hover:text-[var(--ink)]">Privacy</Link>
             <Link href="/terms" className="hover:text-[var(--ink)]">Terms</Link>
-            <span className="mono-eyebrow">Mumbai · India</span>
+            <span className="mono-eyebrow">Pune · India</span>
           </div>
         </div>
       </Container>

@@ -586,7 +586,7 @@ function Offices() {
                 <div className="rounded-[4px] border border-[var(--surface-dark-soft)] bg-[var(--surface-dark-soft)] p-5">
                   <div className="flex items-center gap-2 text-[14px] font-medium text-[var(--on-dark)]">
                     <MapPin className="h-4 w-4 text-[var(--on-dark)]" />
-                    Mumbai · India
+                    Pune · India
                   </div>
                   <p className="mt-1 mono-caption text-[var(--on-dark)] opacity-60">
                     19.0760° N · 72.8777° E
@@ -601,7 +601,7 @@ function Offices() {
                 Remote-first, globally connected.
               </h2>
               <p className="mt-4 text-[16px] leading-[1.5] text-[var(--body)]">
-                We work async across time zones, with one home base in Mumbai.
+                We work async across time zones, with one home base in Pune.
                 Visit by appointment, or jump on a call.
               </p>
               <ul className="mt-7 space-y-4 text-[14px]">

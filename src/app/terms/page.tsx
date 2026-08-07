@@ -59,7 +59,7 @@ const SECTIONS = [
   },
   {
     title: "14. Governing law & disputes",
-    body: "These terms are governed by the laws of India. Disputes will be resolved through binding arbitration in Mumbai, in English. Nothing in this clause prevents either party from seeking injunctive relief to protect intellectual property.",
+    body: "These terms are governed by the laws of India. Disputes will be resolved through binding arbitration in Pune, in English. Nothing in this clause prevents either party from seeking injunctive relief to protect intellectual property.",
   },
   {
     title: "15. Changes",
@@ -67,7 +67,7 @@ const SECTIONS = [
   },
   {
     title: "16. Contact",
-    body: "Questions about these terms? Email legal@vistaar.com or write to: Vistaar, Bandra Kurla Complex, Mumbai 400 051, India.",
+    body: "Questions about these terms? Email legal@vistaar.com or write to: Vistaar, Pune 411041, India.",
   },
 ];
 

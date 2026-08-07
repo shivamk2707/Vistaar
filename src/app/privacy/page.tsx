@@ -55,7 +55,7 @@ const SECTIONS = [
   },
   {
     title: "13. Contact",
-    body: "Questions, complaints, or data requests? Email privacy@vistaar.com or write to: Vistaar, Bandra Kurla Complex, Mumbai 400 051, India.",
+    body: "Questions, complaints, or data requests? Email privacy@vistaar.com or write to: Vistaar, Pune 4110141, India.",
   },
 ];
 
@@ -72,7 +72,7 @@ export default function PrivacyPage() {
           <div className="mx-auto max-w-3xl">
             <Reveal>
               <p className="mono-eyebrow text-[var(--body)]">
-                Last updated · 17 March 2026
+                Last updated · 07 August 2026
               </p>
             </Reveal>
             <div className="mt-10 space-y-10">
