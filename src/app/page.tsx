@@ -236,7 +236,7 @@ function ServicesTabs() {
         </Reveal>
 
         {/* Active tab content */}
-        <div className="mt-12 overflow-hidden rounded-2xl border border-[var(--hairline)] bg-white/50 backdrop-blur-xl shadow-sm">
+        <div className="mt-12 overflow-hidden rounded-2xl border border-[var(--hairline)] bg-zinc-900/50 backdrop-blur-xl shadow-sm">
           <motion.div
             key={active}
             initial={{ opacity: 0, y: 20 }}
@@ -246,23 +246,23 @@ function ServicesTabs() {
             className="grid gap-8 p-8 lg:grid-cols-5 lg:p-12"
           >
             <div className="lg:col-span-2">
-              <div className="inline-flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-blue-50 to-blue-100/50 border border-blue-100 shadow-sm">
-                <current.Icon className="h-6 w-6 text-blue-600" />
+              <div className="inline-flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-blue-500/10 to-blue-500/20 border border-blue-500/20 shadow-sm">
+                <current.Icon className="h-6 w-6 text-blue-400" />
               </div>
-              <h3 className="mt-6 text-3xl font-bold tracking-tight text-neutral-900">{current.label}</h3>
-              <p className="mt-4 text-[16px] leading-[1.6] text-neutral-600">
+              <h3 className="mt-6 text-3xl font-bold tracking-tight text-white">{current.label}</h3>
+              <p className="mt-4 text-[16px] leading-[1.6] text-zinc-400">
                 {current.description}
               </p>
               <Link
                 href="/services"
-                className="group mt-8 inline-flex items-center gap-2 text-[14px] font-semibold text-blue-600 hover:text-blue-700 transition-colors"
+                className="group mt-8 inline-flex items-center gap-2 text-[14px] font-semibold text-blue-400 hover:text-blue-300 transition-colors"
               >
                 Learn more
                 <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
               </Link>
             </div>
             <div className="lg:col-span-3 lg:pl-12 lg:border-l border-[var(--hairline)]">
-              <h4 className="text-xs font-bold uppercase tracking-wider text-neutral-400">What&rsquo;s included</h4>
+              <h4 className="text-xs font-bold uppercase tracking-wider text-zinc-500">What&rsquo;s included</h4>
               <ul className="mt-6 space-y-4">
                 {current.deliverables.map((d, i) => (
                   <motion.li
@@ -272,10 +272,10 @@ function ServicesTabs() {
                     key={d}
                     className="flex items-center gap-4 group"
                   >
-                    <div className="rounded-full bg-blue-50 p-1 group-hover:bg-blue-100 transition-colors">
-                      <Check className="h-4 w-4 shrink-0 text-blue-600" />
+                    <div className="rounded-full bg-blue-500/10 p-1 group-hover:bg-blue-500/20 transition-colors">
+                      <Check className="h-4 w-4 shrink-0 text-blue-400" />
                     </div>
-                    <span className="text-[15px] font-medium text-neutral-700">{d}</span>
+                    <span className="text-[15px] font-medium text-zinc-300">{d}</span>
                   </motion.li>
                 ))}
               </ul>
@@ -291,10 +291,10 @@ function ServicesTabs() {
    STATS — pastel-tinted stat tiles
    ============================================================ */
 const STATS = [
-  { value: "200M+", label: "Brand Impressions Generated", tone: "bg-[var(--accent-mint)]" },
-  { value: "100+", label: "Brands Built", tone: "bg-[#fde7d3]" },
-  { value: "1K+", label: "Workflows Automated", tone: "bg-[var(--accent-periwinkle)]" },
-  { value: "10K+", label: "Leads Captured", tone: "bg-[#f7d4ec]" },
+  { value: "200M+", label: "Brand Impressions Generated", tone: "bg-emerald-500/10 border-emerald-500/20 hover:bg-emerald-500/20" },
+  { value: "100+", label: "Brands Built", tone: "bg-orange-500/10 border-orange-500/20 hover:bg-orange-500/20" },
+  { value: "1K+", label: "Workflows Automated", tone: "bg-blue-500/10 border-blue-500/20 hover:bg-blue-500/20" },
+  { value: "10K+", label: "Leads Captured", tone: "bg-fuchsia-500/10 border-fuchsia-500/20 hover:bg-fuchsia-500/20" },
 ];
 
 function Stats() {
@@ -310,17 +310,17 @@ function Stats() {
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: i * 0.1 }}
               whileHover={{ y: -5, scale: 1.02 }}
-              className={cn("rounded-2xl p-8 border border-black/5 shadow-sm transition-all cursor-default", s.tone)}
+              className={cn("rounded-2xl p-8 border shadow-sm transition-all cursor-default", s.tone)}
             >
               <motion.div 
                 initial={{ opacity: 0, x: -10 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.5, delay: i * 0.1 + 0.3 }}
-                className="text-[40px] font-bold leading-[1.1] tracking-tight text-[var(--ink)]"
+                className="text-[40px] font-bold leading-[1.1] tracking-tight text-white"
               >
                 {s.value}
               </motion.div>
-              <div className="mt-3 text-sm font-semibold uppercase tracking-wider text-[var(--ink)] opacity-70">
+              <div className="mt-3 text-sm font-semibold uppercase tracking-wider text-zinc-400">
                 {s.label}
               </div>
             </motion.div>
@@ -387,14 +387,14 @@ function Comparison() {
           />
         </motion.div>
 
-        <div className="mt-16 overflow-hidden rounded-2xl border border-[var(--hairline)] bg-white/50 backdrop-blur-xl shadow-[0_8px_40px_rgba(0,0,0,0.04)]">
-          <div className="hidden grid-cols-12 border-b border-[var(--hairline)] bg-neutral-50/80 px-6 py-5 md:grid">
-            <div className="col-span-4 text-xs font-semibold uppercase tracking-wider text-neutral-500">What matters</div>
-            <div className="col-span-4 text-xs font-bold uppercase tracking-wider text-blue-600 flex items-center gap-2">
+        <div className="mt-16 overflow-hidden rounded-2xl border border-[var(--hairline)] bg-zinc-900/50 backdrop-blur-xl shadow-[0_8px_40px_rgba(0,0,0,0.4)]">
+          <div className="hidden grid-cols-12 border-b border-[var(--hairline)] bg-zinc-950/80 px-6 py-5 md:grid">
+            <div className="col-span-4 text-xs font-semibold uppercase tracking-wider text-zinc-500">What matters</div>
+            <div className="col-span-4 text-xs font-bold uppercase tracking-wider text-blue-400 flex items-center gap-2">
               <div className="w-2 h-2 rounded-full bg-blue-500 animate-pulse" />
               Vistaar
             </div>
-            <div className="col-span-4 text-xs font-semibold uppercase tracking-wider text-neutral-400">Traditional agency</div>
+            <div className="col-span-4 text-xs font-semibold uppercase tracking-wider text-zinc-500">Traditional agency</div>
           </div>
 
           <div className="divide-y divide-[var(--hairline)]">
@@ -405,35 +405,35 @@ function Comparison() {
                 viewport={{ once: true, margin: "-50px" }}
                 transition={{ duration: 0.4, delay: i * 0.1 }}
                 key={row.feature}
-                className="group grid grid-cols-1 gap-4 px-6 py-6 transition-colors hover:bg-white md:grid-cols-12 md:gap-6 items-center"
+                className="group grid grid-cols-1 gap-4 px-6 py-6 transition-colors hover:bg-white/5 md:grid-cols-12 md:gap-6 items-center"
               >
-                <div className="md:col-span-4 text-[16px] font-semibold text-neutral-900 group-hover:text-blue-900 transition-colors">
+                <div className="md:col-span-4 text-[16px] font-semibold text-white group-hover:text-blue-400 transition-colors">
                   {row.feature}
                 </div>
 
                 <div className="md:col-span-4 flex flex-col gap-1 relative">
-                  <span className="md:hidden text-xs font-bold uppercase tracking-wider text-blue-600 mb-1 flex items-center gap-1">
+                  <span className="md:hidden text-xs font-bold uppercase tracking-wider text-blue-400 mb-1 flex items-center gap-1">
                     <Check className="w-3 h-3" /> Vistaar
                   </span>
                   <div className="flex items-start gap-3">
-                    <div className="mt-0.5 rounded-full bg-blue-100 p-1 hidden md:block">
-                      <Check className="w-3 h-3 text-blue-600" />
+                    <div className="mt-0.5 rounded-full bg-blue-500/20 p-1 hidden md:block">
+                      <Check className="w-3 h-3 text-blue-400" />
                     </div>
-                    <p className="text-[15px] font-medium text-neutral-800 leading-snug">
+                    <p className="text-[15px] font-medium text-zinc-300 leading-snug">
                       {row.vistaar}
                     </p>
                   </div>
                 </div>
 
                 <div className="md:col-span-4 flex flex-col gap-1 relative">
-                  <span className="md:hidden text-xs font-semibold uppercase tracking-wider text-neutral-400 mb-1 flex items-center gap-1">
+                  <span className="md:hidden text-xs font-semibold uppercase tracking-wider text-zinc-500 mb-1 flex items-center gap-1">
                     <X className="w-3 h-3" /> Traditional
                   </span>
                   <div className="flex items-start gap-3">
-                    <div className="mt-0.5 rounded-full bg-neutral-100 p-1 hidden md:block">
-                      <X className="w-3 h-3 text-neutral-400" />
+                    <div className="mt-0.5 rounded-full bg-zinc-800 p-1 hidden md:block">
+                      <X className="w-3 h-3 text-zinc-500" />
                     </div>
-                    <p className="text-[15px] text-neutral-500 leading-snug">
+                    <p className="text-[15px] text-zinc-500 leading-snug">
                       {row.other}
                     </p>
                   </div>
@@ -498,12 +498,12 @@ function Testimonials() {
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: i * 0.1 }}
               whileHover={{ y: -5 }}
-              className="group flex h-full flex-col rounded-2xl border border-black/5 bg-white p-7 shadow-sm transition-all hover:shadow-md cursor-default"
+              className="group flex h-full flex-col rounded-2xl border border-white/5 bg-zinc-900/50 p-7 shadow-sm transition-all hover:shadow-[0_8px_30px_rgba(255,255,255,0.04)] cursor-default"
             >
-              <div className="mb-4 rounded-full bg-blue-50 w-10 h-10 flex items-center justify-center group-hover:bg-blue-100 transition-colors">
-                <Quote className="h-4 w-4 text-blue-600" />
+              <div className="mb-4 rounded-full bg-blue-500/10 w-10 h-10 flex items-center justify-center group-hover:bg-blue-500/20 transition-colors">
+                <Quote className="h-4 w-4 text-blue-400" />
               </div>
-              <p className="flex-1 text-[16px] leading-[1.6] text-neutral-700">
+              <p className="flex-1 text-[16px] leading-[1.6] text-zinc-300">
                 &ldquo;{t.quote}&rdquo;
               </p>
               <div className="mt-8 flex items-center gap-4 border-t border-[var(--hairline)] pt-6">
@@ -514,13 +514,13 @@ function Testimonials() {
                     className="h-11 w-11 rounded-full object-cover shadow-sm"
                   />
                 ) : (
-                  <div className="inline-flex h-11 w-11 items-center justify-center rounded-full bg-blue-50 text-[14px] font-bold text-blue-700 shadow-inner">
+                  <div className="inline-flex h-11 w-11 items-center justify-center rounded-full bg-blue-500/20 text-[14px] font-bold text-blue-400 shadow-inner">
                     {t.initials}
                   </div>
                 )}
                 <div>
-                  <div className="text-[15px] font-bold text-neutral-900">{t.name}</div>
-                  <div className="text-[13px] font-medium text-neutral-500">{t.role}</div>
+                  <div className="text-[15px] font-bold text-white">{t.name}</div>
+                  <div className="text-[13px] font-medium text-zinc-500">{t.role}</div>
                 </div>
               </div>
             </motion.div>
@@ -588,17 +588,17 @@ function FaqSection() {
                 <button
                   type="button"
                   onClick={() => setOpen(isOpen ? null : i)}
-                  className="flex w-full items-center justify-between gap-4 py-6 text-left transition-colors hover:bg-neutral-50/50"
+                  className="flex w-full items-center justify-between gap-4 py-6 text-left transition-colors hover:bg-white/5"
                   aria-expanded={isOpen}
                 >
-                  <span className={cn("text-[17px] font-semibold transition-colors", isOpen ? "text-blue-600" : "text-neutral-900")}>
+                  <span className={cn("text-[17px] font-semibold transition-colors", isOpen ? "text-blue-400" : "text-white")}>
                     {item.q}
                   </span>
-                  <div className={cn("flex h-8 w-8 shrink-0 items-center justify-center rounded-full transition-colors", isOpen ? "bg-blue-50" : "bg-neutral-50")}>
+                  <div className={cn("flex h-8 w-8 shrink-0 items-center justify-center rounded-full transition-colors", isOpen ? "bg-blue-500/20" : "bg-zinc-800")}>
                     <ChevronDown
                       className={cn(
                         "h-4 w-4 transition-transform duration-300",
-                        isOpen ? "rotate-180 text-blue-600" : "text-neutral-500"
+                        isOpen ? "rotate-180 text-blue-400" : "text-zinc-500"
                       )}
                     />
                   </div>
@@ -609,7 +609,7 @@ function FaqSection() {
                   transition={{ duration: 0.3, ease: "easeInOut" }}
                   className="overflow-hidden"
                 >
-                  <div className="pb-8 pr-12 text-[15px] leading-[1.6] text-neutral-600">
+                  <div className="pb-8 pr-12 text-[15px] leading-[1.6] text-zinc-400">
                     {item.a}
                   </div>
                 </motion.div>
@@ -712,9 +712,9 @@ function Flow() {
                 <motion.span
                   whileHover={{ y: -2, scale: 1.05 }}
                   className={cn(
-                    "rounded-full border border-black/10 bg-white px-5 py-2.5 text-[14px] font-semibold text-neutral-700 shadow-sm transition-all cursor-default",
-                    i === FLOW.length - 1 && "border-blue-600 bg-blue-600 text-white shadow-md",
-                    i === 0 && "border-blue-200 bg-blue-50 text-blue-700"
+                    "rounded-full border border-white/10 bg-zinc-900/50 px-5 py-2.5 text-[14px] font-semibold text-zinc-300 shadow-sm transition-all cursor-default",
+                    i === FLOW.length - 1 && "border-blue-500/30 bg-blue-600 text-white shadow-md",
+                    i === 0 && "border-blue-500/20 bg-blue-500/10 text-blue-400"
                   )}
                 >
                   {step}
@@ -724,7 +724,7 @@ function Flow() {
                     initial={{ opacity: 0, width: 0 }}
                     whileInView={{ opacity: 1, width: "auto" }}
                     transition={{ duration: 0.3, delay: i * 0.1 + 0.2 }}
-                    className="text-neutral-300 mx-1" 
+                    className="text-zinc-500 mx-1" 
                     aria-hidden
                   >
                     <ArrowRight className="h-4 w-4" />

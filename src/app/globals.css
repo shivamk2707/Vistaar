@@ -8,15 +8,15 @@
 
 :root {
   /* Brand & accent */
-  --primary: #000000;            /* ink black — single primary CTA color */
-  --on-primary: #ffffff;
-  --ink: #000000;
-  --body: #959494;               /* secondary text / caption */
-  --hairline: #ebebeb;           /* 1px dividers on light */
-  --canvas: #ffffff;
-  --canvas-dark: #010120;        /* dark hero surface */
-  --surface-dark-soft: #313641;  /* dark card surface */
-  --surface-dark-hairline: #26263a; /* hairline on dark */
+  --primary: #ffffff;            /* ink black — single primary CTA color */
+  --on-primary: #000000;
+  --ink: #ffffff;
+  --body: #a1a1aa;               /* secondary text / caption */
+  --hairline: #27272a;           /* 1px dividers on light */
+  --canvas: #09090b;
+  --canvas-dark: #09090b;        /* dark hero surface */
+  --surface-dark-soft: #18181b;  /* dark card surface */
+  --surface-dark-hairline: #27272a; /* hairline on dark */
   --on-dark: #ffffff;
   --accent-orange: #fc4c02;
   --accent-magenta: #ef2cc1;

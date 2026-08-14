@@ -39,10 +39,10 @@ export function Navbar() {
 
   return (
     <header className="fixed inset-x-0 top-0 z-50 flex justify-center px-4 pt-4 transition-all duration-300">
-      <div
+      <div 
         className={cn(
-          "w-full max-w-[1220px] transition-all duration-500 ease-in-out",
-          scrolled ? "rounded-full border border-black/10 bg-white/85 backdrop-blur-xl shadow-[0_8px_30px_rgba(0,0,0,0.04)]" : "rounded-full border border-transparent bg-transparent"
+          "w-full max-w-[1200px] transition-all duration-500 ease-in-out",
+          scrolled ? "rounded-full border border-white/10 bg-zinc-950/80 backdrop-blur-xl shadow-[0_8px_30px_rgba(0,0,0,0.4)]" : "rounded-2xl border border-transparent bg-transparent"
         )}
       >
         <div className="px-4 sm:px-6 lg:px-8">
@@ -53,11 +53,11 @@ export function Navbar() {
               className="group flex items-center transition-transform hover:scale-105"
               aria-label="Vistaar home"
             >
-              <VistaarLogo onDark={false} />
+              <VistaarLogo onDark={true} />
             </Link>
 
             {/* Center nav */}
-            <nav className="hidden items-center gap-1 lg:flex bg-white/50 border border-black/5 rounded-full px-2 py-1.5 shadow-sm backdrop-blur-md">
+            <nav className="hidden items-center gap-1 lg:flex bg-zinc-900/50 border border-white/5 rounded-full px-2 py-1.5 shadow-sm backdrop-blur-md">
               {NAV_LINKS.map((link) => {
                 const active = isActive(link.href);
                 return (
@@ -66,9 +66,9 @@ export function Navbar() {
                     href={link.href}
                     className={cn(
                       "relative rounded-full px-4 py-1.5 text-[14px] font-medium transition-all duration-300",
-                      active
-                        ? "bg-blue-600 text-white shadow-md"
-                        : "text-neutral-600 hover:bg-black/5 hover:text-neutral-900"
+                      active 
+                        ? "bg-white text-black shadow-md" 
+                        : "text-zinc-400 hover:bg-white/10 hover:text-white"
                     )}
                   >
                     {link.label}
@@ -92,7 +92,7 @@ export function Navbar() {
               <button
                 type="button"
                 onClick={() => setOpen((o) => !o)}
-                className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-white/80 border border-black/10 text-neutral-800 shadow-sm backdrop-blur-md transition-colors hover:bg-neutral-100 lg:hidden"
+                className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-zinc-900/80 border border-white/10 text-white shadow-sm backdrop-blur-md transition-colors hover:bg-zinc-800 lg:hidden"
                 aria-label={open ? "Close menu" : "Open menu"}
                 aria-expanded={open}
               >
@@ -106,7 +106,7 @@ export function Navbar() {
       {/* Mobile menu */}
       <div
         className={cn(
-          "absolute inset-x-4 top-[84px] overflow-hidden rounded-2xl border border-black/10 bg-white/95 backdrop-blur-xl shadow-xl transition-all duration-400 ease-[cubic-bezier(0.16,1,0.3,1)] lg:hidden",
+          "absolute inset-x-4 top-[84px] overflow-hidden rounded-2xl border border-white/10 bg-zinc-950/95 backdrop-blur-xl shadow-xl transition-all duration-400 ease-[cubic-bezier(0.16,1,0.3,1)] lg:hidden",
           open ? "max-h-[640px] opacity-100 translate-y-0" : "max-h-0 opacity-0 -translate-y-4 pointer-events-none border-transparent"
         )}
       >
@@ -120,9 +120,9 @@ export function Navbar() {
                   href={link.href}
                   className={cn(
                     "rounded-xl px-4 py-3 text-[16px] font-semibold transition-all",
-                    active
-                      ? "bg-blue-50 text-blue-700"
-                      : "text-neutral-700 hover:bg-neutral-100 hover:text-neutral-900"
+                    active 
+                      ? "bg-white text-black" 
+                      : "text-zinc-300 hover:bg-white/5 hover:text-white"
                   )}
                   onClick={() => setOpen(false)}
                 >
@@ -130,7 +130,7 @@ export function Navbar() {
                 </Link>
               );
             })}
-            <div className="mt-6 flex flex-col gap-3 border-t border-black/5 pt-6">
+            <div className="mt-6 flex flex-col gap-3 border-t border-white/10 pt-6">
               <Link href="/contact" onClick={() => setOpen(false)}>
                 <Button
                   fullWidth
@@ -142,7 +142,7 @@ export function Navbar() {
                 </Button>
               </Link>
               <Link href="/contact" onClick={() => setOpen(false)}>
-                <Button fullWidth variant="primary" className="rounded-xl h-12 text-[16px] bg-neutral-900 text-white hover:bg-neutral-800">
+                <Button fullWidth variant="primary" className="rounded-xl h-12 text-[16px] bg-white text-black hover:bg-zinc-200">
                   Sign in
                 </Button>
               </Link>

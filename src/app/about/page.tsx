@@ -116,7 +116,7 @@ function StorySection() {
                   <button
                     type="button"
                     onClick={() => setOpen(isOpen ? null : i)}
-                    className="flex w-full items-center justify-between gap-4 py-5 text-left transition-colors hover:bg-[#fafafa]"
+                    className="flex w-full items-center justify-between gap-4 py-5 text-left transition-colors hover:bg-white/5"
                     aria-expanded={isOpen}
                   >
                     <div className="flex items-center gap-4">
@@ -195,12 +195,12 @@ function Stats() {
    ============================================================ */
 function Principles() {
   const cardGradients = [
-    "from-blue-100/60 via-indigo-50/60 to-purple-100/60",
-    "from-emerald-100/60 via-teal-50/60 to-cyan-100/60",
-    "from-orange-100/60 via-rose-50/60 to-red-100/60",
-    "from-fuchsia-100/60 via-pink-50/60 to-rose-100/60",
-    "from-amber-100/60 via-yellow-50/60 to-orange-100/60",
-    "from-violet-100/60 via-purple-50/60 to-fuchsia-100/60",
+    "from-blue-500/20 via-indigo-500/10 to-purple-500/20",
+    "from-emerald-500/20 via-teal-500/10 to-cyan-500/20",
+    "from-orange-500/20 via-rose-500/10 to-red-500/20",
+    "from-fuchsia-500/20 via-pink-500/10 to-rose-500/20",
+    "from-amber-500/20 via-yellow-500/10 to-orange-500/20",
+    "from-violet-500/20 via-purple-500/10 to-fuchsia-500/20",
   ];
 
   const renderParticles = (i: number) => {

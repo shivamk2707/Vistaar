@@ -276,9 +276,8 @@ function ProjectForm() {
                         })}
                       </div>
 
-                      {/* Selection summary */}
                       {picked.length > 0 ? (
-                        <div className="mt-5 flex flex-wrap items-center gap-2 rounded-[4px] border border-dashed border-[var(--hairline)] bg-[#fafafa] px-4 py-3">
+                        <div className="mt-5 flex flex-wrap items-center gap-2 rounded-[4px] border border-dashed border-[var(--hairline)] bg-[var(--surface-dark-soft)] px-4 py-3">
                           <span className="mono-eyebrow text-[var(--body)]">
                             You picked
                           </span>
