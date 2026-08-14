@@ -271,13 +271,31 @@ function ServicesStepper() {
                 <AnimatePresence mode="wait">
                   <motion.div
                     key={activeIndex}
-                    initial={{ opacity: 0, y: 30 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -30 }}
-                    transition={{ duration: 0.3 }}
-                    className="text-[14rem] font-bold leading-none tracking-tighter text-white/15"
+                    initial={{ opacity: 0, scale: 0.95, filter: "blur(10px)" }}
+                    animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
+                    exit={{ opacity: 0, scale: 1.05, filter: "blur(10px)" }}
+                    transition={{ duration: 0.4, ease: "easeOut" }}
+                    className="w-full max-w-lg aspect-square rounded-3xl overflow-hidden shadow-[0_8px_40px_rgba(0,0,0,0.5)] border border-[var(--hairline)] relative"
                   >
-                    0{activeIndex + 1}
+                    <img
+                      src={
+                        activeIndex === 0 ? "/images/practice/practice-01.png" :
+                          activeIndex === 1 ? "/images/practice/practice-02.png" :
+                            activeIndex === 2 ? "/images/practice/practice-03.png" :
+                              activeIndex === 3 ? "/images/practice/practice-04.png" :
+                                activeIndex === 4 ? "/images/practice/practice-05.png" :
+                                  "/images/practice/practice-06.png"
+                      }
+                      alt="Service Visual"
+                      className="w-full h-full object-cover"
+                    />
+                    {/* Gradient overlay for text contrast */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent pointer-events-none" />
+
+                    {/* Number Overlay */}
+                    <div className="absolute bottom-8 left-8 text-7xl lg:text-8xl font-bold tracking-tighter text-white/90 drop-shadow-2xl">
+                      0{activeIndex + 1}
+                    </div>
                   </motion.div>
                 </AnimatePresence>
               </div>
