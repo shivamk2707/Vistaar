@@ -1,28 +1,88 @@
+"use client";
+
 import { cn } from "@/lib/utils";
-import { ArrowRight, ChevronRight, Command, Search } from "lucide-react";
+import { ArrowRight } from "lucide-react";
+import { useState, useRef, MouseEvent } from "react";
 
 export default function ModernLandingHero() {
+    const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+    const [isHovering, setIsHovering] = useState(false);
+    const containerRef = useRef<HTMLDivElement>(null);
+
+    const handleMouseMove = (e: MouseEvent<HTMLDivElement>) => {
+        if (!containerRef.current) return;
+        const rect = containerRef.current.getBoundingClientRect();
+        setMousePosition({
+            x: e.clientX - rect.left,
+            y: e.clientY - rect.top,
+        });
+    };
+
     return (
         <section className="relative flex min-h-screen w-full flex-col items-center font-sans text-white selection:bg-white selection:text-black">
             <main className="flex w-full max-w-[1000px] flex-col items-center px-6 pt-32 text-center md:pt-40 z-10">
 
-                {/* Pill Badge - Linear inspired */}
-                <div className="group mb-8 flex cursor-pointer items-center gap-2 rounded-full border border-white/[0.12] bg-white/[0.03] py-1.5 pl-1.5 pr-3 text-xs font-medium text-neutral-400 backdrop-blur-md transition-colors hover:bg-white/[0.06]">
-                    <span className="rounded-full bg-white px-2 py-0.5 text-[10px] font-bold uppercase tracking-widest text-black">
-                        Update
-                    </span>
-                    <span>Next-Gen Architecture</span>
-                    <ChevronRight className="h-3.5 w-3.5 text-neutral-500 transition-transform group-hover:translate-x-0.5" />
-                </div>
+                {/* Text Container with Mouse Tracking */}
+                <div
+                    ref={containerRef}
+                    onMouseMove={handleMouseMove}
+                    onMouseEnter={() => setIsHovering(true)}
+                    onMouseLeave={() => setIsHovering(false)}
+                    className="relative mb-6 max-w-4xl py-10 px-4 group"
+                >
+                    {/* Glass Circle following mouse */}
+                    <div
+                        className={cn(
+                            "pointer-events-none absolute -translate-x-1/2 -translate-y-1/2 rounded-full transition-opacity duration-300 z-10",
+                            "h-24 w-24 bg-white/10 backdrop-blur-xl",
+                            isHovering ? "opacity-100" : "opacity-0"
+                        )}
+                        style={{
+                            left: `${mousePosition.x}px`,
+                            top: `${mousePosition.y}px`,
+                            WebkitMaskImage: `radial-gradient(circle, black 0%, transparent 70%)`,
+                            maskImage: `radial-gradient(circle, black 0%, transparent 70%)`,
+                        }}
+                    />
 
-                {/* 
-          Headline - Vercel inspired typography 
-          Using tracking-tighter and text-balance for perfect typographic lockup
-        */}
-                <h1 className="mb-6 max-w-4xl text-balance text-5xl font-medium tracking-tighter text-white sm:text-7xl lg:text-8xl">
-                    AI-Powered Brand Growth Company <br className="hidden sm:block" />
-                    <span className="text-neutral-600">Build what&rsquo;s next on the AI Native Cloud.</span>
-                </h1>
+                    {/* Original Base Text */}
+                    <h1
+                        className="relative z-0 text-balance text-5xl font-medium tracking-tighter sm:text-7xl lg:text-8xl"
+                        style={{ fontFamily: "var(--font-ubuntu), sans-serif" }}
+                    >
+                        <span className="text-white">
+                            AI-Powered Brand Growth Company
+                        </span>
+                        <br className="hidden sm:block" />
+                        <span className="text-neutral-400">
+                            Build what&rsquo;s next on the AI Native Cloud.
+                        </span>
+                    </h1>
+
+                    {/* Masked Rainbow Text Overlay */}
+                    <div
+                        className="pointer-events-none absolute inset-0 py-10 px-4 z-20 transition-opacity duration-300"
+                        style={{
+                            opacity: isHovering ? 1 : 0,
+                            WebkitMaskImage: `radial-gradient(circle 32px at ${mousePosition.x}px ${mousePosition.y}px, black 95%, transparent 100%)`,
+                            maskImage: `radial-gradient(circle 32px at ${mousePosition.x}px ${mousePosition.y}px, black 95%, transparent 100%)`,
+                        }}
+                    >
+                        <h1
+                            className="text-balance text-5xl font-medium tracking-tighter sm:text-7xl lg:text-8xl"
+                            style={{ fontFamily: "var(--font-ubuntu), sans-serif" }}
+                            aria-hidden="true"
+                        >
+                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-500 via-yellow-500 to-blue-500">
+                                AI-Powered Brand Growth Company
+                            </span>
+                            <br className="hidden sm:block" />
+                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500">
+                                Build what&rsquo;s next on the AI Native Cloud.
+                            </span>
+                        </h1>
+                    </div>
+                </div>
 
                 <p className="mx-auto mb-10 max-w-[800px] text-balance text-base leading-relaxed text-neutral-400 sm:text-lg">
                     Vistaar partners with startups, founders, and businesses to create impactful brands, modern websites, intelligent AI solutions, and scalable growth systems that transform ideas into successful businesses.
@@ -38,50 +98,7 @@ export default function ModernLandingHero() {
                         Documentation
                     </button>
                 </div>
-
-                {/* 
-          Mock UI Component / Bento Element
-          Provides real-world context and visual weight without useless graphics 
-        */}
-                <div className="mt-20 w-full max-w-4xl rounded-t-xl border border-white/[0.12] bg-[#050505] shadow-2xl overflow-hidden">
-                    {/* Mock Header */}
-                    <div className="flex items-center gap-4 border-b border-white/[0.08] bg-white/[0.02] px-4 py-3">
-                        <div className="flex gap-1.5">
-                            <div className="h-2.5 w-2.5 rounded-full bg-white/[0.15]" />
-                            <div className="h-2.5 w-2.5 rounded-full bg-white/[0.15]" />
-                            <div className="h-2.5 w-2.5 rounded-full bg-white/[0.15]" />
-                        </div>
-
-                        {/* Mock Command Palette */}
-                        <div className="mx-auto flex h-7 w-full max-w-md items-center gap-2 rounded-md border border-white/[0.08] bg-black/50 px-2.5 text-xs text-neutral-500">
-                            <Search className="h-3.5 w-3.5" />
-                            <span>Search components, commands, or settings...</span>
-                            <div className="ml-auto flex items-center gap-1 opacity-60">
-                                <Command className="h-3 w-3" />
-                                <span>K</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    {/* Mock Terminal/Editor Window */}
-                    <div className="h-64 w-full bg-[#050505] p-6 text-left font-mono text-sm leading-relaxed text-neutral-400">
-                        <div className="flex items-center gap-2">
-                            <span className="text-white">~</span>
-                            <span>npx create-modern-app@latest</span>
-                        </div>
-                        <div className="mt-4 text-neutral-600">
-                            <p>✔ Resolving packages...</p>
-                            <p>✔ Fetching dependencies...</p>
-                            <p>✔ Linking dependencies...</p>
-                            <p>✔ Initializing configuration...</p>
-                        </div>
-                        <div className="mt-4 flex items-center gap-2">
-                            <div className="h-2 w-2 rounded-full bg-white animate-pulse" />
-                            <span className="text-white">Ready to deploy.</span>
-                        </div>
-                    </div>
-                </div>
             </main>
         </section>
     );
-};
+}

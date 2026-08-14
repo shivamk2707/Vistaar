@@ -1,5 +1,8 @@
+"use client";
+
 import { type ReactNode, type HTMLAttributes } from "react";
 import { cn } from "@/lib/utils";
+import { motion } from "framer-motion";
 
 export function Container({
   className,
@@ -62,10 +65,33 @@ export function SectionHeading({
   maxTitleWidth = "max-w-3xl",
   onDark = false,
 }: SectionHeadingProps) {
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.15,
+      },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { 
+      opacity: 1, 
+      y: 0,
+      transition: { duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }
+    },
+  };
+
   return (
-    <div
+    <motion.div
+      variants={containerVariants}
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, margin: "-100px" }}
       className={cn(
-        "flex flex-col gap-4",
+        "flex flex-col gap-6",
         align === "center"
           ? "items-center text-center mx-auto"
           : "items-start text-left",
@@ -74,33 +100,28 @@ export function SectionHeading({
       )}
     >
       {eyebrow && (
-        <span
-          className={cn(
-            "mono-eyebrow",
-            onDark ? "text-[var(--on-dark)] opacity-80" : "text-[var(--body)]"
-          )}
-        >
-          {eyebrow}
-        </span>
+        <motion.div variants={itemVariants}>
+          <span className="inline-flex items-center rounded-full border border-blue-500/20 bg-blue-500/10 px-4 py-1.5 text-sm font-semibold tracking-wide text-blue-400 backdrop-blur-md shadow-sm">
+            {eyebrow}
+          </span>
+        </motion.div>
       )}
-      <h2
+      <motion.h2
+        variants={itemVariants}
         className={cn(
-          "text-display-xl",
-          onDark ? "text-[var(--on-dark)]" : "text-[var(--ink)]"
+          "text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-transparent bg-clip-text bg-gradient-to-b from-white to-white/60"
         )}
       >
         {title}
-      </h2>
+      </motion.h2>
       {description && (
-        <p
-          className={cn(
-            "text-[17px] leading-relaxed",
-            onDark ? "text-[var(--on-dark)] opacity-80" : "text-[var(--body)]"
-          )}
+        <motion.p
+          variants={itemVariants}
+          className="text-lg sm:text-xl leading-relaxed text-zinc-400 max-w-2xl"
         >
           {description}
-        </p>
+        </motion.p>
       )}
-    </div>
+    </motion.div>
   );
 }

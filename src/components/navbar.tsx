@@ -39,7 +39,7 @@ export function Navbar() {
 
   return (
     <header className="fixed inset-x-0 top-0 z-50 flex justify-center px-4 pt-4 transition-all duration-300">
-      <div 
+      <div
         className={cn(
           "w-full max-w-[1200px] transition-all duration-500 ease-in-out",
           scrolled ? "rounded-full border border-white/10 bg-zinc-950/80 backdrop-blur-xl shadow-[0_8px_30px_rgba(0,0,0,0.4)]" : "rounded-2xl border border-transparent bg-transparent"
@@ -66,8 +66,8 @@ export function Navbar() {
                     href={link.href}
                     className={cn(
                       "relative rounded-full px-4 py-1.5 text-[14px] font-medium transition-all duration-300",
-                      active 
-                        ? "bg-white text-black shadow-md" 
+                      active
+                        ? "bg-white text-black shadow-md"
                         : "text-zinc-400 hover:bg-white/10 hover:text-white"
                     )}
                   >
@@ -83,7 +83,7 @@ export function Navbar() {
                 <Button
                   size="sm"
                   variant="secondary-mint"
-                  className="rounded-full font-semibold shadow-sm transition-all group-hover:shadow-md"
+                  className="rounded-full text-black font-semibold shadow-sm transition-all group-hover:shadow-md"
                   rightIcon={<ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />}
                 >
                   Get started
@@ -120,8 +120,8 @@ export function Navbar() {
                   href={link.href}
                   className={cn(
                     "rounded-xl px-4 py-3 text-[16px] font-semibold transition-all",
-                    active 
-                      ? "bg-white text-black" 
+                    active
+                      ? "bg-white text-black"
                       : "text-zinc-300 hover:bg-white/5 hover:text-white"
                   )}
                   onClick={() => setOpen(false)}
@@ -135,7 +135,7 @@ export function Navbar() {
                 <Button
                   fullWidth
                   variant="secondary-mint"
-                  className="rounded-xl h-12 text-[16px]"
+                  className="rounded-xl h-12 text-[16px] text-black"
                   rightIcon={<ArrowUpRight className="h-4 w-4" />}
                 >
                   Get started

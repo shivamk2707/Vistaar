@@ -752,6 +752,7 @@ export default function InsightsPage() {
         <Button
           size="lg"
           variant="secondary-mint"
+          className="text-black"
           rightIcon={<ArrowRight className="h-4 w-4" />}
           href="/contact"
         >

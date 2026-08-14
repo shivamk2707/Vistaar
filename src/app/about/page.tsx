@@ -211,7 +211,7 @@ function Principles() {
         <div className={`absolute ${isEven ? '-top-4 -left-4' : '-bottom-4 -right-4'} h-24 w-24 rounded-full bg-indigo-500/10 blur-xl animate-float-slow`}></div>
         <div className={`absolute ${isEven ? 'bottom-8 right-8' : 'top-8 left-8'} h-16 w-16 rounded-full bg-fuchsia-500/10 blur-lg animate-float-slow`} style={{ animationDelay: '1s' }}></div>
         <div className="absolute top-1/4 left-1/4 h-20 w-20 rounded-full bg-orange-500/10 blur-2xl animate-pulse-soft" style={{ animationDelay: '2s' }}></div>
-        
+
         {/* Geometric structures / particles */}
         <svg className={`absolute ${isEven ? 'top-1/4 right-1/4' : 'bottom-1/4 left-1/4'} h-4 w-4 text-indigo-500/30 animate-pulse-soft`} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
           <path d="M12 5v14M5 12h14" />
@@ -243,7 +243,7 @@ function Principles() {
               <div className="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-[var(--hairline)] bg-[var(--canvas)] p-8 transition-all duration-500 hover:shadow-[0_8px_30px_rgb(0,0,0,0.06)] hover:-translate-y-1 hover:border-transparent">
                 {/* Animated gradient background on hover */}
                 <div className={`absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100 bg-gradient-to-br ${cardGradients[i]} animate-gradient-shift pointer-events-none z-0`}></div>
-                
+
                 {/* Particle Effects */}
                 {renderParticles(i)}
 
@@ -296,6 +296,7 @@ function GlassHero() {
           <Button
             size="lg"
             variant="secondary-mint"
+            className="text-black"
             rightIcon={<ArrowRight className="h-4 w-4" />}
             href="/contact"
           >

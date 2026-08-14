@@ -23,7 +23,7 @@ import {
   type LucideIcon,
 } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
-import { motion } from "framer-motion";
+import { motion, useInView, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/button";
 import { Container, Section, SectionHeading } from "@/components/layout";
 import { Reveal } from "@/components/reveal";
@@ -98,7 +98,15 @@ function Hero() {
       onMouseLeave={handleMouseLeave}
     >
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
-        <BackgroundBeamsDemo />
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="absolute inset-0 h-full w-full object-cover opacity-60"
+        >
+          <source src="/videos/vistaar-home-hero-bg.mp4" type="video/mp4" />
+        </video>
         <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/35 to-black/70" />
       </div>
       <ModernLandingHero />
@@ -196,9 +204,53 @@ const SERVICE_TABS = [
   },
 ];
 
-function ServicesTabs() {
-  const [active, setActive] = useState(SERVICE_TABS[0].id);
-  const current = SERVICE_TABS.find((s) => s.id === active)!;
+function ServiceStep({ service, index, onInView }: any) {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { margin: "-50% 0px -50% 0px" });
+
+  useEffect(() => {
+    if (isInView) {
+      onInView();
+    }
+  }, [isInView, onInView]);
+
+  return (
+    <div ref={ref} className="flex flex-col gap-6 scroll-mt-40 transition-opacity duration-500" style={{ opacity: isInView ? 1 : 0.4 }}>
+      {/* Mobile-only step number */}
+      <div className="text-6xl font-bold text-white/10 lg:hidden">
+        0{index + 1}
+      </div>
+
+      <div className="flex items-center gap-4">
+        <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-blue-500/10 to-blue-500/20 border border-blue-500/20 shadow-sm">
+          <service.Icon className="h-6 w-6 text-blue-400" />
+        </div>
+        <h3 className="text-3xl font-bold tracking-tight text-white">{service.label}</h3>
+      </div>
+
+      <p className="text-[16px] leading-[1.6] text-zinc-400 max-w-xl">
+        {service.description}
+      </p>
+
+      <div className="mt-4 border-l border-[var(--hairline)] pl-6">
+        <h4 className="text-xs font-bold uppercase tracking-wider text-zinc-500 mb-4">What&rsquo;s included</h4>
+        <ul className="space-y-4">
+          {service.deliverables.map((d: string) => (
+            <li key={d} className="flex items-center gap-4 group">
+              <div className="rounded-full bg-blue-500/10 p-1 group-hover:bg-blue-500/20 transition-colors">
+                <Check className="h-4 w-4 shrink-0 text-blue-400" />
+              </div>
+              <span className="text-[15px] font-medium text-zinc-300">{d}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  );
+}
+
+function ServicesStepper() {
+  const [activeIndex, setActiveIndex] = useState(0);
 
   return (
     <Section className="bg-[var(--canvas)]" id="services-overview">
@@ -211,76 +263,50 @@ function ServicesTabs() {
           />
         </Reveal>
 
-        {/* Tab pill row */}
-        <Reveal delay={1}>
-          <div className="mt-14 flex flex-wrap items-center justify-center gap-1 rounded-[8px] bg-[var(--hairline)] p-1 max-w-4xl mx-auto">
-            {SERVICE_TABS.map((s) => {
-              const isActive = active === s.id;
-              return (
-                <button
-                  key={s.id}
-                  type="button"
-                  onClick={() => setActive(s.id)}
-                  className={cn(
-                    "h-10 rounded-[4px] px-4 text-[13px] font-medium transition-all",
-                    isActive
-                      ? "bg-[var(--canvas)] text-[var(--ink)]"
-                      : "text-[var(--body)] hover:text-[var(--ink)]"
-                  )}
-                >
-                  {s.label}
-                </button>
-              );
-            })}
-          </div>
-        </Reveal>
-
-        {/* Active tab content */}
-        <div className="mt-12 overflow-hidden rounded-2xl border border-[var(--hairline)] bg-zinc-900/50 backdrop-blur-xl shadow-sm">
-          <motion.div
-            key={active}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.4 }}
-            className="grid gap-8 p-8 lg:grid-cols-5 lg:p-12"
-          >
-            <div className="lg:col-span-2">
-              <div className="inline-flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-blue-500/10 to-blue-500/20 border border-blue-500/20 shadow-sm">
-                <current.Icon className="h-6 w-6 text-blue-400" />
-              </div>
-              <h3 className="mt-6 text-3xl font-bold tracking-tight text-white">{current.label}</h3>
-              <p className="mt-4 text-[16px] leading-[1.6] text-zinc-400">
-                {current.description}
-              </p>
-              <Link
-                href="/services"
-                className="group mt-8 inline-flex items-center gap-2 text-[14px] font-semibold text-blue-400 hover:text-blue-300 transition-colors"
-              >
-                Learn more
-                <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-              </Link>
-            </div>
-            <div className="lg:col-span-3 lg:pl-12 lg:border-l border-[var(--hairline)]">
-              <h4 className="text-xs font-bold uppercase tracking-wider text-zinc-500">What&rsquo;s included</h4>
-              <ul className="mt-6 space-y-4">
-                {current.deliverables.map((d, i) => (
-                  <motion.li
-                    initial={{ opacity: 0, x: 20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.3, delay: i * 0.1 }}
-                    key={d}
-                    className="flex items-center gap-4 group"
+        <div className="mt-20 flex flex-col lg:flex-row lg:gap-20 relative items-start">
+          {/* Sticky Left Column */}
+          <div className="hidden lg:block lg:w-1/2 sticky top-40 self-start">
+            <div className="relative h-[300px]">
+              <div className="absolute inset-0 flex items-start">
+                <AnimatePresence mode="wait">
+                  <motion.div
+                    key={activeIndex}
+                    initial={{ opacity: 0, y: 30 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -30 }}
+                    transition={{ duration: 0.3 }}
+                    className="text-[14rem] font-bold leading-none tracking-tighter text-white/15"
                   >
-                    <div className="rounded-full bg-blue-500/10 p-1 group-hover:bg-blue-500/20 transition-colors">
-                      <Check className="h-4 w-4 shrink-0 text-blue-400" />
-                    </div>
-                    <span className="text-[15px] font-medium text-zinc-300">{d}</span>
-                  </motion.li>
+                    0{activeIndex + 1}
+                  </motion.div>
+                </AnimatePresence>
+              </div>
+              {/* Visual indicator of total progress */}
+              <div className="absolute bottom-0 left-0 flex items-center gap-2">
+                {SERVICE_TABS.map((s, i) => (
+                  <div
+                    key={s.id}
+                    className={cn(
+                      "h-1 rounded-full transition-all duration-300",
+                      i === activeIndex ? "w-8 bg-blue-500" : "w-4 bg-white/10"
+                    )}
+                  />
                 ))}
-              </ul>
+              </div>
             </div>
-          </motion.div>
+          </div>
+
+          {/* Scrolling Right Column */}
+          <div className="flex w-full flex-col gap-32 pb-32 lg:w-1/2 lg:mt-0">
+            {SERVICE_TABS.map((s, i) => (
+              <ServiceStep
+                key={s.id}
+                service={s}
+                index={i}
+                onInView={() => setActiveIndex(i)}
+              />
+            ))}
+          </div>
         </div>
       </Container>
     </Section>
@@ -312,7 +338,7 @@ function Stats() {
               whileHover={{ y: -5, scale: 1.02 }}
               className={cn("rounded-2xl p-8 border shadow-sm transition-all cursor-default", s.tone)}
             >
-              <motion.div 
+              <motion.div
                 initial={{ opacity: 0, x: -10 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.5, delay: i * 0.1 + 0.3 }}
@@ -387,59 +413,80 @@ function Comparison() {
           />
         </motion.div>
 
-        <div className="mt-16 overflow-hidden rounded-2xl border border-[var(--hairline)] bg-zinc-900/50 backdrop-blur-xl shadow-[0_8px_40px_rgba(0,0,0,0.4)]">
-          <div className="hidden grid-cols-12 border-b border-[var(--hairline)] bg-zinc-950/80 px-6 py-5 md:grid">
-            <div className="col-span-4 text-xs font-semibold uppercase tracking-wider text-zinc-500">What matters</div>
-            <div className="col-span-4 text-xs font-bold uppercase tracking-wider text-blue-400 flex items-center gap-2">
-              <div className="w-2 h-2 rounded-full bg-blue-500 animate-pulse" />
+        <div className="mt-20 relative mx-auto max-w-5xl">
+          {/* Table Header */}
+          <div className="hidden grid-cols-12 mb-4 md:grid">
+            <div className="col-span-4 px-6 text-xs font-semibold uppercase tracking-wider text-zinc-500">What matters</div>
+            <div className="col-span-4 px-6 text-xs font-bold uppercase tracking-wider text-blue-400 flex items-center gap-2">
+              <div className="w-2 h-2 rounded-full bg-blue-500 animate-pulse shadow-[0_0_12px_rgba(59,130,246,0.8)]" />
               Vistaar
             </div>
-            <div className="col-span-4 text-xs font-semibold uppercase tracking-wider text-zinc-500">Traditional agency</div>
+            <div className="col-span-4 px-6 text-xs font-semibold uppercase tracking-wider text-zinc-500">Traditional agency</div>
           </div>
 
-          <div className="divide-y divide-[var(--hairline)]">
-            {COMPARISON.map((row, i) => (
-              <motion.div
-                initial={{ opacity: 0, x: -20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true, margin: "-50px" }}
-                transition={{ duration: 0.4, delay: i * 0.1 }}
-                key={row.feature}
-                className="group grid grid-cols-1 gap-4 px-6 py-6 transition-colors hover:bg-white/5 md:grid-cols-12 md:gap-6 items-center"
-              >
-                <div className="md:col-span-4 text-[16px] font-semibold text-white group-hover:text-blue-400 transition-colors">
-                  {row.feature}
-                </div>
+          <div className="flex flex-col relative z-10">
+            {COMPARISON.map((row, i) => {
+              const isFirst = i === 0;
+              const isLast = i === COMPARISON.length - 1;
+              return (
+                <motion.div
+                  initial={{ opacity: 0, y: 10 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-50px" }}
+                  transition={{ duration: 0.4, delay: i * 0.05 }}
+                  key={row.feature}
+                  className="group relative grid grid-cols-1 md:grid-cols-12 items-stretch"
+                >
+                  {/* Row hover effect (background) */}
+                  <div className="absolute inset-0 bg-white/[0.03] opacity-0 group-hover:opacity-100 transition-opacity rounded-xl -z-10" />
 
-                <div className="md:col-span-4 flex flex-col gap-1 relative">
-                  <span className="md:hidden text-xs font-bold uppercase tracking-wider text-blue-400 mb-1 flex items-center gap-1">
-                    <Check className="w-3 h-3" /> Vistaar
-                  </span>
-                  <div className="flex items-start gap-3">
-                    <div className="mt-0.5 rounded-full bg-blue-500/20 p-1 hidden md:block">
-                      <Check className="w-3 h-3 text-blue-400" />
-                    </div>
-                    <p className="text-[15px] font-medium text-zinc-300 leading-snug">
-                      {row.vistaar}
-                    </p>
+                  {/* Feature Name */}
+                  <div className="md:col-span-4 px-6 py-6 flex items-center text-[16px] font-semibold text-white">
+                    {row.feature}
                   </div>
-                </div>
 
-                <div className="md:col-span-4 flex flex-col gap-1 relative">
-                  <span className="md:hidden text-xs font-semibold uppercase tracking-wider text-zinc-500 mb-1 flex items-center gap-1">
-                    <X className="w-3 h-3" /> Traditional
-                  </span>
-                  <div className="flex items-start gap-3">
-                    <div className="mt-0.5 rounded-full bg-zinc-800 p-1 hidden md:block">
-                      <X className="w-3 h-3 text-zinc-500" />
+                  {/* Vistaar Column (Highlighted) */}
+                  <div className={cn(
+                    "md:col-span-4 px-6 py-6 flex flex-col justify-center relative",
+                    "bg-blue-500/[0.08] border-x border-blue-500/20 backdrop-blur-sm",
+                    isFirst && "border-t rounded-t-2xl",
+                    isLast && "border-b rounded-b-2xl",
+                  )}>
+                    <span className="md:hidden text-xs font-bold uppercase tracking-wider text-blue-400 mb-2 flex items-center gap-1">
+                      <Check className="w-3 h-3" /> Vistaar
+                    </span>
+                    <div className="flex items-start gap-3">
+                      <div className="mt-0.5 rounded-full bg-blue-500/20 p-1 hidden md:block shrink-0">
+                        <Check className="w-4 h-4 text-blue-400" />
+                      </div>
+                      <p className="text-[15px] font-medium text-white leading-snug">
+                        {row.vistaar}
+                      </p>
                     </div>
-                    <p className="text-[15px] text-zinc-500 leading-snug">
-                      {row.other}
-                    </p>
                   </div>
-                </div>
-              </motion.div>
-            ))}
+
+                  {/* Traditional Column */}
+                  <div className="md:col-span-4 px-6 py-6 flex flex-col justify-center">
+                    <span className="md:hidden text-xs font-semibold uppercase tracking-wider text-zinc-500 mb-2 flex items-center gap-1 mt-4">
+                      <X className="w-3 h-3" /> Traditional
+                    </span>
+                    <div className="flex items-start gap-3 opacity-50 group-hover:opacity-100 transition-opacity duration-300">
+                      <div className="mt-0.5 rounded-full bg-zinc-800 p-1 hidden md:block shrink-0">
+                        <X className="w-4 h-4 text-zinc-400" />
+                      </div>
+                      <p className="text-[15px] font-medium text-zinc-400 leading-snug">
+                        {row.other}
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Divider line for non-highlighted columns */}
+                  {!isLast && (
+                    <div className="hidden md:block absolute bottom-0 left-6 right-6 h-[1px] bg-[var(--hairline)] -z-20" />
+                  )}
+                </motion.div>
+              )
+            })}
           </div>
         </div>
       </Container>
@@ -491,7 +538,7 @@ function Testimonials() {
 
         <div className="mt-14 grid gap-6 lg:grid-cols-3">
           {TESTIMONIALS.map((t, i) => (
-            <motion.div 
+            <motion.div
               key={t.name}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -578,7 +625,7 @@ function FaqSection() {
           {FAQ_ITEMS.map((item, i) => {
             const isOpen = open === i;
             return (
-              <motion.div 
+              <motion.div
                 key={item.q}
                 initial={{ opacity: 0, y: 10 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -629,27 +676,38 @@ function FinalCta() {
   return (
     <Section
       tone="dark"
-      className="relative overflow-hidden bg-[url('/images/home-cta-bg.png')] bg-cover bg-center"
+      className="relative overflow-hidden bg-zinc-950 py-32"
     >
-      <div className="pointer-events-none absolute inset-0" />
-      <Container>
+      <div className="absolute inset-0 pointer-events-none">
+        <video
+          src="/videos/cta-bg.mp4"
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="w-full h-full object-cover opacity-60"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-zinc-950 via-transparent to-zinc-950" />
+      </div>
+      <Container className="relative z-10">
         <Reveal>
-          <div className="relative mx-auto max-w-3xl text-center">
-            <span className="mono-eyebrow text-[var(--on-dark)] opacity-70">
+          <div className="relative mx-auto max-w-3xl text-center flex flex-col items-center">
+            <span className="inline-flex items-center rounded-full border border-blue-500/20 bg-blue-500/10 px-4 py-1.5 text-sm font-semibold tracking-wide text-blue-400 backdrop-blur-md shadow-sm">
               Get started
             </span>
-            <h2 className="mt-6 text-display-xxl text-[var(--on-dark)]">
+            <h2 className="mt-8 text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tight text-white" style={{ fontFamily: "var(--font-ubuntu), sans-serif" }}>
               Start building on Vistaar.
             </h2>
-            <p className="mt-6 text-[18px] leading-[1.45] text-[var(--on-dark)] opacity-80">
+            <p className="mt-6 text-[18px] leading-[1.6] text-zinc-300 max-w-xl">
               Whether you're launching, rebranding, or scaling through AI —
               start with a free 30-minute strategy call. No pitch deck, no
               pressure.
             </p>
-            <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
+            <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row w-full sm:w-auto">
               <Button
                 size="lg"
                 variant="secondary-mint"
+                className="text-black w-full sm:w-auto"
                 rightIcon={<ArrowRight className="h-4 w-4" />}
                 href="/contact"
               >
@@ -658,6 +716,7 @@ function FinalCta() {
               <Button
                 size="lg"
                 variant="secondary-white"
+                className="w-full sm:w-auto"
                 rightIcon={<ArrowUpRight className="h-4 w-4" />}
                 href="/method"
               >
@@ -701,8 +760,8 @@ function Flow() {
         <div className="mx-auto mt-16 max-w-5xl">
           <div className="flex flex-wrap items-center justify-center gap-y-4 gap-x-2">
             {FLOW.map((step, i) => (
-              <motion.div 
-                key={step} 
+              <motion.div
+                key={step}
                 className="flex items-center gap-2"
                 initial={{ opacity: 0, scale: 0.9, x: -10 }}
                 whileInView={{ opacity: 1, scale: 1, x: 0 }}
@@ -720,11 +779,11 @@ function Flow() {
                   {step}
                 </motion.span>
                 {i < FLOW.length - 1 && (
-                  <motion.span 
+                  <motion.span
                     initial={{ opacity: 0, width: 0 }}
                     whileInView={{ opacity: 1, width: "auto" }}
                     transition={{ duration: 0.3, delay: i * 0.1 + 0.2 }}
-                    className="text-zinc-500 mx-1" 
+                    className="text-zinc-500 mx-1"
                     aria-hidden
                   >
                     <ArrowRight className="h-4 w-4" />
@@ -748,7 +807,7 @@ export default function HomePage() {
       <Hero />
       <Comparison />
       <Stats />
-      <ServicesTabs />
+      <ServicesStepper />
       <Flow />
       <Testimonials />
       <FaqSection />
