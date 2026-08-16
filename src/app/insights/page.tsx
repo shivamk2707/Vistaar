@@ -520,7 +520,10 @@ function Featured() {
                   Duration: {FEATURED.duration}
                 </span>
                 <Link href="/contact">
-                  <Button size="sm" variant="primary" rightIcon={<ArrowRight className="h-4 w-4" />}>
+                  <Button size="md"
+                    variant="primary"
+                    className="rounded-full text-sm font-semibold shadow-sm transition-all group-hover:shadow-md"
+                    rightIcon={<ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />}>
                     Read Full Case Study
                   </Button>
                 </Link>
@@ -698,14 +701,14 @@ function Articles() {
             </div>
           </Reveal>
           <Reveal delay={1}>
-            <div className="flex flex-wrap gap-1 rounded-[4px] bg-[var(--hairline)] p-1">
+            <div className="flex flex-wrap gap-1 rounded-full bg-[var(--hairline)] p-1">
               {CATEGORIES.map((c) => (
                 <button
                   key={c}
                   type="button"
                   onClick={() => setActive(c)}
                   className={cn(
-                    "h-8 rounded-[3.25px] px-3 text-[12px] font-medium transition-all",
+                    "h-8 rounded-full px-3 text-[12px] font-medium transition-all",
                     active === c
                       ? "bg-[var(--canvas)] text-[var(--ink)]"
                       : "text-[var(--body)] hover:text-[var(--ink)]"
@@ -750,18 +753,19 @@ export default function InsightsPage() {
         description="Where Vistaar thinks out loud. Case studies, articles, and free resources on branding, AI, growth, and the business of building a modern company."
       >
         <Button
-          size="lg"
+          size="md"
           variant="secondary-mint"
-          className="text-black"
-          rightIcon={<ArrowRight className="h-4 w-4" />}
+          className="rounded-full text-sm font-semibold shadow-sm transition-all group-hover:shadow-md"
+          rightIcon={<ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />}
           href="/contact"
         >
           Start your project
         </Button>
         <Button
-          size="lg"
+          size="md"
           variant="secondary-white"
-          rightIcon={<ArrowUpRight className="h-4 w-4" />}
+          className="rounded-full text-sm font-semibold shadow-sm transition-all group-hover:shadow-md"
+          rightIcon={<ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />}
           href="/contact"
         >
           Book a strategy call

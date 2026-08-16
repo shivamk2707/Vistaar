@@ -1,13 +1,8 @@
 "use client";
 
-import Link from "next/link";
 import {
   ArrowRight,
   ArrowUpRight,
-  Sparkles,
-  Star,
-  CheckCircle2,
-  Rocket,
   Compass,
   Palette,
   Code2,
@@ -15,11 +10,16 @@ import {
   LineChart,
   Wrench,
   Quote,
-  Plus,
-  Search,
   ChevronDown,
   Check,
   X,
+  Building2,
+  BriefcaseBusiness,
+  GraduationCap,
+  HeartPulse,
+  Hotel,
+  Landmark,
+  Rocket,
   type LucideIcon,
 } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
@@ -27,10 +27,9 @@ import { motion, useInView, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/button";
 import { Container, Section, SectionHeading } from "@/components/layout";
 import { Reveal } from "@/components/reveal";
-import { GradientRibbon } from "@/components/gradient-ribbon";
 import { cn } from "@/lib/utils";
-import BackgroundBeamsDemo from "@/components/beams-background";
 import ModernLandingHero from "@/components/modern-landing-hero";
+import Link from "next/link";
 
 /* ============================================================
    HERO — dark canvas band with display headline + gradient ribbon
@@ -275,41 +274,29 @@ function ServicesStepper() {
                     animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
                     exit={{ opacity: 0, scale: 1.05, filter: "blur(10px)" }}
                     transition={{ duration: 0.4, ease: "easeOut" }}
-                    className="w-full max-w-lg aspect-square rounded-3xl overflow-hidden shadow-[0_8px_40px_rgba(0,0,0,0.5)] border border-[var(--hairline)] relative"
+                    className="w-full max-w-lg overflow-hidden relative"
                   >
                     <img
                       src={
-                        activeIndex === 0 ? "/images/practice/practice-01.png" :
-                          activeIndex === 1 ? "/images/practice/practice-02.png" :
-                            activeIndex === 2 ? "/images/practice/practice-03.png" :
-                              activeIndex === 3 ? "/images/practice/practice-04.png" :
-                                activeIndex === 4 ? "/images/practice/practice-05.png" :
-                                  "/images/practice/practice-06.png"
+                        activeIndex === 0 ? "/images/practice/practice-illustration-01.png" :
+                          activeIndex === 1 ? "/images/practice/practice-illustration-02.png" :
+                            activeIndex === 2 ? "/images/practice/practice-illustration-03.png" :
+                              activeIndex === 3 ? "/images/practice/practice-illustration-04.png" :
+                                activeIndex === 4 ? "/images/practice/practice-illustration-05.png" :
+                                  "/images/practice/practice-illustration-06.png"
                       }
                       alt="Service Visual"
-                      className="w-full h-full object-cover"
+                      className="w-full h-full object-contatin"
                     />
                     {/* Gradient overlay for text contrast */}
                     <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent pointer-events-none" />
 
-                    {/* Number Overlay */}
-                    <div className="absolute bottom-8 left-8 text-7xl lg:text-8xl font-bold tracking-tighter text-white/90 drop-shadow-2xl">
-                      0{activeIndex + 1}
-                    </div>
                   </motion.div>
                 </AnimatePresence>
-              </div>
-              {/* Visual indicator of total progress */}
-              <div className="absolute bottom-0 left-0 flex items-center gap-2">
-                {SERVICE_TABS.map((s, i) => (
-                  <div
-                    key={s.id}
-                    className={cn(
-                      "h-1 rounded-full transition-all duration-300",
-                      i === activeIndex ? "w-8 bg-blue-500" : "w-4 bg-white/10"
-                    )}
-                  />
-                ))}
+                {/* Number Overlay */}
+                <div className="absolute bottom-0 left-8 text-7xl lg:text-8xl font-bold tracking-tighter text-white/90 drop-shadow-2xl">
+                  0{activeIndex + 1}
+                </div>
               </div>
             </div>
           </div>
@@ -541,7 +528,127 @@ const TESTIMONIALS = [
     image: "https://i.pravatar.cc/150?u=Priya",
   },
 ];
+const INDUSTRIES = [
+  {
+    name: "Real Estate",
+    description: "Positioning, sales journeys, and digital experiences that help property brands convert trust into qualified leads.",
+    icon: Building2,
+    accent: "from-sky-400/60 via-cyan-400/25 to-transparent",
+  },
+  {
+    name: "Hotel Chains",
+    description: "Guest experiences, brand storytelling, and direct-booking funnels designed for simple discovery and higher conversion.",
+    icon: Hotel,
+    accent: "from-violet-400/60 via-indigo-400/25 to-transparent",
+  },
+  {
+    name: "Startups",
+    description: "Sharp positioning, product storytelling, and launch systems that help new ventures stand out under pressure.",
+    icon: Rocket,
+    accent: "from-cyan-400/60 via-sky-400/25 to-transparent",
+  },
+  {
+    name: "Education",
+    description: "Trust-first digital experiences that simplify admissions, strengthen reputation, and improve enquiry quality.",
+    icon: GraduationCap,
+    accent: "from-blue-400/60 via-indigo-400/25 to-transparent",
+  },
+  {
+    name: "Healthcare",
+    description: "Clearer patient journeys, better digital trust, and better-performing service experiences across care teams.",
+    icon: HeartPulse,
+    accent: "from-emerald-400/60 via-cyan-400/25 to-transparent",
+  },
+  {
+    name: "IT Firms",
+    description: "Brand systems and growth infrastructure that help technical teams explain value clearly and win better-fit clients.",
+    icon: BriefcaseBusiness,
+    accent: "from-violet-400/60 via-fuchsia-400/25 to-transparent",
+  },
+  {
+    name: "Law Firms",
+    description: "Reputation-led digital presence built to communicate expertise, credibility, and trust with clarity.",
+    icon: Landmark,
+    accent: "from-sky-300/60 via-blue-400/25 to-transparent",
+  },
+] as const;
 
+function IndustriesSection() {
+  return (
+    <Section className="relative overflow-hidden bg-[var(--canvas)] py-24 sm:py-28">
+      <div className="pointer-events-none absolute inset-0">
+        <div className="absolute left-1/2 top-0 h-[420px] w-[420px] -translate-x-1/2 rounded-full bg-sky-500/10 blur-[120px]" />
+        <div className="absolute bottom-0 right-0 h-[260px] w-[260px] rounded-full bg-violet-500/10 blur-[120px]" />
+      </div>
+
+      <Container className="relative z-10">
+        <Reveal>
+          <SectionHeading
+            eyebrow="Industries"
+            title="We build momentum across industries."
+            description="From high-trust service brands to fast-moving digital companies, we shape the right positioning, story, and system for the business behind the brand."
+          />
+        </Reveal>
+
+        <div className="mt-16">
+          <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-4 md:gap-x-6 md:gap-y-7">
+            {INDUSTRIES.map((industry, index) => {
+              const Icon = industry.icon;
+
+              return (
+                <motion.div
+                  key={industry.name}
+                  initial={{ opacity: 0, y: 18 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, amount: 0.25 }}
+                  transition={{ duration: 0.5, delay: index * 0.06, ease: "easeOut" }}
+                  whileHover={{ y: -8, scale: 1.01 }}
+                  className={cn(
+                    "group relative h-full min-h-[170px] overflow-hidden rounded-[26px] border border-white/10 bg-[linear-gradient(180deg,rgba(16,24,40,0.9),rgba(11,18,30,0.78))] p-4 shadow-[0_20px_60px_rgba(2,6,23,0.38)] backdrop-blur-xl transition-all duration-500 ease-out xl:col-span-1 xl:hover:col-span-2 xl:hover:z-20 xl:hover:shadow-[0_28px_80px_rgba(59,130,246,0.18)]",
+                    index === 3 ? "xl:-translate-y-2" : "",
+                    index === 5 ? "xl:translate-y-2" : ""
+                  )}
+                >
+                  {/* <div className={cn("absolute inset-x-0 top-0 h-1 bg-gradient-to-r", industry.accent)} /> */}
+                  <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(255,255,255,0.10),transparent_35%)] opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+                  <div className="absolute -right-12 -top-12 h-28 w-28 rounded-full bg-sky-400/20 blur-3xl" />
+
+                  <div className="relative z-10 flex h-full flex-col justify-between">
+                    <div className="flex items-start justify-between gap-3">
+                      <div className="flex h-12 w-12 items-center justify-center rounded-2xl border border-white/10 bg-white/5 text-[var(--ink)] shadow-inner shadow-white/5 transition-all duration-500 group-hover:scale-105 group-hover:border-sky-300/40">
+                        <Icon className="h-5 w-5 text-sky-300" />
+                      </div>
+                      <span className="mono-eyebrow text-[var(--body)]">
+                        0{index + 1}
+                      </span>
+                    </div>
+
+                    <div className="mt-6 flex-1">
+                      <h3 className="text-[22px] font-medium tracking-[-0.04em] text-[var(--ink)] transition-all duration-500 sm:text-[24px] xl:text-[26px]">
+                        {industry.name}
+                      </h3>
+
+                      <p className="mt-3 max-h-0 overflow-hidden text-[14px] leading-[1.7] text-[var(--body)] opacity-0 transition-all duration-500 ease-out group-hover:max-h-[180px] group-hover:opacity-100 xl:group-hover:max-h-[220px]">
+                        {industry.description}
+                      </p>
+                    </div>
+
+                    <div className="mt-5 pt-3">
+                      <div className="flex items-center gap-2 text-[10px] font-medium uppercase tracking-[0.14em] text-[var(--body)] opacity-75 transition-opacity duration-500 group-hover:opacity-100">
+                        <span className="inline-block h-2 w-2 rounded-full bg-gradient-to-r from-sky-300 to-violet-400" />
+                        Growth systems
+                      </div>
+                    </div>
+                  </div>
+                </motion.div>
+              );
+            })}
+          </div>
+        </div>
+      </Container>
+    </Section>
+  );
+}
 function Testimonials() {
   return (
     <Section className="bg-[var(--canvas)]">
@@ -549,7 +656,7 @@ function Testimonials() {
         <Reveal>
           <SectionHeading
             eyebrow="Customers"
-            title="AI natives build on Vistaar."
+            title="AI natives build with Vistaar."
             description="From first-time founders to public company leaders — the people we partner with tend to stick around."
           />
         </Reveal>
@@ -714,7 +821,7 @@ function FinalCta() {
               Get started
             </span>
             <h2 className="mt-8 text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tight text-white" style={{ fontFamily: "var(--font-ubuntu), sans-serif" }}>
-              Start building on Vistaar.
+              Start building with Vistaar.
             </h2>
             <p className="mt-6 text-[18px] leading-[1.6] text-zinc-300 max-w-xl">
               Whether you're launching, rebranding, or scaling through AI —
@@ -725,7 +832,7 @@ function FinalCta() {
               <Button
                 size="lg"
                 variant="secondary-mint"
-                className="text-black w-full sm:w-auto"
+                className="hidden rounded-full font-semibold shadow-sm transition-all group-hover:shadow-md sm:inline-flex"
                 rightIcon={<ArrowRight className="h-4 w-4" />}
                 href="/contact"
               >
@@ -734,8 +841,7 @@ function FinalCta() {
               <Button
                 size="lg"
                 variant="secondary-white"
-                className="w-full sm:w-auto"
-                rightIcon={<ArrowUpRight className="h-4 w-4" />}
+                className="hidden rounded-full font-semibold shadow-sm transition-all group-hover:shadow-md sm:inline-flex"
                 href="/method"
               >
                 See the method
@@ -749,66 +855,200 @@ function FinalCta() {
 }
 
 /* ============================================================
-   FLOW — flow diagram on light
+   FLOW — zig-zag journey with premium motion and hierarchy
    ============================================================ */
 const FLOW = [
-  "Business Idea",
-  "Business Strategy",
-  "Brand Identity",
-  "Website Development",
-  "Marketing",
-  "Lead Generation",
-  "AI Automation",
-  "Business Growth",
-  "Scale",
-];
+  {
+    title: "Business Idea",
+    description: "A raw opportunity, a problem to solve, or a product that deserves a sharper market story.",
+    accent: "from-sky-500 via-cyan-400 to-blue-500",
+  },
+  {
+    title: "Business Strategy",
+    description: "Positioning, go-to-market thinking, and the decision framework that shapes every next move.",
+    accent: "from-blue-500 via-indigo-500 to-violet-500",
+  },
+  {
+    title: "Brand Identity",
+    description: "Visual language, messaging, and perception design that make the brand memorable and credible.",
+    accent: "from-cyan-400 via-sky-500 to-indigo-500",
+  },
+  {
+    title: "Website Development",
+    description: "A conversion-focused digital experience that turns strategy into an instant trust signal.",
+    accent: "from-indigo-500 via-violet-500 to-fuchsia-500",
+  },
+  {
+    title: "Marketing",
+    description: "Demand generation systems designed to keep attention, qualify traffic, and build momentum.",
+    accent: "from-violet-500 via-purple-500 to-pink-500",
+  },
+  {
+    title: "Lead Generation",
+    description: "The funnel that captures interest, qualifies intent, and turns curiosity into pipeline.",
+    accent: "from-fuchsia-500 via-pink-500 to-rose-500",
+  },
+  {
+    title: "AI Automation",
+    description: "Operational leverage through intelligent workflows, assistants, and systems that reduce friction.",
+    accent: "from-sky-500 via-blue-500 to-indigo-500",
+  },
+  {
+    title: "Business Growth",
+    description: "The compounding phase where better systems, stronger positioning, and smarter execution accelerate together.",
+    accent: "from-cyan-400 via-blue-500 to-violet-500",
+  },
+  {
+    title: "Scale",
+    description: "A resilient engine built to compound customer trust, revenue, and long-term market advantage.",
+    accent: "from-blue-500 via-indigo-500 to-purple-600",
+  },
+] as const;
 
 function Flow() {
   return (
-    <Section className="bg-[var(--canvas)]">
-      <Container>
+    <Section className="relative overflow-hidden bg-[var(--canvas)]">
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(96,165,250,0.12),transparent_52%)]" />
+      <Container className="relative z-10">
         <Reveal>
           <SectionHeading
             eyebrow="The flow"
             title="How everything connects."
-            description="One flow, no dead ends. Each service feeds the next."
+            description="One system, no dead ends. Strategy, design, delivery, and growth feed one another at every step."
           />
         </Reveal>
 
-        <div className="mx-auto mt-16 max-w-5xl">
-          <div className="flex flex-wrap items-center justify-center gap-y-4 gap-x-2">
-            {FLOW.map((step, i) => (
-              <motion.div
-                key={step}
-                className="flex items-center gap-2"
-                initial={{ opacity: 0, scale: 0.9, x: -10 }}
-                whileInView={{ opacity: 1, scale: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: i * 0.1 }}
-              >
-                <motion.span
-                  whileHover={{ y: -2, scale: 1.05 }}
-                  className={cn(
-                    "rounded-full border border-white/10 bg-zinc-900/50 px-5 py-2.5 text-[14px] font-semibold text-zinc-300 shadow-sm transition-all cursor-default",
-                    i === FLOW.length - 1 && "border-blue-500/30 bg-blue-600 text-white shadow-md",
-                    i === 0 && "border-blue-500/20 bg-blue-500/10 text-blue-400"
-                  )}
+        <div className="relative mx-auto mt-16 max-w-6xl">
+          <div className="absolute left-1/2 top-0 hidden h-full w-px -translate-x-1/2 bg-gradient-to-b from-transparent via-white/20 to-transparent md:block" />
+
+          <div className="space-y-8 md:space-y-10">
+            {FLOW.map((step, i) => {
+              const isLeft = i % 2 === 0;
+              const isLast = i === FLOW.length - 1;
+
+              return (
+                <motion.div
+                  key={step.title}
+                  initial={{ opacity: 0, y: 18 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, amount: 0.4 }}
+                  transition={{ duration: 0.5, delay: i * 0.06 }}
+                  className="grid items-center gap-6 md:grid-cols-[minmax(0,1fr)_90px_minmax(0,1fr)]"
                 >
-                  {step}
-                </motion.span>
-                {i < FLOW.length - 1 && (
-                  <motion.span
-                    initial={{ opacity: 0, width: 0 }}
-                    whileInView={{ opacity: 1, width: "auto" }}
-                    transition={{ duration: 0.3, delay: i * 0.1 + 0.2 }}
-                    className="text-zinc-500 mx-1"
-                    aria-hidden
-                  >
-                    <ArrowRight className="h-4 w-4" />
-                  </motion.span>
-                )}
-              </motion.div>
-            ))}
+                  {isLeft ? (
+                    <>
+                      <div className="flex justify-end md:col-start-1 md:pr-2">
+                        <motion.div
+                          whileHover={{ y: -6, scale: 1.01 }}
+                          className="relative w-full max-w-[420px] overflow-hidden rounded-[24px] border border-white/10 bg-[linear-gradient(135deg,rgba(15,23,42,0.96),rgba(15,23,42,0.8))] p-6 shadow-[0_18px_40px_rgba(15,23,42,0.28)] backdrop-blur-sm"
+                        >
+                      <div
+                        className={cn(
+                          "absolute inset-x-0 top-0 h-1 bg-gradient-to-r",
+                          step.accent
+                        )}
+                      />
+                      <div className="flex items-center justify-between gap-3">
+                        <div className="flex items-center gap-3">
+                          <span className="flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white/5 text-[12px] font-semibold text-[var(--ink)]">
+                            {String(i + 1).padStart(2, "0")}
+                          </span>
+                          <span className="mono-eyebrow text-[var(--body)]">Phase {i + 1}</span>
+                        </div>
+                        {!isLast && (
+                          <span className="flex items-center gap-2 text-[11px] font-medium uppercase tracking-[0.12em] text-[var(--body)]">
+                            <span className="h-2 w-2 rounded-full bg-[var(--primary)] shadow-[0_0_16px_rgba(143,231,255,0.7)]" />
+                            Connects
+                          </span>
+                        )}
+                      </div>
+
+                      <h3 className="mt-5 text-[24px] font-medium tracking-[-0.03em] text-[var(--ink)]">
+                        {step.title}
+                      </h3>
+                      <p className="mt-3 text-[15px] leading-[1.7] text-[var(--body)]">
+                        {step.description}
+                      </p>
+
+                          <div className="mt-6 flex items-center gap-2 text-[11px] font-medium uppercase tracking-[0.12em] text-[var(--body)]">
+                            <span className="inline-block h-2 w-2 rounded-full bg-gradient-to-r from-sky-300 to-violet-400" />
+                            {isLast ? "Momentum engine" : "Next stage"}
+                          </div>
+                        </motion.div>
+                      </div>
+
+                      <div className="hidden md:flex md:col-start-2 md:justify-center">
+                        <div className="relative flex h-8 w-8 items-center justify-center rounded-full border border-white/15 bg-[var(--canvas)] shadow-[0_0_0_6px_rgba(148,163,184,0.06)]">
+                          <span
+                            className={cn(
+                              "h-3.5 w-3.5 rounded-full bg-gradient-to-r shadow-[0_0_22px_rgba(96,165,250,0.8)]",
+                              step.accent
+                            )}
+                          />
+                        </div>
+                      </div>
+
+                      <div className="hidden md:block md:col-start-3" />
+                    </>
+                  ) : (
+                    <>
+                      <div className="hidden md:block md:col-start-1" />
+
+                      <div className="hidden md:flex md:col-start-2 md:justify-center">
+                        <div className="relative flex h-8 w-8 items-center justify-center rounded-full border border-white/15 bg-[var(--canvas)] shadow-[0_0_0_6px_rgba(148,163,184,0.06)]">
+                          <span
+                            className={cn(
+                              "h-3.5 w-3.5 rounded-full bg-gradient-to-r shadow-[0_0_22px_rgba(96,165,250,0.8)]",
+                              step.accent
+                            )}
+                          />
+                        </div>
+                      </div>
+
+                      <div className="flex justify-start md:col-start-3 md:pl-2">
+                        <motion.div
+                          whileHover={{ y: -6, scale: 1.01 }}
+                          className="relative w-full max-w-[420px] overflow-hidden rounded-[24px] border border-white/10 bg-[linear-gradient(135deg,rgba(15,23,42,0.96),rgba(15,23,42,0.8))] p-6 shadow-[0_18px_40px_rgba(15,23,42,0.28)] backdrop-blur-sm"
+                        >
+                          <div
+                            className={cn(
+                              "absolute inset-x-0 top-0 h-1 bg-gradient-to-r",
+                              step.accent
+                            )}
+                          />
+                          <div className="flex items-center justify-between gap-3">
+                            <div className="flex items-center gap-3">
+                              <span className="flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white/5 text-[12px] font-semibold text-[var(--ink)]">
+                                {String(i + 1).padStart(2, "0")}
+                              </span>
+                              <span className="mono-eyebrow text-[var(--body)]">Phase {i + 1}</span>
+                            </div>
+                            {!isLast && (
+                              <span className="flex items-center gap-2 text-[11px] font-medium uppercase tracking-[0.12em] text-[var(--body)]">
+                                <span className="h-2 w-2 rounded-full bg-[var(--primary)] shadow-[0_0_16px_rgba(143,231,255,0.7)]" />
+                                Connects
+                              </span>
+                            )}
+                          </div>
+
+                          <h3 className="mt-5 text-[24px] font-medium tracking-[-0.03em] text-[var(--ink)]">
+                            {step.title}
+                          </h3>
+                          <p className="mt-3 text-[15px] leading-[1.7] text-[var(--body)]">
+                            {step.description}
+                          </p>
+
+                          <div className="mt-6 flex items-center gap-2 text-[11px] font-medium uppercase tracking-[0.12em] text-[var(--body)]">
+                            <span className="inline-block h-2 w-2 rounded-full bg-gradient-to-r from-sky-300 to-violet-400" />
+                            {isLast ? "Momentum engine" : "Next stage"}
+                          </div>
+                        </motion.div>
+                      </div>
+                    </>
+                  )}
+                </motion.div>
+              );
+            })}
           </div>
         </div>
       </Container>
@@ -825,8 +1065,8 @@ export default function HomePage() {
       <Hero />
       <Comparison />
       <Stats />
-      <ServicesStepper />
       <Flow />
+      <IndustriesSection />
       <Testimonials />
       <FaqSection />
       <FinalCta />

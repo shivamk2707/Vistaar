@@ -285,7 +285,7 @@ function ProjectForm() {
                             {picked.map((label) => (
                               <span
                                 key={label}
-                                className="inline-flex items-center gap-1.5 rounded-[3.25px] border border-[var(--ink)] bg-[var(--ink)] px-2.5 py-1 text-[11px] font-medium text-[var(--canvas)]"
+                                className="inline-flex items-center gap-1.5 rounded-full border border-[var(--ink)] bg-[var(--ink)] px-2.5 py-1 text-[11px] font-medium text-[var(--canvas)]"
                               >
                                 {label}
                                 <button
@@ -492,7 +492,11 @@ function ProjectForm() {
 
                     <div className="flex gap-3 sm:justify-end">
                       {step > 1 && (
-                        <Button type="button" variant="outline" onClick={goBack} leftIcon={<ArrowLeft className="h-4 w-4" />}>
+                        <Button type="button"
+                          variant="outline"
+                          size="md"
+                          className="rounded-full text-sm font-semibold shadow-sm transition-all group-hover:shadow-md"
+                          onClick={goBack} leftIcon={<ArrowLeft className="h-4 w-4" />}>
                           Back
                         </Button>
                       )}
@@ -501,13 +505,19 @@ function ProjectForm() {
                           type="button"
                           variant="primary"
                           disabled={!canContinue}
+                          size="md"
+                          className="rounded-full text-sm font-semibold shadow-sm transition-all group-hover:shadow-md"
+                          rightIcon={<ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />}
                           onClick={goNext}
-                          rightIcon={<ArrowRight className="h-4 w-4" />}
                         >
                           Continue
                         </Button>
                       ) : (
-                        <Button type="submit" variant="primary" rightIcon={<ArrowRight className="h-4 w-4" />}>
+                        <Button type="submit"
+                          variant="primary"
+                          size="md"
+                          className="rounded-full text-sm font-semibold shadow-sm transition-all group-hover:shadow-md"
+                          rightIcon={<ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />}>
                           Send project brief
                         </Button>
                       )}

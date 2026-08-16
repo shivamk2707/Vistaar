@@ -294,18 +294,19 @@ function GlassHero() {
         </p>
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
           <Button
-            size="lg"
+            size="md"
             variant="secondary-mint"
-            className="text-black"
-            rightIcon={<ArrowRight className="h-4 w-4" />}
+            className="rounded-full text-sm font-semibold shadow-sm transition-all group-hover:shadow-md"
+            rightIcon={<ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />}
             href="/contact"
           >
             Start a conversation
           </Button>
           <Button
-            size="lg"
+            size="md"
             variant="secondary-white"
-            rightIcon={<ArrowUpRight className="h-4 w-4" />}
+            className="rounded-full text-sm font-semibold shadow-sm transition-all group-hover:shadow-md"
+            rightIcon={<ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />}
             href="/services"
           >
             See what we do

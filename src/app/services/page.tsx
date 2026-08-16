@@ -1,15 +1,16 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { ArrowRight, ArrowUpRight, Check } from "lucide-react";
+import { ArrowRight, ArrowUpRight, Brain, Check, Code2, Compass, LineChart, Palette, Wrench } from "lucide-react";
 import { Button } from "@/components/button";
 import { Container, Section, SectionHeading } from "@/components/layout";
 import { PageHero } from "@/components/page-hero";
 import { Reveal } from "@/components/reveal";
 import { cn } from "@/lib/utils";
+import { AnimatePresence, motion, useInView } from "framer-motion";
 
 /* ============================================================
    DATA
@@ -119,6 +120,211 @@ const ECOSYSTEM = [
     ],
   },
 ];
+
+/* ============================================================
+   SERVICE TABS — full-stack cloud
+   ============================================================ */
+const SERVICE_TABS = [
+  {
+    id: "strategy",
+    label: "Brand Strategy",
+    description:
+      "Position, voice, story, identity. Foundations that compound for years — strategy that makes every downstream decision easier.",
+    deliverables: [
+      "Market & competitor research",
+      "Positioning & messaging",
+      "Audience segmentation",
+      "Brand architecture",
+      "Voice & tone guide",
+    ],
+    Icon: Compass,
+  },
+  {
+    id: "identity",
+    label: "Brand Identity",
+    description:
+      "Logos, systems, guidelines, packaging. A brand people remember — and recognise across every touchpoint.",
+    deliverables: [
+      "Logo & mark design",
+      "Color & typography systems",
+      "Brand guidelines",
+      "Packaging & merch",
+      "Asset library",
+    ],
+    Icon: Palette,
+  },
+  {
+    id: "engineering",
+    label: "Web & App Development",
+    description:
+      "Marketing sites, SaaS, mobile apps. Built for performance and scale, with code your team can own and extend.",
+    deliverables: [
+      "Marketing websites",
+      "SaaS platforms",
+      "Mobile applications",
+      "CMS & API integrations",
+      "E-commerce",
+    ],
+    Icon: Code2,
+  },
+  {
+    id: "ai",
+    label: "AI & Automation",
+    description:
+      "Workflow automation, chatbots, AI agents. Less busywork, more output — measurable ROI, not slides.",
+    deliverables: [
+      "Workflow automation",
+      "AI agents & chatbots",
+      "CRM & lead routing",
+      "Internal tools",
+      "BI dashboards",
+    ],
+    Icon: Brain,
+  },
+  {
+    id: "growth",
+    label: "Growth Marketing",
+    description:
+      "SEO, paid, lifecycle, content. Acquisition and retention, working together — the system that compounds.",
+    deliverables: [
+      "SEO & content",
+      "Paid acquisition",
+      "Lifecycle & email",
+      "Conversion optimization",
+      "Analytics & reporting",
+    ],
+    Icon: LineChart,
+  },
+  {
+    id: "consulting",
+    label: "Business Consulting",
+    description:
+      "Strategy, GTM, digital transformation. A thinking partner, not a vendor — we work with you, not at you.",
+    deliverables: [
+      "GTM strategy",
+      "Digital transformation",
+      "Operating model design",
+      "Workshop facilitation",
+      "Fractional leadership",
+    ],
+    Icon: Wrench,
+  },
+];
+
+function ServiceStep({ service, index, onInView }: any) {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { margin: "-50% 0px -50% 0px" });
+
+  useEffect(() => {
+    if (isInView) {
+      onInView();
+    }
+  }, [isInView, onInView]);
+
+  return (
+    <div ref={ref} className="flex flex-col gap-6 scroll-mt-40 transition-opacity duration-500" style={{ opacity: isInView ? 1 : 0.4 }}>
+      {/* Mobile-only step number */}
+      <div className="text-6xl font-bold text-white/10 lg:hidden">
+        0{index + 1}
+      </div>
+
+      <div className="flex items-center gap-4">
+        <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-blue-500/10 to-blue-500/20 border border-blue-500/20 shadow-sm">
+          <service.Icon className="h-6 w-6 text-blue-400" />
+        </div>
+        <h3 className="text-3xl font-bold tracking-tight text-white">{service.label}</h3>
+      </div>
+
+      <p className="text-[16px] leading-[1.6] text-zinc-400 max-w-xl">
+        {service.description}
+      </p>
+
+      <div className="mt-4 border-l border-[var(--hairline)] pl-6">
+        <h4 className="text-xs font-bold uppercase tracking-wider text-zinc-500 mb-4">What&rsquo;s included</h4>
+        <ul className="space-y-4">
+          {service.deliverables.map((d: string) => (
+            <li key={d} className="flex items-center gap-4 group">
+              <div className="rounded-full bg-blue-500/10 p-1 group-hover:bg-blue-500/20 transition-colors">
+                <Check className="h-4 w-4 shrink-0 text-blue-400" />
+              </div>
+              <span className="text-[15px] font-medium text-zinc-300">{d}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  );
+}
+
+function ServicesStepper() {
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  return (
+    <Section className="bg-[var(--canvas)]" id="services-overview">
+      <Container>
+        <Reveal>
+          <SectionHeading
+            eyebrow="The Vistaar Platform"
+            title="The full-stack cloud for modern brands."
+            description="Six connected practices that work as a single growth system. Mix them, sequence them, or hand us the whole map."
+          />
+        </Reveal>
+
+        <div className="mt-20 flex flex-col lg:flex-row lg:gap-20 relative items-start">
+          {/* Sticky Left Column */}
+          <div className="hidden lg:block lg:w-1/2 sticky top-40 self-start">
+            <div className="relative h-[300px]">
+              <div className="absolute inset-0 flex items-start">
+                <AnimatePresence mode="wait">
+                  <motion.div
+                    key={activeIndex}
+                    initial={{ opacity: 0, scale: 0.95, filter: "blur(10px)" }}
+                    animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
+                    exit={{ opacity: 0, scale: 1.05, filter: "blur(10px)" }}
+                    transition={{ duration: 0.4, ease: "easeOut" }}
+                    className="w-full max-w-lg overflow-hidden relative"
+                  >
+                    <img
+                      src={
+                        activeIndex === 0 ? "/images/practice/practice-illustration-01.png" :
+                          activeIndex === 1 ? "/images/practice/practice-illustration-02.png" :
+                            activeIndex === 2 ? "/images/practice/practice-illustration-03.png" :
+                              activeIndex === 3 ? "/images/practice/practice-illustration-04.png" :
+                                activeIndex === 4 ? "/images/practice/practice-illustration-05.png" :
+                                  "/images/practice/practice-illustration-06.png"
+                      }
+                      alt="Service Visual"
+                      className="w-full h-full object-contatin"
+                    />
+                    {/* Gradient overlay for text contrast */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent pointer-events-none" />
+
+                  </motion.div>
+                </AnimatePresence>
+                {/* Number Overlay */}
+                <div className="absolute bottom-0 left-8 text-7xl lg:text-8xl font-bold tracking-tighter text-white/90 drop-shadow-2xl">
+                  0{activeIndex + 1}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Scrolling Right Column */}
+          <div className="flex w-full flex-col gap-32 pb-32 lg:w-1/2 lg:mt-0">
+            {SERVICE_TABS.map((s, i) => (
+              <ServiceStep
+                key={s.id}
+                service={s}
+                index={i}
+                onInView={() => setActiveIndex(i)}
+              />
+            ))}
+          </div>
+        </div>
+      </Container>
+    </Section>
+  );
+}
 
 /* ============================================================
    STACKED SERVICES — sticky stack with mono-eyebrow progress
@@ -335,25 +541,26 @@ export default function ServicesPage() {
         description="Six connected practices that work as a single growth system. Mix them, sequence them, or hand us the whole map. Each one reinforces the others."
       >
         <Button
-          size="lg"
+          size="md"
           variant="secondary-mint"
-          className="text-black"
-          rightIcon={<ArrowRight className="h-4 w-4" />}
+          className="rounded-full text-sm font-semibold shadow-sm transition-all group-hover:shadow-md"
+          rightIcon={<ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />}
           href="/contact"
         >
           Start a project
         </Button>
         <Button
-          size="lg"
+          size="md"
           variant="secondary-white"
-          rightIcon={<ArrowUpRight className="h-4 w-4" />}
+          className="rounded-full text-sm font-semibold shadow-sm transition-all group-hover:shadow-md"
+          rightIcon={<ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />}
           href="/method"
         >
           See our method
         </Button>
       </PageHero>
 
-      <StackedServices />
+      <ServicesStepper />
 
       <Section tone="dark" className="bg-[var(--canvas-dark)]">
         <Container>
@@ -371,18 +578,19 @@ export default function ServicesPage() {
               </p>
               <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
                 <Button
-                  size="lg"
+                  size="md"
                   variant="secondary-mint"
-                  className="text-black"
-                  rightIcon={<ArrowRight className="h-4 w-4" />}
+                  className="rounded-full text-sm font-semibold shadow-sm transition-all group-hover:shadow-md"
+                  rightIcon={<ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />}
                   href="/contact"
                 >
                   Start your project
                 </Button>
                 <Button
-                  size="lg"
+                  size="md"
                   variant="secondary-white"
-                  rightIcon={<ArrowUpRight className="h-4 w-4" />}
+                  className="rounded-full text-sm font-semibold shadow-sm transition-all group-hover:shadow-md"
+                  rightIcon={<ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />}
                   href="/contact"
                 >
                   Schedule a discovery call

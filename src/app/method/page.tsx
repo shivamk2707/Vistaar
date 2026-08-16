@@ -636,18 +636,19 @@ export default function MethodPage() {
         description="Successful businesses are built on process, not guesswork. Our eight-phase methodology combines research, creativity, technology, and continuous optimization — and it's the same playbook we use on every engagement."
       >
         <Button
-          size="lg"
+          size="md"
           variant="secondary-mint"
-          className="text-black"
-          rightIcon={<ArrowRight className="h-4 w-4" />}
+          className="rounded-full text-sm font-semibold shadow-sm transition-all group-hover:shadow-md"
+          rightIcon={<ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />}
           href="/contact"
         >
           Book a discovery call
         </Button>
         <Button
-          size="lg"
+          size="md"
           variant="secondary-white"
-          rightIcon={<ArrowUpRight className="h-4 w-4" />}
+          className="rounded-full text-sm font-semibold shadow-sm transition-all group-hover:shadow-md"
+          rightIcon={<ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />}
           href="/services"
         >
           See our services

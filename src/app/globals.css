@@ -1,11 +1,5 @@
 @import "tailwindcss";
 
-/* ============================================================
-   VISTAAR — TOGETHER-AI DESIGN SYSTEM
-   Dark canvas + white canvas + 3-color gradient ribbon.
-   Hairlines, no shadows on light surfaces, mono-uppercase labels.
-   ============================================================ */
-
 :root {
   /* Brand & accent */
   --primary: #ffffff;            /* ink black — single primary CTA color */
@@ -21,7 +15,8 @@
   --accent-orange: #fc4c02;
   --accent-magenta: #ef2cc1;
   --accent-periwinkle: #bdbbff;
-  --accent-mint: #c8f6f9;
+  /* --accent-mint: #c8c9f9; */
+  --accent-mint: #0042C5;
 
   /* The brand signature — 3-stop gradient */
   --gradient-brand: linear-gradient(
