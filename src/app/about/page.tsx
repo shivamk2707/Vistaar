@@ -362,12 +362,85 @@ function GlassHero() {
 }
 
 /* ============================================================
+   TRUST SECTION
+   ============================================================ */
+function TrustSection() {
+  return (
+    <Section className="bg-[var(--canvas)] relative overflow-hidden py-24 sm:py-32">
+      <Container>
+        <div className="grid lg:grid-cols-2 gap-16 lg:gap-24 items-center">
+          
+          {/* Image Side */}
+          <Reveal direction="right" className="relative order-2 lg:order-1">
+            <div className="relative rounded-[32px] overflow-hidden aspect-[4/5] lg:aspect-square bg-zinc-900 border border-white/5 shadow-2xl group">
+              <img 
+                src="/images/about/trust_years.png" 
+                alt="Trust and Excellence" 
+                className="w-full h-full object-cover opacity-90 hover:scale-105 transition-transform duration-1000 ease-out"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent pointer-events-none" />
+              
+              {/* Floating Badge */}
+              <motion.div 
+                initial={{ y: 20, opacity: 0 }}
+                whileInView={{ y: 0, opacity: 1 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.3, duration: 0.6 }}
+                className="absolute bottom-8 left-8 sm:bottom-12 sm:left-12 bg-white/10 backdrop-blur-xl border border-white/20 p-6 rounded-3xl shadow-2xl"
+              >
+                <div className="flex items-center gap-5">
+                  <div className="text-5xl sm:text-6xl font-bold text-white tracking-tighter">12<span className="text-blue-400">+</span></div>
+                  <div className="text-[13px] sm:text-sm font-bold text-white/80 uppercase tracking-widest leading-tight">
+                    Years of<br />Excellence
+                  </div>
+                </div>
+              </motion.div>
+            </div>
+          </Reveal>
+
+          {/* Text Side */}
+          <div className="relative order-1 lg:order-2">
+            <Reveal direction="left">
+              <span className="mono-eyebrow text-blue-400 mb-6 block">Our Legacy</span>
+              <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-white mb-8 leading-[1.1]">
+                A decade of trust, built <span className="text-white/40">one successful partnership at a time.</span>
+              </h2>
+              <p className="text-lg text-zinc-400 leading-relaxed mb-12 max-w-xl">
+                At Vistaar, we don&rsquo;t just deliver projects; we forge enduring partnerships. Over the past 12 years, we&rsquo;ve helped hundreds of businesses navigate the complexities of digital transformation, scale their operations, and redefine their brand presence on a global scale. 
+              </p>
+              
+              <div className="grid sm:grid-cols-2 gap-8 max-w-xl">
+                <div>
+                  <div className="text-4xl font-bold text-white mb-2 tracking-tighter">100+</div>
+                  <div className="text-sm font-semibold text-zinc-500 uppercase tracking-wider">Global Brands</div>
+                </div>
+                <div>
+                  <div className="text-4xl font-bold text-white mb-2 tracking-tighter">98%</div>
+                  <div className="text-sm font-semibold text-zinc-500 uppercase tracking-wider">Retention Rate</div>
+                </div>
+                <div className="sm:col-span-2 pt-8 border-t border-white/10 mt-2">
+                  <p className="text-sm text-zinc-500 italic leading-relaxed">
+                    &quot;Trust is the ultimate currency of business. We measure our success not by the number of projects we launch, but by the number of clients who choose to stay with us year after year.&quot;
+                  </p>
+                </div>
+              </div>
+            </Reveal>
+          </div>
+
+        </div>
+      </Container>
+    </Section>
+  );
+}
+
+/* ============================================================
    PAGE
    ============================================================ */
 export default function AboutPage() {
   return (
     <main className="relative">
       <GlassHero />
+      <TrustSection />
 
       <StorySection />
       <Stats />
