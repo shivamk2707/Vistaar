@@ -528,48 +528,56 @@ const TESTIMONIALS = [
     image: "https://i.pravatar.cc/150?u=Priya",
   },
 ];
+
 const INDUSTRIES = [
   {
     name: "Real Estate",
     description: "Positioning, sales journeys, and digital experiences that help property brands convert trust into qualified leads.",
     icon: Building2,
     accent: "from-sky-400/60 via-cyan-400/25 to-transparent",
+    image: "https://images.unsplash.com/photo-1582407947304-fd86f028f716?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8UmVhbCUyMEVzdGF0ZXxlbnwwfHwwfHx8MA%3D%3D"
   },
   {
     name: "Hotel Chains",
     description: "Guest experiences, brand storytelling, and direct-booking funnels designed for simple discovery and higher conversion.",
     icon: Hotel,
     accent: "from-violet-400/60 via-indigo-400/25 to-transparent",
+    image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQmCc3cbFuDBYFibKYHHMhsfgvCTtRqzwurex3uYoDaLQ&s=10"
   },
   {
     name: "Startups",
     description: "Sharp positioning, product storytelling, and launch systems that help new ventures stand out under pressure.",
     icon: Rocket,
     accent: "from-cyan-400/60 via-sky-400/25 to-transparent",
+    image: "https://images.unsplash.com/photo-1559136555-9303baea8ebd?auto=format&fit=crop&q=80&w=800"
   },
   {
     name: "Education",
     description: "Trust-first digital experiences that simplify admissions, strengthen reputation, and improve enquiry quality.",
     icon: GraduationCap,
     accent: "from-blue-400/60 via-indigo-400/25 to-transparent",
+    image: "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fEVkdWNhdGlvbnxlbnwwfHwwfHx8MA%3D%3D"
   },
   {
     name: "Healthcare",
     description: "Clearer patient journeys, better digital trust, and better-performing service experiences across care teams.",
     icon: HeartPulse,
     accent: "from-emerald-400/60 via-cyan-400/25 to-transparent",
+    image: "https://images.unsplash.com/photo-1532938911079-1b06ac7ceec7?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8SGVhbHRoY2FyZXxlbnwwfHwwfHx8MA%3D%3D"
   },
   {
     name: "IT Firms",
     description: "Brand systems and growth infrastructure that help technical teams explain value clearly and win better-fit clients.",
     icon: BriefcaseBusiness,
     accent: "from-violet-400/60 via-fuchsia-400/25 to-transparent",
+    image: "https://plus.unsplash.com/premium_photo-1661488246595-7f21bf98b7cb?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8SVQlMjBGaXJtc3xlbnwwfHwwfHx8MA%3D%3D"
   },
   {
     name: "Law Firms",
     description: "Reputation-led digital presence built to communicate expertise, credibility, and trust with clarity.",
     icon: Landmark,
     accent: "from-sky-300/60 via-blue-400/25 to-transparent",
+    image: "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8TGF3JTIwRmlybXN8ZW58MHx8MHx8fDA%3D"
   },
 ] as const;
 
@@ -604,19 +612,29 @@ function IndustriesSection() {
                   transition={{ duration: 0.5, delay: index * 0.06, ease: "easeOut" }}
                   whileHover={{ y: -8, scale: 1.01 }}
                   className={cn(
-                    "group relative h-full min-h-[170px] overflow-hidden rounded-[26px] border border-white/10 bg-[linear-gradient(180deg,rgba(16,24,40,0.9),rgba(11,18,30,0.78))] p-4 shadow-[0_20px_60px_rgba(2,6,23,0.38)] backdrop-blur-xl transition-all duration-500 ease-out xl:col-span-1 xl:hover:z-20 xl:hover:shadow-[0_28px_80px_rgba(59,130,246,0.18)]",
+                    "group relative h-full min-h-[170px] overflow-hidden rounded-[20px] border border-white/10 shadow-[0_20px_60px_rgba(2,6,23,0.38)] backdrop-blur-xl transition-all duration-500 ease-out xl:col-span-1 xl:hover:z-20 xl:hover:shadow-[0_28px_80px_rgba(59,130,246,0.18)]",
                     index !== 3 ? "xl:hover:col-span-2" : "",
                     index === 3 ? "xl:-translate-y-2" : "",
                     index === 5 ? "xl:translate-y-2" : ""
                   )}
                 >
-                  {/* <div className={cn("absolute inset-x-0 top-0 h-1 bg-gradient-to-r", industry.accent)} /> */}
-                  <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(255,255,255,0.10),transparent_35%)] opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
-                  <div className="absolute -right-12 -top-12 h-28 w-28 rounded-full bg-sky-400/20 blur-3xl" />
+                  {/* Background Image */}
+                  <div className="absolute inset-0">
+                    <img
+                      src={industry.image}
+                      alt={industry.name}
+                      className="w-full h-full object-cover opacity-50 transition-transform duration-700 ease-out group-hover:scale-110"
+                    />
+                    {/* A single gradient that darkens the bottom for text readability, but keeps the top relatively clear */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-zinc-950/40 via-zinc-950/10 to-zinc-950/0" />
+                  </div>
 
-                  <div className="relative z-10 flex h-full flex-col justify-between">
+                  <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(255,255,255,0.10),transparent_35%)] opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+                  <div className="absolute -right-12 -top-12 h-28 w-28 rounded-full bg-sky-400/10 blur-3xl" />
+
+                  <div className="relative z-10 flex h-full flex-col justify-between p-4">
                     <div className="flex items-start justify-between gap-3">
-                      <div className="flex h-12 w-12 items-center justify-center rounded-2xl border border-white/10 bg-white/5 text-[var(--ink)] shadow-inner shadow-white/5 transition-all duration-500 group-hover:scale-105 group-hover:border-sky-300/40">
+                      <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-white/10 text-[var(--ink)] shadow-inner shadow-white/5 transition-all duration-500 group-hover:scale-105 group-hover:border-sky-300/40">
                         <Icon className="h-5 w-5 text-sky-300" />
                       </div>
                       <span className="mono-eyebrow text-[var(--body)]">

@@ -45,7 +45,7 @@ const sizeClasses: Record<Size, string> = {
 };
 
 const baseClasses =
-  "relative inline-flex items-center justify-center font-mono font-medium uppercase tracking-[0.05em] rounded-[4px] transition-all duration-150 select-none disabled:opacity-50 disabled:pointer-events-none whitespace-nowrap";
+  "relative inline-flex items-center justify-center font-medium tracking-[0.05em] rounded-[4px] transition-all duration-150 select-none disabled:opacity-50 disabled:pointer-events-none whitespace-nowrap";
 
 const variantClasses: Record<Variant, string> = {
   primary:

@@ -390,9 +390,9 @@ function TrustSection() {
                 className="absolute bottom-8 left-8 sm:bottom-12 sm:left-12 bg-white/10 backdrop-blur-xl border border-white/20 p-6 rounded-3xl shadow-2xl"
               >
                 <div className="flex items-center gap-5">
-                  <div className="text-5xl sm:text-6xl font-bold text-white tracking-tighter">12<span className="text-blue-400">+</span></div>
+                  <div className="text-5xl sm:text-6xl font-bold text-white tracking-tighter">8<span className="text-blue-400">+</span></div>
                   <div className="text-[13px] sm:text-sm font-bold text-white/80 uppercase tracking-widest leading-tight">
-                    Years of<br />Excellence
+                    Industries<br />Served
                   </div>
                 </div>
               </motion.div>
@@ -412,12 +412,12 @@ function TrustSection() {
 
               <div className="grid sm:grid-cols-2 gap-8 max-w-xl">
                 <div>
-                  <div className="text-4xl font-bold text-white mb-2 tracking-tighter">100+</div>
-                  <div className="text-sm font-semibold text-zinc-500 uppercase tracking-wider">Global Brands</div>
+                  <div className="text-4xl font-bold text-white mb-2 tracking-tighter">10+</div>
+                  <div className="text-sm font-semibold text-zinc-500 uppercase tracking-wider">Brands Build</div>
                 </div>
                 <div>
                   <div className="text-4xl font-bold text-white mb-2 tracking-tighter">98%</div>
-                  <div className="text-sm font-semibold text-zinc-500 uppercase tracking-wider">Retention Rate</div>
+                  <div className="text-sm font-semibold text-zinc-500 uppercase tracking-wider">Clients Satisfaction</div>
                 </div>
                 <div className="sm:col-span-2 pt-8 border-t border-white/10 mt-2">
                   <p className="text-sm text-zinc-500 italic leading-relaxed">
@@ -446,7 +446,7 @@ export default function AboutPage() {
       <StorySection />
       <Stats />
       <Principles />
-      
+
       <WhatsAppButton />
     </main>
   );
