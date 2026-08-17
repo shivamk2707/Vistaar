@@ -86,10 +86,10 @@ const TEAM = [
 ];
 
 const STATS = [
-  { value: "100+", label: "Brands Built" },
-  { value: "1K+", label: "Workflows Automated" },
-  { value: "40+", label: "Industries Served" },
-  { value: "98%", label: "Retention Rate" },
+  { value: "10+", label: "Brand Build" },
+  { value: "30+", label: "Projects Delivered" },
+  { value: "8+", label: "Industries Served" },
+  { value: "5+", label: "Digital Products Built" },
 ];
 
 /* ============================================================
@@ -217,20 +217,20 @@ function Principles() {
           />
         </Reveal>
 
-        <div 
+        <div
           className="mt-20 flex flex-col lg:flex-row w-full h-[800px] lg:h-[550px] gap-4"
           onMouseLeave={() => setHoveredIndex(0)}
         >
           {PRINCIPLES.map((p, i) => {
             const isActive = hoveredIndex === i;
             return (
-              <div 
+              <div
                 key={i}
                 onMouseEnter={() => setHoveredIndex(i)}
                 className={cn(
                   "group relative overflow-hidden rounded-[32px] transition-all duration-700 ease-[cubic-bezier(0.25,1,0.5,1)] cursor-pointer border",
-                  isActive 
-                    ? "lg:flex-[4] flex-[3] border-white/20 shadow-[0_8px_40px_rgba(255,255,255,0.05)] bg-white/5" 
+                  isActive
+                    ? "lg:flex-[4] flex-[3] border-white/20 shadow-[0_8px_40px_rgba(255,255,255,0.05)] bg-white/5"
                     : "lg:flex-[1] flex-[1] border-white/5 bg-transparent",
                 )}
               >
@@ -255,9 +255,9 @@ function Principles() {
                       0{i + 1}
                     </span>
                     {isActive && (
-                      <motion.div 
-                        initial={{ opacity: 0, scale: 0.5, rotate: -45 }} 
-                        animate={{ opacity: 1, scale: 1, rotate: 0 }} 
+                      <motion.div
+                        initial={{ opacity: 0, scale: 0.5, rotate: -45 }}
+                        animate={{ opacity: 1, scale: 1, rotate: 0 }}
                         transition={{ duration: 0.5, delay: 0.1 }}
                         className="h-14 w-14 rounded-full bg-white/10 flex items-center justify-center backdrop-blur-md shadow-inner border border-white/20"
                       >
@@ -268,7 +268,7 @@ function Principles() {
 
                   {/* Bottom: Titles & Content */}
                   <div className="relative h-full flex items-end">
-                    
+
                     {/* Active Content */}
                     <div className={cn(
                       "absolute bottom-0 left-0 w-full flex flex-col gap-4 transition-all duration-700",
@@ -289,14 +289,14 @@ function Principles() {
                     )}>
                       {/* Desktop vertical title */}
                       <div className="hidden lg:flex w-full items-end justify-center h-full pb-6">
-                        <h3 
+                        <h3
                           className="text-lg font-bold text-white/40 whitespace-nowrap uppercase tracking-[0.2em]"
                           style={{ writingMode: 'vertical-rl', transform: 'rotate(180deg)' }}
                         >
                           {p.title}
                         </h3>
                       </div>
-                      
+
                       {/* Mobile horizontal title */}
                       <h3 className="lg:hidden text-lg font-bold text-white/40 whitespace-nowrap truncate w-full text-center pb-2">
                         {p.title}
@@ -369,19 +369,19 @@ function TrustSection() {
     <Section className="bg-[var(--canvas)] relative overflow-hidden py-24 sm:py-32">
       <Container>
         <div className="grid lg:grid-cols-2 gap-16 lg:gap-24 items-center">
-          
+
           {/* Image Side */}
           <Reveal direction="right" className="relative order-2 lg:order-1">
             <div className="relative rounded-[32px] overflow-hidden aspect-[4/5] lg:aspect-square bg-zinc-900 border border-white/5 shadow-2xl group">
-              <img 
-                src="/images/about/trust_years.png" 
-                alt="Trust and Excellence" 
+              <img
+                src="/images/about/trust_years.png"
+                alt="Trust and Excellence"
                 className="w-full h-full object-cover opacity-90 hover:scale-105 transition-transform duration-1000 ease-out"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent pointer-events-none" />
-              
+
               {/* Floating Badge */}
-              <motion.div 
+              <motion.div
                 initial={{ y: 20, opacity: 0 }}
                 whileInView={{ y: 0, opacity: 1 }}
                 viewport={{ once: true }}
@@ -406,9 +406,9 @@ function TrustSection() {
                 A decade of trust, built <span className="text-white/40">one successful partnership at a time.</span>
               </h2>
               <p className="text-lg text-zinc-400 leading-relaxed mb-12 max-w-xl">
-                At Vistaar, we don&rsquo;t just deliver projects; we forge enduring partnerships. Over the past 12 years, we&rsquo;ve helped hundreds of businesses navigate the complexities of digital transformation, scale their operations, and redefine their brand presence on a global scale. 
+                At Vistaar, we don&rsquo;t just deliver projects; we forge enduring partnerships. Over the past 12 years, we&rsquo;ve helped hundreds of businesses navigate the complexities of digital transformation, scale their operations, and redefine their brand presence on a global scale.
               </p>
-              
+
               <div className="grid sm:grid-cols-2 gap-8 max-w-xl">
                 <div>
                   <div className="text-4xl font-bold text-white mb-2 tracking-tighter">100+</div>

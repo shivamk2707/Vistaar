@@ -322,10 +322,10 @@ function ServicesStepper() {
    STATS — pastel-tinted stat tiles
    ============================================================ */
 const STATS = [
-  { value: "200M+", label: "Brand Impressions Generated", tone: "bg-emerald-500/10 border-emerald-500/20 hover:bg-emerald-500/20" },
-  { value: "100+", label: "Brands Built", tone: "bg-orange-500/10 border-orange-500/20 hover:bg-orange-500/20" },
-  { value: "1K+", label: "Workflows Automated", tone: "bg-blue-500/10 border-blue-500/20 hover:bg-blue-500/20" },
-  { value: "10K+", label: "Leads Captured", tone: "bg-fuchsia-500/10 border-fuchsia-500/20 hover:bg-fuchsia-500/20" },
+  { value: "10+", label: "Brand Build", tone: "bg-emerald-500/10 border-emerald-500/20 hover:bg-emerald-500/20" },
+  { value: "30+", label: "Projects Delivered", tone: "bg-orange-500/10 border-orange-500/20 hover:bg-orange-500/20" },
+  { value: "8+", label: "Industries Served", tone: "bg-blue-500/10 border-blue-500/20 hover:bg-blue-500/20" },
+  { value: "5+", label: "Digital Products Built", tone: "bg-fuchsia-500/10 border-fuchsia-500/20 hover:bg-fuchsia-500/20" },
 ];
 
 function Stats() {
@@ -709,33 +709,57 @@ function Testimonials() {
    ============================================================ */
 const FAQ_ITEMS = [
   {
+    q: "What services does Vistaar provide?",
+    a: "Vistaar provides end-to-end business and digital solutions including business strategy, branding, website and app development, AI & automation, creative services, and digital marketing.",
+  },
+  {
+    q: "What type of businesses do you work with?",
+    a: "We work with startups, small and medium-sized businesses, established companies, entrepreneurs, and organizations looking to strengthen their brand, digital presence, or business operations.",
+  },
+  {
+    q: "Can Vistaar create a customized solution for my business?",
+    a: "Yes. We don't believe in one-size-fits-all solutions. We understand your goals, challenges, audience, and requirements before creating a solution tailored to your business",
+  },
+  {
+    q: "What makes Vistaar different from a traditional agency?",
+    a: "Vistaar combines strategy, creativity, technology, and AI to provide integrated solutions rather than treating each service as a separate requirement.",
+  },
+  {
+    q: "Where is Vistaar based?",
+    a: "Vistaar is based in Pune, India and works with businesses and organizations across different locations.",
+  },
+  {
+    q: "Do you work with clients remotely?",
+    a: "Yes. Our projects can be managed remotely using digital collaboration, communication, and project-management tools.",
+  },
+  {
     q: "How long does a typical project take?",
-    a: "Most engagements run 8 to 16 weeks from kickoff to launch. A focused brand sprint can land in 3 weeks; a full SaaS build with AI workflows usually runs 3 to 6 months. We share a realistic timeline at the proposal stage — never a sales-pitch estimate.",
+    a: "Timelines vary based on the scope. A focused brand identity or website might take 4-8 weeks, while complex full-stack or AI automation projects usually span 3 to 6 months. We provide clear delivery milestones before starting any work.",
   },
   {
-    q: "Do you work with early-stage startups?",
-    a: "Yes — and often. We have a pricing tier and a faster engagement model specifically designed for seed and Series A teams. If you're pre-funding, we can scope a small first sprint that delivers real value within your runway.",
-  },
-  {
-    q: "Can I hire Vistaar for a single service?",
-    a: "Absolutely. While we think the ecosystem model works best, plenty of clients come to us for one thing — a rebrand, a website rebuild, a marketing sprint — and stay for the rest. We'll be honest if a single-service engagement isn't the right move for you.",
-  },
-  {
-    q: "How does your AI automation work in practice?",
-    a: "We start by mapping the workflows that eat the most time — lead enrichment, customer support, content ops, reporting. Then we build AI agents, automations, and integrations that actually ship into your stack (HubSpot, Salesforce, Notion, your custom backend). Every workflow has measurable KPIs we report on monthly.",
+    q: "How does pricing work?",
+    a: "We offer transparent, milestone-based pricing rather than vague retainers. After a discovery call, we provide a detailed proposal that maps directly to the outcomes you need, ensuring you only pay for tangible value.",
   },
   {
     q: "Do you provide post-launch support?",
-    a: "Yes. Every project includes a 30 / 90 / 365-day growth review. We also offer ongoing retainers for design, development, AI, and marketing — sized to your stage. Most clients stay with us for years, not weeks.",
-  },
-  {
-    q: "Can you sign an NDA?",
-    a: "Of course. Mutual NDAs are standard. We can also work inside your secure environment if your data requires it, and we're happy to start with a discovery call under NDA before sharing any specifics.",
+    a: "Absolutely. We view launch as the beginning. We offer dedicated growth retainers, technical support, and continuous AI optimization to ensure your systems scale smoothly over time.",
   },
 ];
 
 function FaqSection() {
-  const [open, setOpen] = useState<number | null>(0);
+  const [open, setOpen] = useState<number | null>(null);
+  const [visibleCount, setVisibleCount] = useState<number>(2);
+
+  const handleToggle = (index: number) => {
+    const isOpen = open === index;
+    setOpen(isOpen ? null : index);
+
+    // Like Google "People also ask": reveal more items when one is opened
+    if (!isOpen && visibleCount < FAQ_ITEMS.length) {
+      setVisibleCount(prev => Math.min(prev + 2, FAQ_ITEMS.length));
+    }
+  };
+
   return (
     <Section className="bg-[var(--canvas)]">
       <Container>
@@ -748,19 +772,19 @@ function FaqSection() {
         </Reveal>
 
         <div className="mt-14 max-w-3xl mx-auto divide-y divide-[var(--hairline)] border-y border-[var(--hairline)]">
-          {FAQ_ITEMS.map((item, i) => {
+          {FAQ_ITEMS.slice(0, visibleCount).map((item, i) => {
             const isOpen = open === i;
             return (
               <motion.div
                 key={item.q}
                 initial={{ opacity: 0, y: 10 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: i * 0.05 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.4 }}
+                layout
               >
                 <button
                   type="button"
-                  onClick={() => setOpen(isOpen ? null : i)}
+                  onClick={() => handleToggle(i)}
                   className="flex w-full items-center justify-between gap-4 py-6 text-left transition-colors hover:bg-white/5"
                   aria-expanded={isOpen}
                 >
