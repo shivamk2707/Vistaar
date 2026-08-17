@@ -7,6 +7,7 @@ import { ArrowRight, ArrowUpRight, Check, Plus } from "lucide-react";
 import { Button } from "@/components/button";
 import { Container, Section, SectionHeading } from "@/components/layout";
 import { Reveal } from "@/components/reveal";
+import { WhatsAppButton } from "@/components/whatsapp-button";
 import { cn } from "@/lib/utils";
 
 /* ============================================================
@@ -445,6 +446,8 @@ export default function AboutPage() {
       <StorySection />
       <Stats />
       <Principles />
+      
+      <WhatsAppButton />
     </main>
   );
 }

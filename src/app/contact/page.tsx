@@ -17,6 +17,7 @@ import { Button } from "@/components/button";
 import { Container, Section } from "@/components/layout";
 import { PageHero } from "@/components/page-hero";
 import { Reveal } from "@/components/reveal";
+import { WhatsAppButton } from "@/components/whatsapp-button";
 import { cn } from "@/lib/utils";
 
 /* ============================================================
@@ -669,6 +670,8 @@ export default function ContactPage() {
       />
       <ProjectForm />
       <Offices />
+      
+      <WhatsAppButton />
     </main>
   );
 }
