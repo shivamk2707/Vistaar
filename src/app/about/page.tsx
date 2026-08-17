@@ -407,7 +407,7 @@ function TrustSection() {
                 A decade of trust, built <span className="text-white/40">one successful partnership at a time.</span>
               </h2>
               <p className="text-lg text-zinc-400 leading-relaxed mb-12 max-w-xl">
-                At Vistaar, we don&rsquo;t just deliver projects; we forge enduring partnerships. Over the past 12 years, we&rsquo;ve helped hundreds of businesses navigate the complexities of digital transformation, scale their operations, and redefine their brand presence on a global scale.
+                At Vistaar, we don&rsquo;t just deliver projects; we forge enduring partnerships. Over the past 1 year, we&rsquo;ve helped hundreds of businesses navigate the complexities of digital transformation, scale their operations, and redefine their brand presence on a global scale.
               </p>
 
               <div className="grid sm:grid-cols-2 gap-8 max-w-xl">
