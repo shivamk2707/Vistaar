@@ -116,7 +116,6 @@ export function Navbar() {
   const [open, setOpen] = useState(false);
   const [joinModalOpen, setJoinModalOpen] = useState(false);
   const [joinStep, setJoinStep] = useState(1);
-  const [pickedInterests, setPickedInterests] = useState<string[]>([]);
   const [resumeName, setResumeName] = useState<string | null>(null);
   const [submitted, setSubmitted] = useState(false);
   const [formData, setFormData] = useState({
@@ -126,6 +125,8 @@ export function Navbar() {
     location: "",
     portfolio: "",
     experience: "",
+    position: "",
+    employmentType: "",
     message: "",
   });
 
@@ -158,14 +159,8 @@ export function Navbar() {
   const isActive = (href: string) =>
     href === "/" ? pathname === "/" : pathname.startsWith(href);
 
-  const toggleInterest = (label: string) => {
-    setPickedInterests((prev) =>
-      prev.includes(label) ? prev.filter((l) => l !== label) : [...prev, label]
-    );
-  };
-
   const canContinue =
-    (joinStep === 1 && pickedInterests.length > 0) ||
+    (joinStep === 1 && formData.position.trim() !== "" && formData.employmentType !== "") ||
     (joinStep === 2 &&
       formData.fullName.trim() &&
       formData.email.trim() &&
@@ -175,7 +170,6 @@ export function Navbar() {
 
   const resetJoinForm = () => {
     setJoinStep(1);
-    setPickedInterests([]);
     setResumeName(null);
     setSubmitted(false);
     setFormData({
@@ -185,6 +179,8 @@ export function Navbar() {
       location: "",
       portfolio: "",
       experience: "",
+      position: "",
+      employmentType: "",
       message: "",
     });
   };
@@ -363,42 +359,40 @@ export function Navbar() {
                         <div>
                           <span className="mono-eyebrow text-[var(--body)]">What role interests you?</span>
                           <p className="mt-1 text-[12px] text-[var(--body)]">
-                            Pick the areas that fit your strengths.
+                            Tell us what you do best and how you'd like to work.
                           </p>
                         </div>
-                        <span className="mono-eyebrow text-[var(--body)]">
-                          {pickedInterests.length} selected
-                        </span>
                       </div>
 
-                      <div className="mt-5 grid gap-3 sm:grid-cols-2">
-                        {JOIN_INTERESTS.map((interest) => {
-                          const active = pickedInterests.includes(interest);
-                          return (
-                            <button
-                              key={interest}
-                              type="button"
-                              onClick={() => toggleInterest(interest)}
-                              className={cn(
-                                "flex items-center justify-between rounded-[4px] border bg-[var(--canvas)] p-4 text-left transition-colors",
-                                active
-                                  ? "border-[var(--ink)] ring-1 ring-[var(--ink)]"
-                                  : "border-[var(--hairline)] hover:border-[var(--ink)]"
-                              )}
-                            >
-                              <span className="flex items-center gap-3">
-                                <span className={cn(
-                                  "flex h-8 w-8 items-center justify-center rounded-full",
-                                  active ? "bg-[var(--ink)] text-[var(--canvas)]" : "bg-[var(--surface-dark-soft)] text-[var(--body)]"
-                                )}>
-                                  <BriefcaseBusiness className="h-4 w-4" />
-                                </span>
-                                <span className="text-[14px] font-medium text-[var(--ink)]">{interest}</span>
-                              </span>
-                              {active && <Check className="h-4 w-4 text-[var(--ink)]" />}
-                            </button>
-                          );
-                        })}
+                      <div className="mt-5 grid gap-5">
+                        <Field label="Position" full>
+                          <input
+                            type="text"
+                            value={formData.position}
+                            onChange={(e) =>
+                              setFormData((prev) => ({ ...prev, position: e.target.value }))
+                            }
+                            placeholder="e.g. Frontend Developer, UI Designer"
+                            className="form-input"
+                          />
+                        </Field>
+
+                        <Field label="Employment Type" full>
+                          <select
+                            required
+                            value={formData.employmentType}
+                            onChange={(e) =>
+                              setFormData((prev) => ({ ...prev, employmentType: e.target.value }))
+                            }
+                            className="form-input appearance-none bg-[var(--canvas)]"
+                          >
+                            <option value="" disabled>Select employment type</option>
+                            <option value="Intern">Intern</option>
+                            <option value="Part-time">Part-time</option>
+                            <option value="Full-time">Full-time</option>
+                            <option value="Freelance/Project-based">Freelance / Project based</option>
+                          </select>
+                        </Field>
                       </div>
                     </div>
                   )}
