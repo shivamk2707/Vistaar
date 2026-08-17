@@ -603,7 +603,7 @@ function PhaseTimeline() {
             style={{ scaleY: spineScaleY, transformOrigin: "top center" }}
             className="absolute left-[27px] top-2 bottom-2 hidden w-px lg:left-1/2 lg:block"
           >
-            <div className="h-full w-full bg-gradient-to-b from-[var(--accent-orange)] via-[var(--accent-magenta)] to-[var(--accent-periwinkle)]" />
+            <div className="h-full w-full bg-gradient-to-b from-[var(--accent-cyan)] via-[var(--accent-blue)] to-[var(--accent-sky)]" />
           </motion.div>
           {/* Static hairline spine (mobile) */}
           <div

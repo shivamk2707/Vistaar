@@ -266,7 +266,7 @@ function StatCard({
           ease: [0.2, 0.7, 0.2, 1],
         }}
         style={{ transformOrigin: "left center" }}
-        className="pointer-events-none absolute bottom-0 left-0 h-px w-full bg-gradient-to-r from-[var(--accent-orange)] via-[var(--accent-magenta)] to-[var(--accent-periwinkle)]"
+        className="pointer-events-none absolute bottom-0 left-0 h-px w-full bg-gradient-to-r from-[var(--accent-cyan)] via-[var(--accent-blue)] to-[var(--accent-sky)]"
       />
     </motion.div>
   );
@@ -674,7 +674,7 @@ function ArticleCard({ article }: { article: (typeof ARTICLES)[number] }) {
           animate={hover ? { scaleX: 1 } : { scaleX: 0 }}
           transition={{ duration: 0.5, ease: [0.2, 0.7, 0.2, 1] }}
           style={{ transformOrigin: "left center" }}
-          className="pointer-events-none absolute bottom-0 left-0 h-px w-full bg-gradient-to-r from-[var(--accent-orange)] via-[var(--accent-magenta)] to-[var(--accent-periwinkle)]"
+          className="pointer-events-none absolute bottom-0 left-0 h-px w-full bg-gradient-to-r from-[var(--accent-cyan)] via-[var(--accent-blue)] to-[var(--accent-sky)]"
         />
       </motion.div>
     </motion.article>

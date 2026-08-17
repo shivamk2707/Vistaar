@@ -12,18 +12,18 @@
   --surface-dark-soft: #18181b;  /* dark card surface */
   --surface-dark-hairline: #27272a; /* hairline on dark */
   --on-dark: #ffffff;
-  --accent-orange: #fc4c02;
-  --accent-magenta: #ef2cc1;
-  --accent-periwinkle: #bdbbff;
+  --accent-cyan: #06b6d4;
+  --accent-blue: #3b82f6;
+  --accent-sky: #38bdf8;
   /* --accent-mint: #c8c9f9; */
   --accent-mint: #0042C5;
 
   /* The brand signature — 3-stop gradient */
   --gradient-brand: linear-gradient(
     90deg,
-    #fc4c02 0%,
-    #ef2cc1 50%,
-    #bdbbff 100%
+    #06b6d4 0%,
+    #3b82f6 50%,
+    #38bdf8 100%
   );
 
   /* Spacing */
@@ -93,9 +93,9 @@
   --color-surface-dark-soft: var(--surface-dark-soft);
   --color-surface-dark-hairline: var(--surface-dark-hairline);
   --color-on-dark: var(--on-dark);
-  --color-accent-orange: var(--accent-orange);
-  --color-accent-magenta: var(--accent-magenta);
-  --color-accent-periwinkle: var(--accent-periwinkle);
+  --color-accent-cyan: var(--accent-cyan);
+  --color-accent-blue: var(--accent-blue);
+  --color-accent-sky: var(--accent-sky);
   --color-accent-mint: var(--accent-mint);
 
   --font-sans: var(--font-inter), "Inter", "Helvetica Neue", Arial, sans-serif;
@@ -135,7 +135,7 @@ body {
 }
 
 ::selection {
-  background: var(--accent-magenta);
+  background: var(--accent-blue);
   color: var(--on-primary);
 }
 
