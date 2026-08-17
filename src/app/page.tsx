@@ -584,7 +584,7 @@ function IndustriesSection() {
       <Container className="relative z-10">
         <Reveal>
           <SectionHeading
-            eyebrow="Industries"
+            eyebrow="Industries we work in"
             title="We build momentum across industries."
             description="From high-trust service brands to fast-moving digital companies, we shape the right positioning, story, and system for the business behind the brand."
           />
@@ -604,7 +604,8 @@ function IndustriesSection() {
                   transition={{ duration: 0.5, delay: index * 0.06, ease: "easeOut" }}
                   whileHover={{ y: -8, scale: 1.01 }}
                   className={cn(
-                    "group relative h-full min-h-[170px] overflow-hidden rounded-[26px] border border-white/10 bg-[linear-gradient(180deg,rgba(16,24,40,0.9),rgba(11,18,30,0.78))] p-4 shadow-[0_20px_60px_rgba(2,6,23,0.38)] backdrop-blur-xl transition-all duration-500 ease-out xl:col-span-1 xl:hover:col-span-2 xl:hover:z-20 xl:hover:shadow-[0_28px_80px_rgba(59,130,246,0.18)]",
+                    "group relative h-full min-h-[170px] overflow-hidden rounded-[26px] border border-white/10 bg-[linear-gradient(180deg,rgba(16,24,40,0.9),rgba(11,18,30,0.78))] p-4 shadow-[0_20px_60px_rgba(2,6,23,0.38)] backdrop-blur-xl transition-all duration-500 ease-out xl:col-span-1 xl:hover:z-20 xl:hover:shadow-[0_28px_80px_rgba(59,130,246,0.18)]",
+                    index !== 3 ? "xl:hover:col-span-2" : "",
                     index === 3 ? "xl:-translate-y-2" : "",
                     index === 5 ? "xl:translate-y-2" : ""
                   )}
@@ -942,33 +943,33 @@ function Flow() {
                           whileHover={{ y: -6, scale: 1.01 }}
                           className="relative w-full max-w-[420px] overflow-hidden rounded-[24px] border border-white/10 bg-[linear-gradient(135deg,rgba(15,23,42,0.96),rgba(15,23,42,0.8))] p-6 shadow-[0_18px_40px_rgba(15,23,42,0.28)] backdrop-blur-sm"
                         >
-                      <div
-                        className={cn(
-                          "absolute inset-x-0 top-0 h-1 bg-gradient-to-r",
-                          step.accent
-                        )}
-                      />
-                      <div className="flex items-center justify-between gap-3">
-                        <div className="flex items-center gap-3">
-                          <span className="flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white/5 text-[12px] font-semibold text-[var(--ink)]">
-                            {String(i + 1).padStart(2, "0")}
-                          </span>
-                          <span className="mono-eyebrow text-[var(--body)]">Phase {i + 1}</span>
-                        </div>
-                        {!isLast && (
-                          <span className="flex items-center gap-2 text-[11px] font-medium uppercase tracking-[0.12em] text-[var(--body)]">
-                            <span className="h-2 w-2 rounded-full bg-[var(--primary)] shadow-[0_0_16px_rgba(143,231,255,0.7)]" />
-                            Connects
-                          </span>
-                        )}
-                      </div>
+                          <div
+                            className={cn(
+                              "absolute inset-x-0 top-0 h-1 bg-gradient-to-r",
+                              step.accent
+                            )}
+                          />
+                          <div className="flex items-center justify-between gap-3">
+                            <div className="flex items-center gap-3">
+                              <span className="flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white/5 text-[12px] font-semibold text-[var(--ink)]">
+                                {String(i + 1).padStart(2, "0")}
+                              </span>
+                              <span className="mono-eyebrow text-[var(--body)]">Phase {i + 1}</span>
+                            </div>
+                            {!isLast && (
+                              <span className="flex items-center gap-2 text-[11px] font-medium uppercase tracking-[0.12em] text-[var(--body)]">
+                                <span className="h-2 w-2 rounded-full bg-[var(--primary)] shadow-[0_0_16px_rgba(143,231,255,0.7)]" />
+                                Connects
+                              </span>
+                            )}
+                          </div>
 
-                      <h3 className="mt-5 text-[24px] font-medium tracking-[-0.03em] text-[var(--ink)]">
-                        {step.title}
-                      </h3>
-                      <p className="mt-3 text-[15px] leading-[1.7] text-[var(--body)]">
-                        {step.description}
-                      </p>
+                          <h3 className="mt-5 text-[24px] font-medium tracking-[-0.03em] text-[var(--ink)]">
+                            {step.title}
+                          </h3>
+                          <p className="mt-3 text-[15px] leading-[1.7] text-[var(--body)]">
+                            {step.description}
+                          </p>
 
                           <div className="mt-6 flex items-center gap-2 text-[11px] font-medium uppercase tracking-[0.12em] text-[var(--body)]">
                             <span className="inline-block h-2 w-2 rounded-full bg-gradient-to-r from-sky-300 to-violet-400" />
