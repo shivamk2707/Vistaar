@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useState } from "react";
+import { motion } from "framer-motion";
 import { ArrowRight, ArrowUpRight, Check, Plus } from "lucide-react";
 import { Button } from "@/components/button";
 import { Container, Section, SectionHeading } from "@/components/layout";
@@ -194,41 +195,20 @@ function Stats() {
    PRINCIPLES
    ============================================================ */
 function Principles() {
+  const [hoveredIndex, setHoveredIndex] = useState(0);
+
   const cardGradients = [
-    "from-blue-500/20 via-indigo-500/10 to-purple-500/20",
-    "from-emerald-500/20 via-teal-500/10 to-cyan-500/20",
-    "from-orange-500/20 via-rose-500/10 to-red-500/20",
-    "from-fuchsia-500/20 via-pink-500/10 to-rose-500/20",
-    "from-amber-500/20 via-yellow-500/10 to-orange-500/20",
-    "from-violet-500/20 via-purple-500/10 to-fuchsia-500/20",
+    "from-blue-600/40 to-blue-900/10",
+    "from-emerald-600/40 to-emerald-900/10",
+    "from-orange-600/40 to-orange-900/10",
+    "from-fuchsia-600/40 to-fuchsia-900/10",
+    "from-sky-600/40 to-sky-900/10",
+    "from-violet-600/40 to-violet-900/10",
   ];
 
-  const renderParticles = (i: number) => {
-    const isEven = i % 2 === 0;
-    return (
-      <div className="absolute inset-0 opacity-0 transition-opacity duration-700 group-hover:opacity-100 overflow-hidden pointer-events-none z-0">
-        {/* Soft glowing orbs */}
-        <div className={`absolute ${isEven ? '-top-4 -left-4' : '-bottom-4 -right-4'} h-24 w-24 rounded-full bg-indigo-500/10 blur-xl animate-float-slow`}></div>
-        <div className={`absolute ${isEven ? 'bottom-8 right-8' : 'top-8 left-8'} h-16 w-16 rounded-full bg-fuchsia-500/10 blur-lg animate-float-slow`} style={{ animationDelay: '1s' }}></div>
-        <div className="absolute top-1/4 left-1/4 h-20 w-20 rounded-full bg-orange-500/10 blur-2xl animate-pulse-soft" style={{ animationDelay: '2s' }}></div>
-
-        {/* Geometric structures / particles */}
-        <svg className={`absolute ${isEven ? 'top-1/4 right-1/4' : 'bottom-1/4 left-1/4'} h-4 w-4 text-indigo-500/30 animate-pulse-soft`} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-          <path d="M12 5v14M5 12h14" />
-        </svg>
-        <svg className={`absolute ${isEven ? 'bottom-1/3 right-1/2' : 'top-1/3 left-1/2'} h-3 w-3 text-fuchsia-500/30 animate-float-slow`} style={{ animationDelay: '1.5s' }} viewBox="0 0 24 24" fill="currentColor">
-          <circle cx="12" cy="12" r="10" />
-        </svg>
-        <svg className={`absolute ${isEven ? 'top-1/2 left-8' : 'bottom-1/2 right-8'} h-5 w-5 text-orange-500/30 animate-pulse-soft`} style={{ animationDelay: '0.5s' }} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-          <path d="M12 2L15 8L22 9L17 14L18 21L12 17.5L6 21L7 14L2 9L9 8L12 2Z" />
-        </svg>
-      </div>
-    );
-  };
-
   return (
-    <Section className="bg-[var(--canvas)]">
-      <Container>
+    <Section className="bg-[var(--canvas)] relative overflow-hidden">
+      <Container className="relative z-10">
         <Reveal>
           <SectionHeading
             eyebrow="Working principles"
@@ -237,33 +217,97 @@ function Principles() {
           />
         </Reveal>
 
-        <div className="mt-16 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {PRINCIPLES.map((p, i) => (
-            <Reveal key={p.title} delay={(i % 3) + 1}>
-              <div className="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-[var(--hairline)] bg-[var(--canvas)] p-8 transition-all duration-500 hover:shadow-[0_8px_30px_rgb(0,0,0,0.06)] hover:-translate-y-1 hover:border-transparent">
-                {/* Animated gradient background on hover */}
-                <div className={`absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100 bg-gradient-to-br ${cardGradients[i]} animate-gradient-shift pointer-events-none z-0`}></div>
+        <div 
+          className="mt-20 flex flex-col lg:flex-row w-full h-[800px] lg:h-[550px] gap-4"
+          onMouseLeave={() => setHoveredIndex(0)}
+        >
+          {PRINCIPLES.map((p, i) => {
+            const isActive = hoveredIndex === i;
+            return (
+              <div 
+                key={i}
+                onMouseEnter={() => setHoveredIndex(i)}
+                className={cn(
+                  "group relative overflow-hidden rounded-[32px] transition-all duration-700 ease-[cubic-bezier(0.25,1,0.5,1)] cursor-pointer border",
+                  isActive 
+                    ? "lg:flex-[4] flex-[3] border-white/20 shadow-[0_8px_40px_rgba(255,255,255,0.05)] bg-white/5" 
+                    : "lg:flex-[1] flex-[1] border-white/5 bg-transparent",
+                )}
+              >
+                {/* Background Glows */}
+                <div className={cn(
+                  "absolute inset-0 bg-gradient-to-br transition-opacity duration-700",
+                  isActive ? "opacity-100" : "opacity-0",
+                  cardGradients[i]
+                )} />
 
-                {/* Particle Effects */}
-                {renderParticles(i)}
+                {/* Subtle base noise/texture */}
+                <div className="absolute inset-0 opacity-[0.03] mix-blend-overlay bg-[url('https://grainy-gradients.vercel.app/noise.svg')]" />
 
-                {/* Top gradient border highlight on hover */}
-                <div className="absolute top-0 left-0 h-1 w-full scale-x-0 bg-gradient-brand transition-transform duration-500 origin-left group-hover:scale-x-100 pointer-events-none z-10"></div>
-
-                <div className="relative z-10 flex h-full flex-col">
-                  <div className="mb-6 flex h-12 w-12 items-center justify-center rounded-full bg-[var(--ink)] text-[var(--canvas)] transition-transform duration-500 group-hover:scale-110 group-hover:-rotate-3 shadow-sm">
-                    <Check className="h-5 w-5" />
+                {/* Content Container */}
+                <div className="absolute inset-0 p-6 lg:p-8 flex flex-col justify-between">
+                  {/* Top: Number & Icon */}
+                  <div className="flex items-center justify-between">
+                    <span className={cn(
+                      "font-bold transition-all duration-700 tracking-tighter",
+                      isActive ? "text-5xl lg:text-7xl text-white/50" : "text-2xl text-white/20"
+                    )}>
+                      0{i + 1}
+                    </span>
+                    {isActive && (
+                      <motion.div 
+                        initial={{ opacity: 0, scale: 0.5, rotate: -45 }} 
+                        animate={{ opacity: 1, scale: 1, rotate: 0 }} 
+                        transition={{ duration: 0.5, delay: 0.1 }}
+                        className="h-14 w-14 rounded-full bg-white/10 flex items-center justify-center backdrop-blur-md shadow-inner border border-white/20"
+                      >
+                        <Check className="h-7 w-7 text-white" />
+                      </motion.div>
+                    )}
                   </div>
-                  <h3 className="text-[20px] font-semibold leading-[1.2] tracking-[-0.01em] text-[var(--ink)] transition-colors duration-300">
-                    {p.title}
-                  </h3>
-                  <p className="mt-4 text-[15px] leading-[1.6] text-[var(--body)] transition-colors duration-300 group-hover:text-[var(--ink)]">
-                    {p.body}
-                  </p>
+
+                  {/* Bottom: Titles & Content */}
+                  <div className="relative h-full flex items-end">
+                    
+                    {/* Active Content */}
+                    <div className={cn(
+                      "absolute bottom-0 left-0 w-full flex flex-col gap-4 transition-all duration-700",
+                      isActive ? "opacity-100 translate-y-0 delay-200" : "opacity-0 translate-y-8 pointer-events-none"
+                    )}>
+                      <h3 className="text-3xl lg:text-4xl font-bold text-white leading-tight tracking-tight max-w-md">
+                        {p.title}
+                      </h3>
+                      <p className="text-white/70 text-base leading-relaxed max-w-sm">
+                        {p.body}
+                      </p>
+                    </div>
+
+                    {/* Inactive Content - Vertical on Desktop, Horizontal on Mobile */}
+                    <div className={cn(
+                      "absolute inset-0 w-full flex flex-col justify-end transition-all duration-700 origin-bottom",
+                      isActive ? "opacity-0 scale-95 pointer-events-none" : "opacity-100 scale-100 delay-200"
+                    )}>
+                      {/* Desktop vertical title */}
+                      <div className="hidden lg:flex w-full items-end justify-center h-full pb-6">
+                        <h3 
+                          className="text-lg font-bold text-white/40 whitespace-nowrap uppercase tracking-[0.2em]"
+                          style={{ writingMode: 'vertical-rl', transform: 'rotate(180deg)' }}
+                        >
+                          {p.title}
+                        </h3>
+                      </div>
+                      
+                      {/* Mobile horizontal title */}
+                      <h3 className="lg:hidden text-lg font-bold text-white/40 whitespace-nowrap truncate w-full text-center pb-2">
+                        {p.title}
+                      </h3>
+                    </div>
+
+                  </div>
                 </div>
               </div>
-            </Reveal>
-          ))}
+            );
+          })}
         </div>
       </Container>
     </Section>

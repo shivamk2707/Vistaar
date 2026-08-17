@@ -294,10 +294,8 @@ function ServicesStepper() {
                                   "/images/practice/practice-illustration-06.png"
                       }
                       alt="Service Visual"
-                      className="w-full h-full object-contatin"
+                      className="w-full h-full object-contain"
                     />
-                    {/* Gradient overlay for text contrast */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent pointer-events-none" />
 
                   </motion.div>
                 </AnimatePresence>
@@ -562,6 +560,8 @@ export default function ServicesPage() {
 
       <ServicesStepper />
 
+      <ProcessSection />
+
       <Section tone="dark" className="bg-[var(--canvas-dark)]">
         <Container>
           <Reveal>
@@ -601,5 +601,100 @@ export default function ServicesPage() {
         </Container>
       </Section>
     </main>
+  );
+}
+
+function ProcessSection() {
+  return (
+    <Section className="bg-[var(--canvas)] relative overflow-hidden py-24 sm:py-32 border-t border-white/5">
+      {/* Background Glows */}
+      <div className="absolute left-1/2 top-0 h-[600px] w-[800px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-blue-500/10 blur-[120px] pointer-events-none" />
+
+      <Container className="relative z-10">
+        <Reveal>
+          <div className="text-center max-w-2xl mx-auto mb-16 lg:mb-24">
+            <span className="mono-eyebrow text-blue-400">Our Methodology</span>
+            <h2 className="mt-4 text-4xl sm:text-5xl font-bold tracking-tight text-white">
+              Built for momentum.
+            </h2>
+            <p className="mt-4 text-lg text-zinc-400">
+              A disciplined four-phase approach to ensure your brand and platform not only launch successfully, but continuously evolve.
+            </p>
+          </div>
+        </Reveal>
+
+        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4 relative">
+          {/* Connector Line (Desktop only) */}
+          <div className="hidden lg:block absolute top-[44px] left-[10%] right-[10%] h-[1px] bg-gradient-to-r from-transparent via-white/20 to-transparent" />
+
+          {[
+            {
+              step: "01",
+              title: "Planning",
+              desc: "We map out the strategy, define KPIs, and structure the architecture before a single line of code is written.",
+              icon: Compass,
+              color: "from-blue-400/20 to-blue-500/5",
+              iconColor: "text-blue-400"
+            },
+            {
+              step: "02",
+              title: "Execution",
+              desc: "Rapid, high-fidelity implementation. From brand identity to full-stack engineering, we build systems designed to scale.",
+              icon: Wrench,
+              color: "from-purple-400/20 to-purple-500/5",
+              iconColor: "text-purple-400"
+            },
+            {
+              step: "03",
+              title: "Monitoring",
+              desc: "Real-time tracking of performance metrics, user behavior, and system health to ensure maximum uptime.",
+              icon: Brain,
+              color: "from-emerald-400/20 to-emerald-500/5",
+              iconColor: "text-emerald-400"
+            },
+            {
+              step: "04",
+              title: "Analysis",
+              desc: "Data-driven insights to refine our approach. We constantly measure, learn, and iterate to compound growth.",
+              icon: LineChart,
+              color: "from-orange-400/20 to-orange-500/5",
+              iconColor: "text-orange-400"
+            }
+          ].map((item, i) => (
+            <motion.div
+              key={item.title}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: 0.6, delay: i * 0.15, ease: [0.21, 0.47, 0.32, 0.98] }}
+              whileHover={{ y: -8 }}
+              className="group relative flex flex-col rounded-[24px] border border-white/10 bg-white/[0.02] p-8 backdrop-blur-md overflow-hidden transition-all duration-500 hover:border-white/20 hover:bg-white/[0.06] hover:shadow-[0_8px_30px_rgba(255,255,255,0.04)]"
+            >
+              {/* Subtle gradient background on hover */}
+              <div className={cn("absolute inset-0 bg-gradient-to-br opacity-0 transition-opacity duration-500 group-hover:opacity-100", item.color)} />
+
+              <div className="relative z-10">
+                <div className="flex items-center justify-between mb-8">
+                  <div className="relative flex h-14 w-14 items-center justify-center rounded-2xl bg-white/10 shadow-inner overflow-hidden">
+                    <div className="absolute inset-0 bg-white/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                    <item.icon className={cn("h-7 w-7 transition-transform duration-500 group-hover:scale-110", item.iconColor)} />
+                  </div>
+                  <span className="text-5xl font-bold text-white/15 group-hover:text-white/40 transition-colors duration-500 tracking-tighter">
+                    {item.step}
+                  </span>
+                </div>
+
+                <h3 className="text-2xl font-bold text-white mb-4 tracking-tight">
+                  {item.title}
+                </h3>
+                <p className="text-zinc-400 leading-relaxed text-[15px]">
+                  {item.desc}
+                </p>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      </Container>
+    </Section>
   );
 }
