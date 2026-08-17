@@ -24,12 +24,12 @@ const FOOTER_LINKS = [
   {
     title: "Services",
     items: [
+      { href: "/services#strategy", label: "Brand Strategy" },
+      { href: "/services#identity", label: "Brand Identity" },
+      { href: "/services#engineering", label: "Web & App Development" },
+      { href: "/services#ai", label: "AI & Automation" },
+      { href: "/services#growth", label: "Growth Marketing" },
       { href: "/services#consulting", label: "Business Consulting" },
-      { href: "/services#branding", label: "Branding" },
-      { href: "/services#engineering", label: "Website Development" },
-      { href: "/services#ai", label: "AI Automation" },
-      { href: "/services#creative", label: "Creative Studio" },
-      { href: "/services#growth", label: "Digital Marketing" },
     ],
   },
   {

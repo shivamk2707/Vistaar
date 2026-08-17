@@ -584,7 +584,7 @@ function IndustriesSection() {
       <Container className="relative z-10">
         <Reveal>
           <SectionHeading
-            eyebrow="Industries we work in"
+            eyebrow="Industries"
             title="We build momentum across industries."
             description="From high-trust service brands to fast-moving digital companies, we shape the right positioning, story, and system for the business behind the brand."
           />

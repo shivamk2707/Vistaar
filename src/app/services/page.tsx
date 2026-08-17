@@ -222,7 +222,7 @@ function ServiceStep({ service, index, onInView }: any) {
   }, [isInView, onInView]);
 
   return (
-    <div ref={ref} className="flex flex-col gap-6 scroll-mt-40 transition-opacity duration-500" style={{ opacity: isInView ? 1 : 0.4 }}>
+    <div id={service.id} ref={ref} className="flex flex-col gap-6 scroll-mt-40 transition-opacity duration-500" style={{ opacity: isInView ? 1 : 0.4 }}>
       {/* Mobile-only step number */}
       <div className="text-6xl font-bold text-white/10 lg:hidden">
         0{index + 1}

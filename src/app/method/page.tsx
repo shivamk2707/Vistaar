@@ -27,7 +27,6 @@ const PHASES = [
     title: "Discover",
     objective: "Understand the client's business before proposing any solution.",
     activities: [
-      "Discovery Call",
       "Business Understanding",
       "Requirement Gathering",
       "Target Audience Analysis",
