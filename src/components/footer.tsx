@@ -36,7 +36,6 @@ const FOOTER_LINKS = [
     title: "Resources",
     items: [
       { href: "/insights", label: "Insights" },
-      { href: "/method", label: "Our Method" },
       { href: "/privacy", label: "Privacy Policy" },
       { href: "/terms", label: "Terms & Conditions" },
     ],

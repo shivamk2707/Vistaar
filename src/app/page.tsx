@@ -881,14 +881,6 @@ function FinalCta() {
               >
                 Start your project
               </Button>
-              <Button
-                size="lg"
-                variant="secondary-white"
-                className="hidden rounded-full font-semibold shadow-sm transition-all group-hover:shadow-md sm:inline-flex"
-                href="/method"
-              >
-                See the method
-              </Button>
             </div>
           </div>
         </Reveal>

@@ -447,11 +447,6 @@ function StackedServices() {
                           Discuss this
                         </Button>
                       </Link>
-                      <Link href="/method">
-                        <Button size="sm" variant="outline" rightIcon={<ArrowRight className="h-3.5 w-3.5" />}>
-                          See the process
-                        </Button>
-                      </Link>
                     </div>
                   </div>
 
@@ -546,15 +541,6 @@ export default function ServicesPage() {
           href="/contact"
         >
           Start a project
-        </Button>
-        <Button
-          size="md"
-          variant="secondary-white"
-          className="rounded-full text-sm font-semibold shadow-sm transition-all group-hover:shadow-md"
-          rightIcon={<ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />}
-          href="/method"
-        >
-          See our method
         </Button>
       </PageHero>
 
