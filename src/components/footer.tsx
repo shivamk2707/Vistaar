@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { Container } from "./layout";
 import { VistaarLogo } from "./vistaar-logo";
 import {
@@ -55,6 +56,11 @@ const SOCIAL: Array<{
   ];
 
 export function Footer() {
+  const pathname = usePathname();
+  if (pathname?.startsWith("/admin")) {
+    return null;
+  }
+
   return (
     <footer className="bg-[var(--canvas)] text-[var(--ink)]">
       {/* Link columns */}

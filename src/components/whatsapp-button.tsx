@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
+import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 
 const WhatsAppIcon = ({ className }: { className?: string }) => (
@@ -17,17 +18,18 @@ const WhatsAppIcon = ({ className }: { className?: string }) => (
 
 export function WhatsAppButton() {
   const [mounted, setMounted] = useState(false);
+  const pathname = usePathname();
 
   useEffect(() => {
     setMounted(true);
   }, []);
 
+  if (!mounted || pathname?.startsWith("/admin")) return null;
+
   const phoneNumber = "917558510743"; // Assumes India code (+91) based on standard 10 digit number.
   const message = "Hi, I would like to know more about Vistaar!";
   
   const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
-
-  if (!mounted) return null;
 
   return createPortal(
     <a

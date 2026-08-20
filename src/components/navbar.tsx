@@ -21,6 +21,7 @@ import {
 import { Button } from "./button";
 import { VistaarLogo } from "./vistaar-logo";
 import { cn } from "@/lib/utils";
+import { createClient } from "@/lib/supabase/client";
 
 const NAV_LINKS = [
   { href: "/", label: "Home" },
@@ -116,7 +117,9 @@ export function Navbar() {
   const [joinModalOpen, setJoinModalOpen] = useState(false);
   const [joinStep, setJoinStep] = useState(1);
   const [resumeName, setResumeName] = useState<string | null>(null);
+  const [resumeFile, setResumeFile] = useState<File | null>(null);
   const [submitted, setSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState({
     fullName: "",
     email: "",
@@ -127,6 +130,8 @@ export function Navbar() {
     position: "",
     employmentType: "",
     message: "",
+    skills: "",
+    availability: "",
   });
 
   const pathname = usePathname();
@@ -134,11 +139,15 @@ export function Navbar() {
 
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 20);
+      setScrolled(window.scrollY > 10);
     };
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  if (pathname?.startsWith("/admin")) {
+    return null;
+  }
 
   useEffect(() => {
     if (window.innerWidth >= 1024) setOpen(false);
@@ -170,7 +179,9 @@ export function Navbar() {
   const resetJoinForm = () => {
     setJoinStep(1);
     setResumeName(null);
+    setResumeFile(null);
     setSubmitted(false);
+    setIsSubmitting(false);
     setFormData({
       fullName: "",
       email: "",
@@ -181,6 +192,8 @@ export function Navbar() {
       position: "",
       employmentType: "",
       message: "",
+      skills: "",
+      availability: "",
     });
   };
 
@@ -189,8 +202,38 @@ export function Navbar() {
     setTimeout(resetJoinForm, 100);
   };
 
-  const onJoinSubmit = (event: React.FormEvent) => {
+  const onJoinSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
+    setIsSubmitting(true);
+    const supabase = createClient();
+    
+    let resume_url = null;
+    if (resumeFile) {
+      const fileExt = resumeFile.name.split('.').pop();
+      const fileName = `${Date.now()}_${Math.random().toString(36).substring(7)}.${fileExt}`;
+      const { data, error } = await supabase.storage.from("uploads").upload(`resumes/${fileName}`, resumeFile);
+      if (data) {
+        const { data: urlData } = supabase.storage.from("uploads").getPublicUrl(data.path);
+        resume_url = urlData.publicUrl;
+      }
+    }
+
+    await supabase.from("job_applications").insert([{
+      full_name: formData.fullName,
+      email: formData.email,
+      phone: formData.phone,
+      location: formData.location,
+      position: formData.position,
+      employment_type: formData.employmentType,
+      experience: formData.experience,
+      portfolio: formData.portfolio,
+      message: formData.message,
+      skills: formData.skills,
+      availability: formData.availability,
+      resume_url
+    }]);
+    
+    setIsSubmitting(false);
     setSubmitted(true);
   };
 
@@ -511,7 +554,11 @@ export function Navbar() {
                             type="file"
                             className="hidden"
                             accept=".pdf,.doc,.docx,.txt,.ppt,.pptx"
-                            onChange={(e) => setResumeName(e.target.files?.[0]?.name ?? null)}
+                            onChange={(e) => {
+                              const file = e.target.files?.[0] ?? null;
+                              setResumeName(file?.name ?? null);
+                              setResumeFile(file);
+                            }}
                           />
                         </label>
                       </div>
@@ -520,6 +567,8 @@ export function Navbar() {
                         <Field label="Best known skills">
                           <input
                             type="text"
+                            value={formData.skills}
+                            onChange={(e) => setFormData(p => ({ ...p, skills: e.target.value }))}
                             placeholder="Brand strategy, motion design, product marketing..."
                             className="form-input"
                           />
@@ -527,6 +576,8 @@ export function Navbar() {
                         <Field label="Availability">
                           <input
                             type="text"
+                            value={formData.availability}
+                            onChange={(e) => setFormData(p => ({ ...p, availability: e.target.value }))}
                             placeholder="Immediate / 2 weeks / Flexible"
                             className="form-input"
                           />
@@ -573,9 +624,9 @@ export function Navbar() {
                           size="md"
                           className="rounded-full text-sm font-semibold"
                           rightIcon={<ArrowRight className="h-4 w-4" />}
-                          disabled={!canContinue}
+                          disabled={!canContinue || isSubmitting}
                         >
-                          Submit profile
+                          {isSubmitting ? "Submitting..." : "Submit profile"}
                         </Button>
                       )}
                     </div>

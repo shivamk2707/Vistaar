@@ -19,6 +19,7 @@ import { PageHero } from "@/components/page-hero";
 import { Reveal } from "@/components/reveal";
 import { WhatsAppButton } from "@/components/whatsapp-button";
 import { cn } from "@/lib/utils";
+import { createClient } from "@/lib/supabase/client";
 
 /* ============================================================
    DATA
@@ -118,7 +119,21 @@ function ProjectForm() {
   const [budget, setBudget] = useState<string>("");
   const [timeline, setTimeline] = useState<string | null>(null);
   const [fileName, setFileName] = useState<string | null>(null);
+  const [fileObj, setFileObj] = useState<File | null>(null);
   const [submitted, setSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  
+  const [formData, setFormData] = useState({
+    description: "",
+    fullName: "",
+    companyName: "",
+    email: "",
+    phone: "",
+    country: "",
+    website: "",
+    industry: "",
+    source: "",
+  });
 
   const togglePicked = (label: string) => {
     setPicked((prev) =>
@@ -141,8 +156,52 @@ function ProjectForm() {
   const goNext = () => setStep((s) => Math.min(s + 1, 3));
   const goBack = () => setStep((s) => Math.max(s - 1, 1));
 
-  const onSubmit = (e: React.FormEvent) => {
+  const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setIsSubmitting(true);
+    const supabase = createClient();
+    
+    let attachment_url = null;
+    if (fileObj) {
+      const fileExt = fileObj.name.split('.').pop();
+      const newName = `${Date.now()}_${Math.random().toString(36).substring(7)}.${fileExt}`;
+      const { data, error } = await supabase.storage.from("uploads").upload(`attachments/${newName}`, fileObj);
+      if (data) {
+        const { data: urlData } = supabase.storage.from("uploads").getPublicUrl(data.path);
+        attachment_url = urlData.publicUrl;
+      }
+    }
+    
+    const fullMessage = `
+Project Interests: ${picked.join(', ')}
+Description: ${formData.description}
+
+Budget: INR ${budget}
+Timeline: ${timeline}
+
+Company: ${formData.companyName}
+Website: ${formData.website}
+Industry: ${formData.industry}
+Source: ${formData.source}
+    `.trim();
+
+    await supabase.from("contact_requests").insert([{
+      full_name: formData.fullName,
+      company_name: formData.companyName,
+      email: formData.email,
+      phone: formData.phone,
+      country: formData.country,
+      website: formData.website,
+      industry: formData.industry,
+      source: formData.source,
+      project_interests: picked,
+      description: formData.description,
+      budget: budget,
+      timeline: timeline,
+      attachment_url: attachment_url
+    }]);
+
+    setIsSubmitting(false);
     setSubmitted(true);
   };
 
@@ -152,7 +211,9 @@ function ProjectForm() {
     setBudget("");
     setTimeline(null);
     setFileName(null);
+    setFileObj(null);
     setSubmitted(false);
+    setIsSubmitting(false);
   };
 
   return (
@@ -320,6 +381,8 @@ function ProjectForm() {
                         <Field label="Project description" full>
                           <textarea
                             rows={4}
+                            value={formData.description}
+                            onChange={e => setFormData(p => ({ ...p, description: e.target.value }))}
                             placeholder="What are you building? What problem are you solving? Any links we should see?"
                             className="w-full rounded-[4px] border border-[var(--hairline)] bg-[var(--canvas)] p-4 text-[15px] text-[var(--ink)] outline-none transition-colors placeholder:text-[var(--body)] focus:border-[var(--ink)]"
                           />
@@ -430,28 +493,28 @@ function ProjectForm() {
                       </span>
                       <div className="mt-4 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
                         <Field label="Full name" required>
-                          <input required type="text" placeholder="Jane Doe" className="form-input" />
+                          <input required type="text" value={formData.fullName} onChange={e => setFormData(p => ({ ...p, fullName: e.target.value }))} placeholder="Jane Doe" className="form-input" />
                         </Field>
                         <Field label="Company name">
-                          <input type="text" placeholder="Acme Inc." className="form-input" />
+                          <input type="text" value={formData.companyName} onChange={e => setFormData(p => ({ ...p, companyName: e.target.value }))} placeholder="Acme Inc." className="form-input" />
                         </Field>
                         <Field label="Email" required>
-                          <input required type="email" placeholder="jane@acme.com" className="form-input" />
+                          <input required type="email" value={formData.email} onChange={e => setFormData(p => ({ ...p, email: e.target.value }))} placeholder="jane@acme.com" className="form-input" />
                         </Field>
                         <Field label="Phone">
-                          <input type="tel" placeholder="+91 000 000 0000" className="form-input" />
+                          <input type="tel" value={formData.phone} onChange={e => setFormData(p => ({ ...p, phone: e.target.value }))} placeholder="+91 000 000 0000" className="form-input" />
                         </Field>
                         <Field label="Country">
-                          <input type="text" placeholder="India" className="form-input" />
+                          <input type="text" value={formData.country} onChange={e => setFormData(p => ({ ...p, country: e.target.value }))} placeholder="India" className="form-input" />
                         </Field>
                         <Field label="Business website">
-                          <input type="url" placeholder="https://acme.com" className="form-input" />
+                          <input type="url" value={formData.website} onChange={e => setFormData(p => ({ ...p, website: e.target.value }))} placeholder="https://acme.com" className="form-input" />
                         </Field>
                         <Field label="Industry" full>
-                          <input type="text" placeholder="SaaS, E-commerce, Education…" className="form-input" />
+                          <input type="text" value={formData.industry} onChange={e => setFormData(p => ({ ...p, industry: e.target.value }))} placeholder="SaaS, E-commerce, Education…" className="form-input" />
                         </Field>
                         <Field label="How did you hear about us?" full>
-                          <input type="text" placeholder="Referral, search, social, event…" className="form-input" />
+                          <input type="text" value={formData.source} onChange={e => setFormData(p => ({ ...p, source: e.target.value }))} placeholder="Referral, search, social, event…" className="form-input" />
                         </Field>
                       </div>
 
@@ -468,7 +531,11 @@ function ProjectForm() {
                             <input
                               type="file"
                               className="hidden"
-                              onChange={(e) => setFileName(e.target.files?.[0]?.name ?? null)}
+                              onChange={(e) => {
+                                const file = e.target.files?.[0] ?? null;
+                                setFileName(file?.name ?? null);
+                                setFileObj(file);
+                              }}
                             />
                           </label>
                         </Field>
@@ -517,9 +584,10 @@ function ProjectForm() {
                         <Button type="submit"
                           variant="primary"
                           size="md"
+                          disabled={isSubmitting}
                           className="rounded-full text-sm font-semibold shadow-sm transition-all group-hover:shadow-md"
                           rightIcon={<ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />}>
-                          Send project brief
+                          {isSubmitting ? "Sending..." : "Send project brief"}
                         </Button>
                       )}
                     </div>
