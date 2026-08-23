@@ -30,20 +30,13 @@ const NAV_LINKS = [
   { href: "/contact", label: "Contact" },
 ] as const;
 
-const JOIN_INTERESTS = [
-  "Brand Strategy",
-  "Design & UX",
-  "Development",
-  "AI & Automation",
-  "Marketing",
-  "Operations",
-] as const;
-
 const JOIN_STEPS = [
   { id: 1, label: "Role" },
   { id: 2, label: "Profile" },
   { id: 3, label: "Resume" },
 ] as const;
+
+export const OPEN_JOIN_EVENT = "vistaar:open-join";
 
 function StepRail({ step }: { step: number }) {
   return (
@@ -143,6 +136,12 @@ export function Navbar() {
   useEffect(() => {
     if (window.innerWidth >= 1024) setOpen(false);
   }, [pathname]);
+
+  useEffect(() => {
+    const openJoinModal = () => setJoinModalOpen(true);
+    window.addEventListener(OPEN_JOIN_EVENT, openJoinModal);
+    return () => window.removeEventListener(OPEN_JOIN_EVENT, openJoinModal);
+  }, []);
 
   useEffect(() => {
     if (!joinModalOpen) return;
@@ -306,7 +305,7 @@ export function Navbar() {
           onClick={closeJoinModal}
         >
           <div
-            className="relative w-full max-w-3xl max-h-[92vh] overflow-hidden rounded-[4px] border border-[var(--hairline)] bg-[var(--canvas)] shadow-[0_30px_80px_rgba(2,9,18,0.7)]"
+            className="relative w-full max-w-3xl max-h-[92vh] overflow-hidden rounded-[16px] border border-[var(--hairline)] bg-[var(--canvas)] shadow-[0_30px_80px_rgba(2,9,18,0.7)]"
             onClick={(e) => e.stopPropagation()}
           >
             <div className="flex items-center justify-between border-b border-[var(--hairline)] bg-[var(--surface-dark-soft)] px-5 py-4 sm:px-7">

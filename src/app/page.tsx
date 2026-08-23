@@ -20,6 +20,7 @@ import {
   Hotel,
   Landmark,
   Rocket,
+  ShoppingCart,
   type LucideIcon,
 } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
@@ -412,8 +413,8 @@ function Comparison() {
           transition={{ duration: 0.5 }}
         >
           <SectionHeading
-            eyebrow="Vistaar vs. Traditional Agency"
-            title="Why teams pick Vistaar over a traditional agency."
+            eyebrow=""
+            title="Vistaar vs. Traditional Agency"
             description="Six honest differences you'll feel inside the first two weeks."
           />
         </motion.div>
@@ -527,6 +528,30 @@ const TESTIMONIALS = [
     initials: "PM",
     image: "https://i.pravatar.cc/150?u=Priya",
   },
+  {
+    quote:
+      "Vistaar helped us turn a complex product into a clear, confident story. Our launch conversations became sharper, and the quality of inbound interest improved within weeks.",
+    name: "Rohan Kulkarni",
+    role: "Co-founder, Orbit Labs",
+    initials: "RK",
+    image: "https://i.pravatar.cc/150?u=Rohan",
+  },
+  {
+    quote:
+      "The new website finally reflects the ambition of our team. Vistaar brought strategy, design, and execution together without losing sight of what our customers actually need.",
+    name: "Ishita Nair",
+    role: "Director, Northstar Learning",
+    initials: "IN",
+    image: "https://i.pravatar.cc/150?u=Ishita",
+  },
+  {
+    quote:
+      "We came in looking for marketing support and left with a growth system. The team made our priorities visible, measurable, and much easier to execute.",
+    name: "Arjun Shah",
+    role: "Founder, Terra Commerce",
+    initials: "AS",
+    image: "https://i.pravatar.cc/150?u=Arjun",
+  },
 ];
 
 const INDUSTRIES = [
@@ -566,6 +591,13 @@ const INDUSTRIES = [
     image: "https://images.unsplash.com/photo-1532938911079-1b06ac7ceec7?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8SGVhbHRoY2FyZXxlbnwwfHwwfHx8MA%3D%3D"
   },
   {
+    name: "E-Commerce",
+    description: "Conversion-focused storefronts, product storytelling, and growth systems that turn browsing into loyal customers.",
+    icon: ShoppingCart,
+    accent: "from-amber-400/60 via-orange-400/25 to-transparent",
+    image: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8ZSUyMGNvbW1lcmNlfGVufDB8fDB8fHww"
+  },
+  {
     name: "IT Firms",
     description: "Brand systems and growth infrastructure that help technical teams explain value clearly and win better-fit clients.",
     icon: BriefcaseBusiness,
@@ -593,7 +625,7 @@ function IndustriesSection() {
         <Reveal>
           <SectionHeading
             eyebrow="Industries"
-            title="We build momentum across industries."
+            title="We Build Momentum Across Industries."
             description="From high-trust service brands to fast-moving digital companies, we shape the right positioning, story, and system for the business behind the brand."
           />
         </Reveal>
@@ -613,8 +645,7 @@ function IndustriesSection() {
                   whileHover={{ y: -8, scale: 1.01 }}
                   className={cn(
                     "group relative h-full min-h-[170px] overflow-hidden rounded-[20px] border border-white/10 shadow-[0_20px_60px_rgba(2,6,23,0.38)] backdrop-blur-xl transition-all duration-500 ease-out xl:col-span-1 xl:hover:z-20 xl:hover:shadow-[0_28px_80px_rgba(59,130,246,0.18)]",
-                    index !== 3 ? "xl:hover:col-span-2" : "",
-                    index === 3 ? "xl:-translate-y-2" : "",
+                    index === 3 || index === INDUSTRIES.length - 1 ? "xl:-translate-y-2" : "",
                     index === 5 ? "xl:translate-y-2" : ""
                   )}
                 >
@@ -651,13 +682,6 @@ function IndustriesSection() {
                         {industry.description}
                       </p>
                     </div>
-
-                    <div className="mt-5 pt-3">
-                      <div className="flex items-center gap-2 text-[10px] font-medium uppercase tracking-[0.14em] text-[var(--body)] opacity-75 transition-opacity duration-500 group-hover:opacity-100">
-                        <span className="inline-block h-2 w-2 rounded-full bg-gradient-to-r from-sky-300 to-violet-400" />
-                        Growth systems
-                      </div>
-                    </div>
                   </div>
                 </motion.div>
               );
@@ -674,48 +698,58 @@ function Testimonials() {
       <Container>
         <Reveal>
           <SectionHeading
-            eyebrow="Customers"
-            title="AI natives build with Vistaar."
+            eyebrow="Testimonials"
+            title="AI Natives Build With Vistaar."
             description="From first-time founders to public company leaders — the people we partner with tend to stick around."
           />
         </Reveal>
 
-        <div className="mt-14 grid gap-6 lg:grid-cols-3">
-          {TESTIMONIALS.map((t, i) => (
-            <motion.div
-              key={t.name}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: i * 0.1 }}
-              whileHover={{ y: -5 }}
-              className="group flex h-full flex-col rounded-2xl border border-white/5 bg-zinc-900/50 p-7 shadow-sm transition-all hover:shadow-[0_8px_30px_rgba(255,255,255,0.04)] cursor-default"
-            >
-              <div className="mb-4 rounded-full bg-blue-500/10 w-10 h-10 flex items-center justify-center group-hover:bg-blue-500/20 transition-colors">
-                <Quote className="h-4 w-4 text-blue-400" />
+        <div className="testimonials-marquee-shell mt-14 overflow-hidden">
+          <div className="testimonials-marquee flex w-max gap-6">
+            {[0, 1].map((setIndex) => (
+              <div
+                key={setIndex}
+                className="flex shrink-0 gap-6"
+                aria-hidden={setIndex === 1}
+              >
+                {TESTIMONIALS.map((t, i) => (
+                  <motion.div
+                    key={`${setIndex}-${t.name}`}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.5, delay: i * 0.1 }}
+                    whileHover={{ y: -5 }}
+                    className="group flex h-full w-[min(85vw,360px)] shrink-0 flex-col rounded-2xl border border-white/5 bg-zinc-900/50 p-7 shadow-sm transition-all hover:shadow-[0_8px_30px_rgba(255,255,255,0.04)] lg:w-[380px]"
+                  >
+                    <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-full bg-blue-500/10 transition-colors group-hover:bg-blue-500/20">
+                      <Quote className="h-4 w-4 text-blue-400" />
+                    </div>
+                    <p className="flex-1 text-[16px] leading-[1.6] text-zinc-300">
+                      &ldquo;{t.quote}&rdquo;
+                    </p>
+                    <div className="mt-8 flex items-center gap-4 border-t border-[var(--hairline)] pt-6">
+                      {t.image ? (
+                        <img
+                          src={t.image}
+                          alt={t.name}
+                          className="h-11 w-11 rounded-full object-cover shadow-sm"
+                        />
+                      ) : (
+                        <div className="inline-flex h-11 w-11 items-center justify-center rounded-full bg-blue-500/20 text-[14px] font-bold text-blue-400 shadow-inner">
+                          {t.initials}
+                        </div>
+                      )}
+                      <div>
+                        <div className="text-[15px] font-bold text-white">{t.name}</div>
+                        <div className="text-[13px] font-medium text-zinc-500">{t.role}</div>
+                      </div>
+                    </div>
+                  </motion.div>
+                ))}
               </div>
-              <p className="flex-1 text-[16px] leading-[1.6] text-zinc-300">
-                &ldquo;{t.quote}&rdquo;
-              </p>
-              <div className="mt-8 flex items-center gap-4 border-t border-[var(--hairline)] pt-6">
-                {t.image ? (
-                  <img
-                    src={t.image}
-                    alt={t.name}
-                    className="h-11 w-11 rounded-full object-cover shadow-sm"
-                  />
-                ) : (
-                  <div className="inline-flex h-11 w-11 items-center justify-center rounded-full bg-blue-500/20 text-[14px] font-bold text-blue-400 shadow-inner">
-                    {t.initials}
-                  </div>
-                )}
-                <div>
-                  <div className="text-[15px] font-bold text-white">{t.name}</div>
-                  <div className="text-[13px] font-medium text-zinc-500">{t.role}</div>
-                </div>
-              </div>
-            </motion.div>
-          ))}
+            ))}
+          </div>
         </div>
       </Container>
     </Section>
@@ -784,7 +818,7 @@ function FaqSection() {
         <Reveal>
           <SectionHeading
             eyebrow="FAQ"
-            title="Questions founders ask us first."
+            title="Questions Founders Ask Us First."
             description="If yours isn't here, the easiest path is a quick call."
           />
         </Reveal>
@@ -864,7 +898,7 @@ function FinalCta() {
               Get started
             </span>
             <h2 className="mt-8 text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tight text-white" style={{ fontFamily: "var(--font-ubuntu), sans-serif" }}>
-              Start building with Vistaar.
+              Start Building With Vistaar.
             </h2>
             <p className="mt-6 text-[18px] leading-[1.6] text-zinc-300 max-w-xl">
               Whether you're launching, rebranding, or scaling through AI —
@@ -1100,7 +1134,6 @@ export default function HomePage() {
       <Hero />
       <Comparison />
       <Stats />
-      <Flow />
       <IndustriesSection />
       <Testimonials />
       <FaqSection />

@@ -160,7 +160,7 @@ function ProjectForm() {
       <Container>
         <Reveal>
           <div className="mx-auto max-w-3xl text-center">
-            <span className="mono-eyebrow text-[var(--body)]">Project enquiry</span>
+            <span className="text-[var(--body)]">Project enquiry</span>
             <h2 className="mt-3 text-display-xl text-[var(--ink)]">
               Tell us about your project.
             </h2>
@@ -201,13 +201,13 @@ function ProjectForm() {
             <div className="mx-auto mt-12 max-w-3xl">
               <StepRail step={step} />
 
-              <div className="mt-8 rounded-[4px] border border-[var(--hairline)] bg-[var(--canvas)] p-7 sm:p-10">
+              <div className="mt-8 rounded-[16px] border border-[var(--hairline)] bg-[var(--canvas)] p-7 sm:p-10">
                 <form onSubmit={onSubmit}>
                   {step === 1 && (
                     <div>
                       <div className="flex flex-wrap items-end justify-between gap-3">
                         <div>
-                          <span className="mono-eyebrow text-[var(--body)]">
+                          <span className="text-[var(--body)]">
                             What are you looking to build?
                           </span>
                           <p className="mt-1 text-[12px] text-[var(--body)]">
@@ -250,7 +250,7 @@ function ProjectForm() {
                               onClick={() => togglePicked(opt.label)}
                               aria-pressed={isPicked}
                               className={cn(
-                                "relative rounded-[4px] border bg-[var(--canvas)] p-4 text-left transition-colors",
+                                "relative rounded-[16px] border bg-[var(--canvas)] p-4 text-left transition-colors",
                                 isPicked
                                   ? "border-[var(--ink)] ring-1 ring-[var(--ink)]"
                                   : "border-[var(--hairline)] hover:border-[var(--ink)]"
@@ -278,8 +278,8 @@ function ProjectForm() {
                       </div>
 
                       {picked.length > 0 ? (
-                        <div className="mt-5 flex flex-wrap items-center gap-2 rounded-[4px] border border-dashed border-[var(--hairline)] bg-[var(--surface-dark-soft)] px-4 py-3">
-                          <span className="mono-eyebrow text-[var(--body)]">
+                        <div className="mt-5 flex flex-wrap items-center gap-2 rounded-[16px] border border-dashed border-[var(--hairline)] bg-[var(--surface-dark-soft)] px-4 py-3">
+                          <span className=" text-[var(--body)]">
                             You picked
                           </span>
                           <div className="flex flex-wrap items-center gap-1.5">
@@ -321,7 +321,7 @@ function ProjectForm() {
                           <textarea
                             rows={4}
                             placeholder="What are you building? What problem are you solving? Any links we should see?"
-                            className="w-full rounded-[4px] border border-[var(--hairline)] bg-[var(--canvas)] p-4 text-[15px] text-[var(--ink)] outline-none transition-colors placeholder:text-[var(--body)] focus:border-[var(--ink)]"
+                            className="w-full rounded-[16px] border border-[var(--hairline)] bg-[var(--canvas)] p-4 text-[15px] text-[var(--ink)] outline-none transition-colors placeholder:text-[var(--body)] focus:border-[var(--ink)]"
                           />
                         </Field>
                       </div>
@@ -332,10 +332,10 @@ function ProjectForm() {
                     <div>
                       <div>
                         <div className="flex items-end justify-between gap-3">
-                          <span className="mono-eyebrow text-[var(--body)]">
+                          <span className=" text-[var(--body)]">
                             Estimated budget
                           </span>
-                          <span className="mono-eyebrow text-[var(--body)]">
+                          <span className=" text-[var(--body)]">
                             in INR
                           </span>
                         </div>
@@ -399,7 +399,7 @@ function ProjectForm() {
                       </div>
 
                       <div className="mt-8">
-                        <span className="mono-eyebrow text-[var(--body)]">
+                        <span className=" text-[var(--body)]">
                           Preferred timeline
                         </span>
                         <div className="mt-4 flex flex-wrap gap-2">
@@ -409,7 +409,7 @@ function ProjectForm() {
                               type="button"
                               onClick={() => setTimeline(t)}
                               className={cn(
-                                "h-9 rounded-[3.25px] border border-[var(--hairline)] bg-[var(--canvas)] px-4 text-[13px] transition-colors",
+                                "h-9 rounded-[16px] border border-[var(--hairline)] bg-[var(--canvas)] px-4 text-[13px] transition-colors",
                                 timeline === t
                                   ? "border-[var(--ink)] bg-[var(--ink)] text-[var(--canvas)]"
                                   : "text-[var(--body)] hover:border-[var(--ink)] hover:text-[var(--ink)]"
@@ -425,7 +425,7 @@ function ProjectForm() {
 
                   {step === 3 && (
                     <div>
-                      <span className="mono-eyebrow text-[var(--body)]">
+                      <span className=" text-[var(--body)]">
                         How do we reach you?
                       </span>
                       <div className="mt-4 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
@@ -573,7 +573,7 @@ function Field({
 }) {
   return (
     <label className={cn("block", full && "sm:col-span-2 lg:col-span-3")}>
-      <span className="mono-eyebrow text-[var(--body)]">
+      <span className=" text-[var(--body)]">
         {label}
         {required && <span className="ml-1 text-[var(--ink)]">*</span>}
       </span>
@@ -591,22 +591,18 @@ function Offices() {
       <Container>
         <Reveal>
           <div className="grid items-start gap-10 lg:grid-cols-2">
-            <div className="relative aspect-[4/3] w-full overflow-hidden rounded-[4px] border border-[var(--hairline)] bg-[var(--canvas-dark)]">
-              <div className="absolute inset-0 flex items-center justify-center p-6">
-                <div className="rounded-[4px] border border-[var(--surface-dark-soft)] bg-[var(--surface-dark-soft)] p-5">
-                  <div className="flex items-center gap-2 text-[14px] font-medium text-[var(--on-dark)]">
-                    <MapPin className="h-4 w-4 text-[var(--on-dark)]" />
-                    Pune · India
-                  </div>
-                  <p className="mt-1 mono-caption text-[var(--on-dark)] opacity-60">
-                    19.0760° N · 72.8777° E
-                  </p>
-                </div>
-              </div>
+            <div className="relative aspect-[4/3] w-full overflow-hidden rounded-[16px] border border-[var(--hairline)] bg-[var(--canvas-dark)]">
+              <iframe
+                title="Vistaar Pune office location"
+                src="https://www.google.com/maps?q=Pune%20City%2C%20Pune%20411041%2C%20India&output=embed"
+                className="absolute inset-0 h-full w-full border-0"
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+              />
             </div>
 
             <div>
-              <span className="mono-eyebrow text-[var(--body)]">Our offices</span>
+              <span className=" text-[var(--body)]">Our offices</span>
               <h2 className="mt-3 text-display-lg text-[var(--ink)]">
                 Remote-first, globally connected.
               </h2>

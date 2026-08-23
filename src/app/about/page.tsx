@@ -97,14 +97,14 @@ const STATS = [
    STORY ACCORDION
    ============================================================ */
 function StorySection() {
-  const [open, setOpen] = useState<number | null>(0);
+  const [open, setOpen] = useState<number | null>(null);
   return (
     <Section className="bg-[var(--canvas)]" id="story">
       <Container>
         <Reveal>
           <SectionHeading
             eyebrow="More than an agency"
-            title="A growth partner, not a vendor."
+            title="A Growth Partner, Not a Vendor."
             description="The four answers every founder wants before they hire anyone."
           />
         </Reveal>
@@ -213,7 +213,7 @@ function Principles() {
         <Reveal>
           <SectionHeading
             eyebrow="Working principles"
-            title="Six principles that shape every project."
+            title="Six Principles That Shape Every Project."
             description="We hold these as standards, not slogans. Every engagement, every team, every deliverable."
           />
         </Reveal>
@@ -328,10 +328,10 @@ function GlassHero() {
         <span className="mono-eyebrow text-white mb-6 block uppercase tracking-wider text-sm font-semibold opacity-90">About Vistaar</span>
         <h1 className="text-4xl sm:text-5xl md:text-6xl font-semibold text-white mb-6 leading-tight">
           <Reveal direction="up" className="block">
-            More than an agency.
+            More Than An Agency.
           </Reveal>
           <Reveal direction="down" delay={1} className="block -mt-4">
-            <span className="text-gradient-brand">A growth partner.</span>
+            <span className="text-gradient-brand">A Growth Partner.</span>
           </Reveal>
         </h1>
         <p className="text-lg sm:text-xl text-white/90 mb-10 max-w-2xl mx-auto leading-relaxed">
@@ -404,7 +404,7 @@ function TrustSection() {
             <Reveal direction="left">
               <span className="mono-eyebrow text-blue-400 mb-6 block">Our Legacy</span>
               <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-white mb-8 leading-[1.1]">
-                A decade of trust, built <span className="text-white/40">one successful partnership at a time.</span>
+                A Decade of Trust, Built <span className="text-white/40">One Successful Partnership at a Time.</span>
               </h2>
               <p className="text-lg text-zinc-400 leading-relaxed mb-12 max-w-xl">
                 At Vistaar, we don&rsquo;t just deliver projects; we forge enduring partnerships. Over the past 1 year, we&rsquo;ve helped hundreds of businesses navigate the complexities of digital transformation, scale their operations, and redefine their brand presence on a global scale.

@@ -284,7 +284,7 @@ function StatCard({
         ease: [0.2, 0.7, 0.2, 1],
       }}
       className={cn(
-        "group relative overflow-hidden rounded-[4px] border border-[var(--hairline)] bg-[var(--canvas)] p-3",
+        "group relative overflow-hidden rounded-[16px] border border-[var(--hairline)] bg-[var(--canvas)] p-3",
         "transition-colors hover:border-[var(--ink)]"
       )}
     >
@@ -459,7 +459,7 @@ function Featured() {
 
         <div
           ref={cardRef}
-          className="overflow-hidden rounded-[4px] border border-[var(--hairline)] bg-[var(--canvas)]"
+          className="overflow-hidden rounded-[20px] border border-[var(--hairline)] bg-[var(--canvas)]"
         >
           <div className="grid gap-0 lg:grid-cols-2">
             {/* Left: image with reveal animation */}
@@ -542,7 +542,7 @@ function Featured() {
                   <motion.span
                     key={s}
                     variants={tagPop}
-                    className="rounded-[3.25px] border border-[var(--hairline)] bg-[var(--canvas)] px-2.5 py-1 text-[11px] text-[var(--body)]"
+                    className="rounded-[20px] border border-[var(--hairline)] bg-[var(--canvas)] px-2.5 py-1 text-[11px] text-[var(--body)]"
                   >
                     {s}
                   </motion.span>
@@ -580,94 +580,6 @@ function Featured() {
 }
 
 /* ============================================================
-   ARTICLE DETAIL DATA
-   ============================================================ */
-const ARTICLE_DETAILS: Record<string, {
-  content: string[];
-  tags: string[];
-  takeaways: string[];
-}> = {
-  "Why your rebrand isn't moving the needle (and what to do instead).": {
-    tags: ["Branding", "Strategy", "Positioning"],
-    takeaways: [
-      "A logo change without operational repositioning rarely impacts revenue.",
-      "Customer discovery loops must precede brand visual identity sprints.",
-      "Coherent multi-channel tone of voice yields 3.2× higher recall."
-    ],
-    content: [
-      "Most rebrands change the surface. Real brand growth starts with positioning, voice, and operations — not a new logo.",
-      "When companies experience plateauing growth, the instinctive reaction is often cosmetic: new typography, modern gradients, and a sleek logo mark. Yet within six months, CAC remains elevated and pipeline velocity stalls.",
-      "The issue isn't aesthetic execution; it's the disconnect between brand promises and operational truth. A strategic brand system aligns positioning with product truth, sales enablement, and customer lifecycle touchpoints."
-    ]
-  },
-  "Five AI workflows every growing business should ship in 2026.": {
-    tags: ["AI & Automation", "Workflows", "Agents"],
-    takeaways: [
-      "Lead enrichment automations cut SDR research time by 75%.",
-      "Support triage AI agents resolve 45% of Tier-1 tickets autonomously.",
-      "Real-time BI summaries replace manual weekly status slide decks."
-    ],
-    content: [
-      "Lead enrichment, support triage, content briefs, reporting, and customer health — the five automations with the highest ROI.",
-      "In 2026, AI is no longer an experimental research sandbox; it is the fundamental operating substrate of high-velocity organizations. Companies winning today are not building raw LLM wrappers; they are orchestrating deterministic pipelines.",
-      "By integrating lightweight vector embeddings and webhook-triggered agent chains, teams eliminate repetitive administrative toil while compounding high-touch human relationships where they matter most."
-    ]
-  },
-  "From ₹0 to ₹10 Cr ARR: the GTM playbook we use with seed-stage founders.": {
-    tags: ["Startup", "GTM", "Scaling"],
-    takeaways: [
-      "Define non-consensus positioning before writing marketing copy.",
-      "Founder-led outbound must precede programmatic ad spend.",
-      "Retention metrics at month 3 determine month 12 valuation multiples."
-    ],
-    content: [
-      "The same five-step go-to-market framework we apply to every new product launch — and why most founders skip step two.",
-      "Scaling from initial concept to ₹10 Cr ARR is a brutal test of distribution precision. Founders routinely fail by scaling ad budgets before achieving message-market congruence.",
-      "Our five-step playbook forces founders through rigorous customer problem dissection, positioning differentiation, high-leverage content distribution, and iterative pricing validation."
-    ]
-  },
-  "Performance marketing isn't dead — but the bar is much higher now.": {
-    tags: ["Marketing", "Growth", "Paid Media"],
-    takeaways: [
-      "Creative volume and modular storytelling are the primary algorithmic levers.",
-      "First-party data infrastructure protects margin against signal degradation.",
-      "Blended MER (Marketing Efficiency Ratio) beats siloed in-platform ROAS."
-    ],
-    content: [
-      "What changed in paid acquisition, why creative is now the moat, and how to structure campaigns for compounding returns.",
-      "The era of lazy pixel tracking and generic single-image ads is permanently over. With platform algorithms automating media bidding, your creative asset pipeline is the sole lever for outsized return.",
-      "Teams that produce 30+ modular creative angles per month while anchoring on clean zero-party data consistently outperform competitors paying exorbitant auction taxes."
-    ]
-  },
-  "The hidden cost of building software nobody asks for.": {
-    tags: ["Product", "Engineering", "UX"],
-    takeaways: [
-      "Feature bloat creates irreversible engineering debt and cognitive load.",
-      "Continuous user interview cadence prevents multi-quarter roadmap mistakes.",
-      "Measure product health by daily active feature utilization, not release count."
-    ],
-    content: [
-      "Engineering velocity without customer insight is a tax. Here's the discovery loop that keeps our builds useful.",
-      "Shipping fast feels like winning, until you realize 60% of shipped features are clicked by less than 2% of users. Feature bloat burdens codebases, complicates onboarding, and slows core execution.",
-      "We implement a rigorous 10-day continuous discovery loop that pairs engineers directly with real user sessions before a single pull request is merged."
-    ]
-  },
-  "Designing a brand system that scales across product, marketing, and motion.": {
-    tags: ["Design", "Systems", "Identity"],
-    takeaways: [
-      "Design tokens must map seamlessly between Figma variables and CSS tokens.",
-      "Motion guidelines give static brand systems dynamic personality.",
-      "Component libraries should serve marketing landing pages and core SaaS apps alike."
-    ],
-    content: [
-      "How we structure design tokens, components, and brand expressions to keep a coherent identity at 10x the surface area.",
-      "As high-growth companies scale from 10 to 100 people, brand fragmentation inevitably occurs. Sales decks look different from social campaigns, and marketing landing pages clash with the core product interface.",
-      "A unified brand architecture establishes single-source tokens, motion primitives, and expressive component patterns that evolve effortlessly across all brand surfaces."
-    ]
-  }
-};
-
-/* ============================================================
 /* ============================================================
    BENTO GRID BLOG CARDS (INTERACTIVE MASONRY)
    ============================================================ */
@@ -680,7 +592,7 @@ function ArticleCard({ article, className }: { article: typeof ARTICLES[number];
       <div className="absolute inset-0 bg-gradient-to-t from-[#121318] via-[#121318]/40 to-transparent pointer-events-none" />
       
       <div className="absolute bottom-6 left-6 right-6 flex flex-col justify-end transition-opacity duration-300 group-hover:opacity-0 pointer-events-none">
-        <span className="mb-3 w-max rounded-[4px] border border-cyan-500/40 bg-cyan-950/80 px-2 py-0.5 text-[10px] font-mono font-medium uppercase tracking-wider text-cyan-300">
+        <span className="mb-3 w-max rounded-[4px] border border-blue-500/40 bg-blue-950/80 px-2 py-0.5 text-[10px] font-mono font-medium uppercase tracking-wider text-blue-300">
           {article.category}
         </span>
         <h3 className="text-xl sm:text-2xl font-semibold tracking-tight text-white leading-snug line-clamp-2 drop-shadow-md">
@@ -702,17 +614,9 @@ function ArticleCard({ article, className }: { article: typeof ARTICLES[number];
             {article.results.slice(0, 4).map((r, i) => (
               <div key={i} className="flex flex-col items-center justify-center border-r border-zinc-800/80 last:border-0 px-1">
                 <span className="text-[11px] font-mono text-zinc-500 mb-0.5 hidden sm:block truncate w-full text-center">{r.label}</span>
-                <span className="text-xs sm:text-sm font-mono font-semibold text-cyan-400">{r.value}</span>
+                <span className="text-xs sm:text-sm font-mono font-semibold text-blue-500">{r.value}</span>
               </div>
             ))}
-          </div>
-
-          {/* Footer */}
-          <div className="flex items-center justify-between">
-            <span className="text-xs font-mono text-zinc-400">Duration: {article.readTime}</span>
-            <Link href="/contact" className="inline-flex h-9 items-center justify-center rounded border border-zinc-700 bg-white/10 px-4 text-[12px] font-medium text-white hover:bg-white hover:text-black transition-colors backdrop-blur-md">
-              View
-            </Link>
           </div>
         </div>
 
@@ -730,43 +634,7 @@ function BentoBlogSection() {
   return (
     <Section className="bg-[var(--canvas)] py-16 sm:py-24" id="articles">
       <Container>
-        {/* Section Header */}
-        <div className="flex flex-col items-start justify-between gap-6 md:flex-row md:items-end">
-          <Reveal>
-            <div>
-              <div className="flex items-center gap-2">
-                <span className="inline-block h-2 w-2 rounded-full bg-cyan-400 shadow-[0_0_10px_rgba(6,182,212,0.8)]" />
-                <span className="mono-eyebrow text-zinc-400">Insights & Perspectives</span>
-              </div>
-              <h2 className="mt-3 text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-tight text-white">
-                Latest from the studio.
-              </h2>
-            </div>
-          </Reveal>
-
-          <Reveal delay={1}>
-            <div className="flex flex-wrap gap-1.5 rounded-full border border-zinc-800 bg-zinc-900/70 p-1.5 backdrop-blur-md">
-              {CATEGORIES.map((c) => (
-                <button
-                  key={c}
-                  type="button"
-                  onClick={() => setActiveCategory(c)}
-                  className={cn(
-                    "h-8 rounded-full px-3.5 text-[12px] font-medium transition-all",
-                    activeCategory === c
-                      ? "bg-white text-zinc-950 font-semibold shadow-sm"
-                      : "text-zinc-400 hover:text-white"
-                  )}
-                >
-                  {c}
-                </button>
-              ))}
-            </div>
-          </Reveal>
-        </div>
-
         {/* 3-Column Random Span grid */}
-        <div className="mt-12">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-5 auto-rows-[300px]">
             {/* Blog 1: 1 Col */}
             <Reveal className={cn("col-span-1 transition-opacity duration-300", !matchesCategory(ARTICLES[0]) && "opacity-30 grayscale pointer-events-none")}>
@@ -793,7 +661,6 @@ function BentoBlogSection() {
               <ArticleCard article={ARTICLES[4]} className="h-full w-full" />
             </Reveal>
           </div>
-        </div>
 
       </Container>
     </Section>

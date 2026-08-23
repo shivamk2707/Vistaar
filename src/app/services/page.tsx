@@ -265,7 +265,7 @@ function ServicesStepper() {
         <Reveal>
           <SectionHeading
             eyebrow="The Vistaar Platform"
-            title="The full-stack cloud for modern brands."
+            title="The Full-Stack Cloud for Modern Brands."
             description="Six connected practices that work as a single growth system. Mix them, sequence them, or hand us the whole map."
           />
         </Reveal>
@@ -280,8 +280,8 @@ function ServicesStepper() {
                     key={activeIndex}
                     initial={{ opacity: 0, scale: 0.95, filter: "blur(10px)" }}
                     animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
-                    exit={{ opacity: 0, scale: 1.05, filter: "blur(10px)" }}
-                    transition={{ duration: 0.4, ease: "easeOut" }}
+                    exit={{ opacity: 0, scale: 0, filter: "blur(10px)" }}
+                    transition={{ duration: 0, ease: "easeOut" }}
                     className="w-full max-w-lg overflow-hidden relative"
                   >
                     <img
@@ -299,10 +299,6 @@ function ServicesStepper() {
 
                   </motion.div>
                 </AnimatePresence>
-                {/* Number Overlay */}
-                <div className="absolute bottom-0 left-8 text-7xl lg:text-8xl font-bold tracking-tighter text-white/90 drop-shadow-2xl">
-                  0{activeIndex + 1}
-                </div>
               </div>
             </div>
           </div>
@@ -529,8 +525,8 @@ export default function ServicesPage() {
     <main className="relative">
       <PageHero
         eyebrow="The Growth Ecosystem"
-        title="Everything your business needs."
-        highlight="Under one vision."
+        title="Everything Your Business Needs."
+        highlight="Under One Vision."
         description="Six connected practices that work as a single growth system. Mix them, sequence them, or hand us the whole map. Each one reinforces the others."
       >
         <Button
@@ -545,8 +541,6 @@ export default function ServicesPage() {
       </PageHero>
 
       <ServicesStepper />
-
-      <ProcessSection />
 
       <Section tone="dark" className="bg-[var(--canvas-dark)]">
         <Container>

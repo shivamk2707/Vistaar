@@ -63,7 +63,6 @@ export function SectionHeading({
   align = "center",
   className,
   maxTitleWidth = "max-w-3xl",
-  onDark = false,
 }: SectionHeadingProps) {
   const containerVariants = {
     hidden: { opacity: 0 },

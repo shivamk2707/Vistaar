@@ -5,6 +5,7 @@ import { ArrowRight, ArrowUpRight } from "lucide-react";
 import Link from "next/link";
 import { useState, useRef, MouseEvent } from "react";
 import { Button } from "./button";
+import { OPEN_JOIN_EVENT } from "./navbar";
 
 export default function ModernLandingHero() {
     const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
@@ -30,23 +31,8 @@ export default function ModernLandingHero() {
                     onMouseMove={handleMouseMove}
                     onMouseEnter={() => setIsHovering(true)}
                     onMouseLeave={() => setIsHovering(false)}
-                    className="relative mb-6 max-w-4xl py-10 px-4 group"
+                    className="relative max-w-4xl py-10 px-4 group"
                 >
-                    {/* Glass Circle following mouse */}
-                    <div
-                        className={cn(
-                            "pointer-events-none absolute -translate-x-1/2 -translate-y-1/2 rounded-full transition-opacity duration-300 z-10",
-                            "h-24 w-24 bg-white/10 backdrop-blur-xl",
-                            isHovering ? "opacity-100" : "opacity-0"
-                        )}
-                        style={{
-                            left: `${mousePosition.x}px`,
-                            top: `${mousePosition.y}px`,
-                            WebkitMaskImage: `radial-gradient(circle, black 0%, transparent 70%)`,
-                            maskImage: `radial-gradient(circle, black 0%, transparent 70%)`,
-                        }}
-                    />
-
                     {/* Original Base Text */}
                     <h1
                         className="relative z-0 text-balance text-3xl font-medium tracking-tighter sm:text-5xl lg:text-7xl"
@@ -54,10 +40,6 @@ export default function ModernLandingHero() {
                     >
                         <span className="text-white">
                             AI-Powered Brand Growth Company
-                        </span>
-                        <br className="hidden sm:block" />
-                        <span className="text-neutral-400">
-                            Build what&rsquo;s next on the AI Native Cloud.
                         </span>
                     </h1>
                 </div>
@@ -78,11 +60,11 @@ export default function ModernLandingHero() {
                         Start Building
                     </Button>
                     <Button
-                        href="/contact"
                         size="md"
                         className="hidden rounded-full text-sm font-semibold shadow-sm transition-all group-hover:shadow-md sm:inline-flex"
+                        onClick={() => window.dispatchEvent(new Event(OPEN_JOIN_EVENT))}
                     >
-                        Documentation
+                        Join Us
                     </Button>
                 </div>
             </main>
