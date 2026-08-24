@@ -77,9 +77,10 @@ export default function RootLayout({
     <html
       lang="en"
       suppressHydrationWarning
+      data-scroll-behavior="smooth"
       className={`${inter.variable} ${jetbrainsMono.variable} ${ubuntu.variable}`}
     >
-      <body className="min-h-screen bg-canvas text-ink antialiased font-sans">
+      <body className="min-h-screen bg-canvas text-ink antialiased font-sans" suppressHydrationWarning>
         <Navbar />
         <PageTransition>{children}</PageTransition>
         <Footer />

@@ -622,8 +622,8 @@ function Offices() {
                   <Phone className="mt-0.5 h-4 w-4 shrink-0 text-[var(--ink)]" />
                   <div>
                     <div className="font-medium text-[var(--ink)]">Phone</div>
-                    <a href="tel:+910000000000" className="text-[var(--body)] hover:text-[var(--ink)]">
-                      +91 985 415 8521
+                    <a href="tel:+917558510743" className="text-[var(--body)] hover:text-blue-400 hover:underline">
+                      +91 75585 10743
                     </a>
                   </div>
                 </li>
@@ -631,8 +631,8 @@ function Offices() {
                   <Mail className="mt-0.5 h-4 w-4 shrink-0 text-[var(--ink)]" />
                   <div>
                     <div className="font-medium text-[var(--ink)]">Email</div>
-                    <a href="mailto:hello@vistaar.com" className="text-[var(--body)] hover:text-[var(--ink)]">
-                      hello@vistaar.com
+                    <a href="mailto:vistaaar.works@gmail.com" className="text-[var(--body)] hover:text-blue-400 hover:underline">
+                      vistaaar.works@gmail.com
                     </a>
                   </div>
                 </li>
@@ -666,7 +666,7 @@ export default function ContactPage() {
       />
       <ProjectForm />
       <Offices />
-      
+
       <WhatsAppButton />
     </main>
   );

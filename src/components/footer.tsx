@@ -47,11 +47,8 @@ const SOCIAL: Array<{
   href: string;
   Icon: React.ComponentType<React.SVGProps<SVGSVGElement>>;
 }> = [
-    { Icon: LinkedinIcon, label: "LinkedIn", href: "#" },
-    { Icon: InstagramIcon, label: "Instagram", href: "#" },
-    { Icon: FacebookIcon, label: "Facebook", href: "#" },
-    { Icon: Twitter, label: "X (Twitter)", href: "#" },
-    { Icon: YoutubeIcon, label: "YouTube", href: "#" },
+    { Icon: InstagramIcon, label: "Instagram", href: "https://www.instagram.com/vistaar.works?igsi=d3pyOGo4ZTlhYjZu" },
+    { Icon: FacebookIcon, label: "Facebook", href: "https://www.facebook.com/share/1G7U8oKRue/" },
   ];
 
 export function Footer() {
@@ -74,7 +71,7 @@ export function Footer() {
                   aria-label={label}
                   className="inline-flex h-8 w-8 items-center justify-center text-[var(--body)] transition-colors hover:text-[var(--ink)]"
                 >
-                  <Icon className="h-3.5 w-3.5" />
+                  <Icon className="h-5 w-5" />
                 </a>
               ))}
             </div>
