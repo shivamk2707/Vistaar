@@ -264,7 +264,7 @@ function ServicesStepper() {
       <Container>
         <Reveal>
           <SectionHeading
-            eyebrow="The Vistaar Platform"
+            eyebrow="Our Prior Identities"
             title="The Full-Stack Cloud for Modern Brands."
             description="Six connected practices that work as a single growth system. Mix them, sequence them, or hand us the whole map."
           />
